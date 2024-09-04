@@ -2,7 +2,6 @@ import React from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { Tooltip } from '@mui/material';
 import { HelpOutline } from '@mui/icons-material';
-import { getUnixTime, fromUnixTime } from 'date-fns';
 
 export default function DateTimePickerStyled({
   text,
@@ -23,7 +22,7 @@ export default function DateTimePickerStyled({
             width: '14em',
           }              
         }}
-        onChange={(newValue) => setText(getUnixTime(newValue.$d))}
+        onChange={(newValue) => setText(newValue)}
         renderInput={(params) => (
           <TextField
             {...params}

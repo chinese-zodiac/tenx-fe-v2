@@ -23,6 +23,8 @@ import TextFieldStyled from '../components/styled/TextFieldStyled';
 import TenXTokenList from '../components/elements/TenXTokenList';
 import ReactGA from 'react-ga4';
 import DatePickerStyled from '../components/styled/DatePickerStyled';
+import { getUnixTime, fromUnixTime } from 'date-fns';
+import dayjs from 'dayjs';
 
 export default function Home() {
   const { address, isConnecting, isDisconnected } = useAccount();
@@ -41,9 +43,25 @@ export default function Home() {
   const [taxReceiver, setTaxReceiver] = useState(address);
   const [buyLpFee, setBuyLpFee] = useState(0);
   const [sellLpFee, setSellLpFee] = useState(0);
-  const [launchTimestamp, setLaunchTimestamp] = useState();
+  const [launchTimestamp, setLaunchTimestamp] = useState(dayjs());
 
-  console.log({launchTimestamp});
+  console.log({
+    czusdWad:parseEther(czusdWad), 
+    name, 
+    symbol, 
+    tokenLogoCID, 
+    descriptionMarkdownCID, 
+    balanceMax:parseEther(balanceMax), 
+    transactionSizeMax:parseEther(transactionSizeMax), 
+    taxReceiver, 
+    buyLpFee, 
+    buyTax, 
+    buyBurn,
+    sellTax, 
+    sellBurn, 
+    sellLpFee, 
+    launchTimestamp:getUnixTime(launchTimestamp.$d) 
+  });
 
   return (
     <>
@@ -236,7 +254,7 @@ after creating this product."
             sellTax, //sellTax
             sellBurn, //sellburn
             sellLpFee, //sellLpFee
-            launchTimestamp //launchTimestamp
+            getUnixTime(launchTimestamp.$d) //launchTimestamp
           ]}
           btn={
             <ButtonPrimary
