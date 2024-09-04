@@ -27,7 +27,5 @@ export function useTenXTokenCount() {
 
         fetchData();
     }, []);
-    console.log({ count, loading, error })
-
     return { count, loading, error };
 }
