@@ -1,0 +1,248 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "contract TenXLaunchV2",
+        "name": "_tenXLaunch",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "TEN_X_LAUNCH",
+    "outputs": [
+      {
+        "internalType": "contract TenXLaunchV2",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract TenXTokenV2",
+        "name": "_token",
+        "type": "address"
+      }
+    ],
+    "name": "getTenXTokenData",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "tokenLogoCID_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "descriptionMarkdownCID_",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "balanceMax_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "transactionSizeMax_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "contract IAmmPair",
+        "name": "ammCzusdPair_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "taxReceiver_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "czusdGrant_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint16",
+        "name": "buyTax_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "buyBurn_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "buyLpFee_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "sellTax_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "sellBurn_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "sellLpFee_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint64",
+        "name": "launchTimestamp_",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_index",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTenXTokenDataFromIndex",
+    "outputs": [
+      {
+        "internalType": "contract TenXTokenV2",
+        "name": "token_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "tokenLogoCID_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "descriptionMarkdownCID_",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "balanceMax_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "transactionSizeMax_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "contract IAmmPair",
+        "name": "ammCzusdPair_",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "taxReceiver_",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "czusdGrant_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint16",
+        "name": "buyTax_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "buyBurn_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "buyLpFee_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "sellTax_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "sellBurn_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint16",
+        "name": "sellLpFee_",
+        "type": "uint16"
+      },
+      {
+        "internalType": "uint64",
+        "name": "launchTimestamp_",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract TenXTokenV2",
+        "name": "_token",
+        "type": "address"
+      }
+    ],
+    "name": "getTenXTokenLpData",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "initialSupply_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalSupply_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokensInLP_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "czusdInLP_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenPriceCzusdWad_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenMcapCzusd_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalLpValueCzusd_",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

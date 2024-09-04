@@ -1,0 +1,108 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "_tenXLaunch",
+        "type": "address",
+        "internalType": "contract TenXLaunch"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getTenXTokenData",
+    "inputs": [
+      {
+        "name": "_token",
+        "type": "address",
+        "internalType": "contract TenXToken"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "czusdPair_",
+        "type": "address",
+        "internalType": "contract IAmmPair"
+      },
+      { "name": "taxReceiver_", "type": "address", "internalType": "address" },
+      { "name": "czusdGrant_", "type": "uint256", "internalType": "uint256" },
+      { "name": "buyTax_", "type": "uint16", "internalType": "uint16" },
+      { "name": "buyBurn_", "type": "uint16", "internalType": "uint16" },
+      { "name": "sellTax_", "type": "uint16", "internalType": "uint16" },
+      { "name": "sellBurn_", "type": "uint16", "internalType": "uint16" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getTenXTokenDataAll",
+    "inputs": [
+      { "name": "startIndex", "type": "uint256", "internalType": "uint256" },
+      { "name": "count", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [
+      {
+        "name": "tokens_",
+        "type": "address[]",
+        "internalType": "contract TenXToken[]"
+      },
+      {
+        "name": "czusdPairs_",
+        "type": "address[]",
+        "internalType": "contract IAmmPair[]"
+      },
+      {
+        "name": "taxReceivers_",
+        "type": "address[]",
+        "internalType": "address[]"
+      },
+      {
+        "name": "czusdGrants_",
+        "type": "uint256[]",
+        "internalType": "uint256[]"
+      },
+      { "name": "buyTaxes_", "type": "uint16[]", "internalType": "uint16[]" },
+      { "name": "buyBurns_", "type": "uint16[]", "internalType": "uint16[]" },
+      { "name": "sellTaxes_", "type": "uint16[]", "internalType": "uint16[]" },
+      { "name": "sellBurns_", "type": "uint16[]", "internalType": "uint16[]" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getTenXTokenDataFromIndex",
+    "inputs": [
+      { "name": "_index", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [
+      {
+        "name": "token_",
+        "type": "address",
+        "internalType": "contract TenXToken"
+      },
+      {
+        "name": "czusdPair_",
+        "type": "address",
+        "internalType": "contract IAmmPair"
+      },
+      { "name": "taxReceiver_", "type": "address", "internalType": "address" },
+      { "name": "czusdGrant_", "type": "uint256", "internalType": "uint256" },
+      { "name": "buyTax_", "type": "uint16", "internalType": "uint16" },
+      { "name": "buyBurn_", "type": "uint16", "internalType": "uint16" },
+      { "name": "sellTax_", "type": "uint16", "internalType": "uint16" },
+      { "name": "sellBurn_", "type": "uint16", "internalType": "uint16" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "tenXLaunch",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "contract TenXLaunch" }
+    ],
+    "stateMutability": "view"
+  }
+]

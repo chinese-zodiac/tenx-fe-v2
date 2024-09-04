@@ -1,0 +1,97 @@
+[
+  {
+    "type": "function",
+    "name": "czusd",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IERC20Mintable"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "launchToken",
+    "inputs": [
+      { "name": "_name", "type": "string", "internalType": "string" },
+      { "name": "_symbol", "type": "string", "internalType": "string" },
+      { "name": "_czusdWad", "type": "uint256", "internalType": "uint256" },
+      { "name": "_taxReceiver", "type": "address", "internalType": "address" },
+      { "name": "_buyTax", "type": "uint256", "internalType": "uint256" },
+      { "name": "_buyBurn", "type": "uint256", "internalType": "uint256" },
+      { "name": "_sellTax", "type": "uint256", "internalType": "uint256" },
+      { "name": "_sellBurn", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "launchedTokenAt",
+    "inputs": [
+      { "name": "index", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "launchedTokenCzusdPair",
+    "inputs": [
+      { "name": "token", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "launchedTokenLiquidityUsd",
+    "inputs": [
+      { "name": "token", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [
+      { "name": "liquidityUsd", "type": "uint256", "internalType": "uint256" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "launchedTokensCount",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "maxCzusdWad",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "maxTaxes",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "minCzusdWad",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "router",
+    "inputs": [],
+    "outputs": [
+      { "name": "", "type": "address", "internalType": "contract IAmmRouter02" }
+    ],
+    "stateMutability": "view"
+  }
+]

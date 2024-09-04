@@ -1,0 +1,79 @@
+/*
+Brown Rust
+#9E5635
+
+Cedar
+#422316
+
+Sandy brown
+#EF915B
+
+Redwood
+#e16b31*/
+
+:root {
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --color-background: #7c120a;
+  --color-background2: #8a1226;
+  --color-background-btn: #f3f3f3;
+  --color-accent: #ef915b;
+  --color-notice: #e16b31;
+  --color-brand: #9e5635;
+  --color-foreground: #f0eeed;
+  --color-secondary: #080830;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding-top: 1em;
+  min-height: 100vh;
+  width: 100%;
+  font-family: 'Exo2';
+  letter-spacing: -0.05em;
+  text-align: center;
+  overflow-x: hidden !important;
+  position: 'relative';
+  color: var(--color-foreground);
+  background: linear-gradient(-45deg, #a1490a, #971252, #976c10);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+  font-size: '16px';
+}
+
+.input-box {
+  background: linear-gradient(308deg, rgba(250, 229, 233, 1) 0%, rgba(254, 247, 225, 1) 63%, rgba(254, 242, 207, 1) 83%, rgba(252, 226, 208, 1) 100%);
+  border-radius: 1.5em;
+  border: solid 3px #e16b31;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+* {
+
+  font-family: 'Exo2' !important;
+  letter-spacing: -0.05em !important;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}

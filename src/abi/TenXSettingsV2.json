@@ -1,0 +1,2161 @@
+{
+    "abi": [
+        {
+            "type": "constructor",
+            "inputs": [
+                {
+                    "name": "_governance",
+                    "type": "address",
+                    "internalType": "address"
+                },
+                {
+                    "name": "_blacklist",
+                    "type": "address",
+                    "internalType": "contract TenXBlacklistV2"
+                },
+                {
+                    "name": "_czusd",
+                    "type": "address",
+                    "internalType": "contract IERC20Mintable"
+                },
+                {
+                    "name": "_ammRouter",
+                    "type": "address",
+                    "internalType": "contract IAmmRouter02"
+                },
+                {
+                    "name": "_ammFactory",
+                    "type": "address",
+                    "internalType": "contract IAmmFactory"
+                },
+                {
+                    "name": "_ammZapV1",
+                    "type": "address",
+                    "internalType": "contract AmmZapV1"
+                }
+            ],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "DEFAULT_ADMIN_ROLE",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "ammFactory",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address",
+                    "internalType": "contract IAmmFactory"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "ammRouter",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address",
+                    "internalType": "contract IAmmRouter02"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "ammZapV1",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address",
+                    "internalType": "contract AmmZapV1"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "balanceCapBps",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "balanceFloorBps",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "blacklist",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address",
+                    "internalType": "contract TenXBlacklistV2"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "czusd",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address",
+                    "internalType": "contract IERC20Mintable"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "czusdGrantCap",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "czusdGrantFloor",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "getRoleAdmin",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "getRoleMember",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "index",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "getRoleMemberCount",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "governance",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "grantRole",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "hasRole",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool",
+                    "internalType": "bool"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "launchTimestampCap",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "renounceRole",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "callerConfirmation",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "revokeRole",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setAmmFactory",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "internalType": "contract IAmmFactory"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setAmmRouter",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "internalType": "contract IAmmRouter02"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setAmmZapV1",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "internalType": "contract AmmZapV1"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setBalanceCapBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setBalanceFloorBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setBlacklist",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "internalType": "contract TenXBlacklistV2"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setCzodiacGovernance",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "internalType": "address"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setCzusd",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "internalType": "contract IERC20Mintable"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setCzusdGrantCap",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setCzusdGrantFlor",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setLaunchTimestampCap",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setSwapLiquifyAtBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setTaxesTotalCap",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setTransactionSizeCapBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "setTransactionSizeFloorBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "outputs": [],
+            "stateMutability": "nonpayable"
+        },
+        {
+            "type": "function",
+            "name": "supportsInterface",
+            "inputs": [
+                {
+                    "name": "interfaceId",
+                    "type": "bytes4",
+                    "internalType": "bytes4"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "bool",
+                    "internalType": "bool"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "swapLiquifyAtBps",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "taxesTotalCap",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "transactionSizeCapBps",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "function",
+            "name": "transactionSizeFloorBps",
+            "inputs": [],
+            "outputs": [
+                {
+                    "name": "",
+                    "type": "uint16",
+                    "internalType": "uint16"
+                }
+            ],
+            "stateMutability": "view"
+        },
+        {
+            "type": "event",
+            "name": "RoleAdminChanged",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "indexed": true,
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "previousAdminRole",
+                    "type": "bytes32",
+                    "indexed": true,
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "newAdminRole",
+                    "type": "bytes32",
+                    "indexed": true,
+                    "internalType": "bytes32"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "RoleGranted",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "indexed": true,
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "type": "address",
+                    "indexed": true,
+                    "internalType": "address"
+                },
+                {
+                    "name": "sender",
+                    "type": "address",
+                    "indexed": true,
+                    "internalType": "address"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "RoleRevoked",
+            "inputs": [
+                {
+                    "name": "role",
+                    "type": "bytes32",
+                    "indexed": true,
+                    "internalType": "bytes32"
+                },
+                {
+                    "name": "account",
+                    "type": "address",
+                    "indexed": true,
+                    "internalType": "address"
+                },
+                {
+                    "name": "sender",
+                    "type": "address",
+                    "indexed": true,
+                    "internalType": "address"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetAmmFactory",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "contract IAmmFactory"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetAmmRouter",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "contract IAmmRouter02"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetAmmZapV1",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "contract AmmZapV1"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetBalanceCapBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "indexed": false,
+                    "internalType": "uint16"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetBalanceFloorBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "indexed": false,
+                    "internalType": "uint16"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetBlacklist",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "contract TenXBlacklistV2"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetCzusd",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "contract IERC20Mintable"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetCzusdGrantCap",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint256",
+                    "indexed": false,
+                    "internalType": "uint256"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetCzusdGrantFlor",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint256",
+                    "indexed": false,
+                    "internalType": "uint256"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetGovernance",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "address",
+                    "indexed": false,
+                    "internalType": "address"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetLaunchTimestampCap",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint64",
+                    "indexed": false,
+                    "internalType": "uint64"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetSwapLiquifyAtBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "indexed": false,
+                    "internalType": "uint16"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetTaxesTotalCap",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "indexed": false,
+                    "internalType": "uint16"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetTransactionSizeCapBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "indexed": false,
+                    "internalType": "uint16"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "event",
+            "name": "SetTransactionSizeFloorBps",
+            "inputs": [
+                {
+                    "name": "to",
+                    "type": "uint16",
+                    "indexed": false,
+                    "internalType": "uint16"
+                }
+            ],
+            "anonymous": false
+        },
+        {
+            "type": "error",
+            "name": "AccessControlBadConfirmation",
+            "inputs": []
+        },
+        {
+            "type": "error",
+            "name": "AccessControlUnauthorizedAccount",
+            "inputs": [
+                {
+                    "name": "account",
+                    "type": "address",
+                    "internalType": "address"
+                },
+                {
+                    "name": "neededRole",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                }
+            ]
+        },
+        {
+            "type": "error",
+            "name": "OverCap",
+            "inputs": [
+                {
+                    "name": "amount",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                },
+                {
+                    "name": "cap",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                }
+            ]
+        },
+        {
+            "type": "error",
+            "name": "UnderFloor",
+            "inputs": [
+                {
+                    "name": "amount",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                },
+                {
+                    "name": "floor",
+                    "type": "uint256",
+                    "internalType": "uint256"
+                }
+            ]
+        }
+    ],
+    "bytecode": {
+        "object": "0x6080346200040a57601f620015b938819003918201601f1916830192916001600160401b0391828511848610176200040f578160c092859260409788528339810103126200040a5781516001600160a01b038082169390918490036200040a5760209283820151908382168092036200040a5786830151928484168094036200040a576060810151968588168098036200040a576080820151918683168093036200040a5760a00151918683168093036200040a577f2c901b2a9b1a4d7a5ade38d9ca448d9b32bffda1eed662076353e32576940d7b987fd4925cb16ea0708f0fa6549a16c31ec4094b89e56fc8402ab62dcde049b9083b96899669021e19e0c9bab240000060025569010f0cf064dd5920000060035560018060a01b031994720100012710000127100bb8000000000076a700866004541617600455856005541617600555846006541617600655836007541617600755826008541617600855816009541617600955600a541617600a556200017c3362000425565b620003ec575b7f7ff5e931aa0fbebba57edefedb8dae6d4069884f29d6e795af1c0fcb2e1b2b6d826002548951908152a17f34df1cda336a936ee00304296df11d791e38ca711c596c3772412473c4ffcb51826003548951908152a17f36f64b1192717f8d1f8f2d0ce275d937470be5d5737d567f17575ebbfa474975826004549289519084168152a161ffff7f14f222c299d5ae06f5ff52eca173326e39dbc8bb983bca2a49ef16aafe40e02c83895183858c1c168152a17f083fc7ad8ee45da89b9d86af820bad88355ca93919a9b6b40824f77e10556418838951838560501c168152a17f632c269aa99ea9bf2a924afe222fa7579aacc63cb45c945ee4c889b19c269eeb838951838560601c168152a17f3ba0c1e1eca52d762e8e42bd2da9ff377e7e8b10c2061abd63f245fb14d02d60838951838560701c168152a17f847492ad5fe02e1bb073a599a320ce65965d504a4157bff665bc8201e3742bd2838951838560801c168152a187519160901c168152a17f24a8c4807b324a269a51827c3446b8ac1cc13810d7d0c0ca1efafabddd7b62198282600554168651908152a17ffcb184afdb98ba9604284e2709a83b47c499f15682830159ef3199b2d246a6778282600654168651908152a17f4f56f9653939c30cdbbf1ae7c136c1cf8ec13480cc0d90ab533a3d164412c00a8282600754168651908152a17f5e650551e45a81b566e59c0d260258a27737bfbd40f864958264a4c2a958e5d18282600854168651908152a17f34623a90b120b6def6b8cb88b64cf59143ed68e8089abb3deb92394fb611d87f8282600954168651908152a1600a54168351908152a1516110759081620005448239f35b6000805260018252620004033388600020620004b6565b5062000182565b600080fd5b634e487b7160e01b600052604160045260246000fd5b6001600160a01b031660008181527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5602052604081205490919060ff16620004b257818052816020526040822081835260205260408220600160ff1982541617905533917f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d8180a4600190565b5090565b919060018301600090828252806020526040822054156000146200053d57845494680100000000000000008610156200052957600186018082558610156200051557836040949596828552602085200155549382526020522055600190565b634e487b7160e01b83526032600452602483fd5b634e487b7160e01b83526041600452602483fd5b5092505056fe608060408181526004918236101561001657600080fd5b600090813560e01c90816301ffc9a714610c62575080630acbf44214610c3f5780631db1bd9914610c205780632052f3d814610baa57806320b0d27c14610b865780632117ba2314610b18578063248a9ca314610aee578063283a9f0914610a705780632f2ff15d14610a05578063303720851461098f578063346242571461096b57806335e68762146108f557806336568abe146108af57806339c6980b14610841578063491bf3c5146107cb5780634dbc51431461075d5780634e054a67146106ef5780635aa6e675146106c65780635dd8cdb0146106a25780639010d07c1461066157806390b3c4e71461063857806391d14854146105f2578063a217fddf146105d7578063a4b5fa56146105ae578063af4e4a8914610587578063ca15c8731461055f578063ca94bfa6146104ee578063d3a49a3a146104ca578063d3f83ae3146104a1578063d547741f14610462578063d59dab1814610439578063d83e9d2f146103eb578063dacda92f146103c2578063e4ccb37214610354578063ea1e80c814610306578063eebcf080146102e3578063f073259414610275578063f4fef92d146101f75763ffbbf597146101d157600080fd5b346101f457806003193601126101f4575061ffff6020925460501c169051908152f35b80fd5b5091346102715760203660031901126102715780359061ffff808316830361026d577f847492ad5fe02e1bb073a599a320ce65965d504a4157bff665bc8201e3742bd293602093610246610ceb565b835461ffff60801b1916608091821b61ffff60801b161793849055905192901c168152a180f35b8480fd5b8280fd5b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f24a8c4807b324a269a51827c3446b8ac1cc13810d7d0c0ca1efafabddd7b6219916020916102c9610ceb565b600580546001600160a01b0319168317905551908152a180f35b5090346103025781600319360112610302576020906002549051908152f35b5080fd5b509134610271576020366003190112610271577f34df1cda336a936ee00304296df11d791e38ca711c596c3772412473c4ffcb51916020913590610348610ceb565b8160035551908152a180f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f4f56f9653939c30cdbbf1ae7c136c1cf8ec13480cc0d90ab533a3d164412c00a916020916103a8610ceb565b600780546001600160a01b0319168317905551908152a180f35b50903461030257816003193601126103025760095490516001600160a01b039091168152602090f35b509134610271576020366003190112610271577f7ff5e931aa0fbebba57edefedb8dae6d4069884f29d6e795af1c0fcb2e1b2b6d91602091359061042d610ceb565b8160025551908152a180f35b50903461030257816003193601126103025760075490516001600160a01b039091168152602090f35b5091903461027157806003193601126102715761049d91356104986001610487610cd0565b938387528660205286200154610d43565b610d69565b5080f35b509034610302578160031936011261030257600a5490516001600160a01b039091168152602090f35b50346101f457806003193601126101f4575061ffff6020925460601c169051908152f35b50913461027157602036600319011261027157803567ffffffffffffffff811680910361055b577f36f64b1192717f8d1f8f2d0ce275d937470be5d5737d567f17575ebbfa47497592602092610542610ceb565b805467ffffffffffffffff19168317905551908152a180f35b8380fd5b5091346102715760203660031901126102715760209282913581526001845220549051908152f35b50346101f457806003193601126101f4575067ffffffffffffffff60209254169051908152f35b50903461030257816003193601126103025760065490516001600160a01b039091168152602090f35b50903461030257816003193601126103025751908152602090f35b5091346102715781600319360112610271578160209360ff92610613610cd0565b903582528186528282206001600160a01b039091168252855220549151911615158152f35b50903461030257816003193601126103025760085490516001600160a01b039091168152602090f35b50913461027157816003193601126102715760209261068c9135815260018452826024359120610e97565b905491519160018060a01b039160031b1c168152f35b50346101f457806003193601126101f4575061ffff6020925460701c169051908152f35b50903461030257816003193601126103025760055490516001600160a01b039091168152602090f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577ffcb184afdb98ba9604284e2709a83b47c499f15682830159ef3199b2d246a67791602091610743610ceb565b600680546001600160a01b0319168317905551908152a180f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f34623a90b120b6def6b8cb88b64cf59143ed68e8089abb3deb92394fb611d87f916020916107b1610ceb565b600980546001600160a01b0319168317905551908152a180f35b5091346102715760203660031901126102715780359061ffff808316830361026d577f632c269aa99ea9bf2a924afe222fa7579aacc63cb45c945ee4c889b19c269eeb9360209361081a610ceb565b835461ffff60601b1916606091821b61ffff60601b161793849055905192901c168152a180f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f5e650551e45a81b566e59c0d260258a27737bfbd40f864958264a4c2a958e5d191602091610895610ceb565b600880546001600160a01b0319168317905551908152a180f35b5090346103025780600319360112610302576108c9610cd0565b90336001600160a01b038316036108e6575061049d919235610d69565b5163334bd91960e11b81528390fd5b5091346102715760203660031901126102715780359061ffff808316830361026d577f083fc7ad8ee45da89b9d86af820bad88355ca93919a9b6b40824f77e1055641893602093610944610ceb565b835461ffff60501b1916605091821b61ffff60501b161793849055905192901c168152a180f35b50346101f457806003193601126101f4575061ffff6020925460901c169051908152f35b5091346102715760203660031901126102715780359061ffff808316830361026d577fd4925cb16ea0708f0fa6549a16c31ec4094b89e56fc8402ab62dcde049b9083b936020936109de610ceb565b835461ffff60901b1916609091821b61ffff60901b161793849055905192901c168152a180f35b5091346102715781600319360112610271573590610a21610cd0565b9082845283602052610a3860018286200154610d43565b610a428284610da4565b610a4a578380f35b9183526001602052908220610a68916001600160a01b031690610ec5565b503880808380f35b509190346102715760203660031901126102715781359061ffff808316830361026d577f14f222c299d5ae06f5ff52eca173326e39dbc8bb983bca2a49ef16aafe40e02c93602093610ac0610ceb565b815469ffff0000000000000000191690841b69ffff00000000000000001617908190558251921c168152a180f35b50913461027157602036600319011261027157816020936001923581528085522001549051908152f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f2c901b2a9b1a4d7a5ade38d9ca448d9b32bffda1eed662076353e32576940d7b91602091610b6c610ceb565b600a80546001600160a01b0319168317905551908152a180f35b50346101f457806003193601126101f4575061ffff6020925460801c169051908152f35b5091346102715760203660031901126102715780359061ffff808316830361026d577f3ba0c1e1eca52d762e8e42bd2da9ff377e7e8b10c2061abd63f245fb14d02d6093602093610bf9610ceb565b835461ffff60701b1916607091821b61ffff60701b161793849055905192901c168152a180f35b5090346103025781600319360112610302576020906003549051908152f35b50346101f457806003193601126101f4575061ffff60209254821c169051908152f35b90508334610271576020366003190112610271573563ffffffff60e01b81168091036102715760209250635a05180f60e01b8114908115610ca5575b5015158152f35b637965db0b60e01b811491508115610cbf575b5083610c9e565b6301ffc9a760e01b14905083610cb8565b602435906001600160a01b0382168203610ce657565b600080fd5b3360009081527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5602052604081205460ff1615610d255750565b6044906040519063e2517d3f60e01b82523360048301526024820152fd5b80600052600060205260406000203360005260205260ff6040600020541615610d255750565b610d738282610e22565b9182610d7e57505090565b600091825260016020526040909120610da0916001600160a01b031690610f4f565b5090565b9060009180835282602052604083209160018060a01b03169182845260205260ff60408420541615600014610e1d57808352826020526040832082845260205260408320600160ff198254161790557f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d339380a4600190565b505090565b9060009180835282602052604083209160018060a01b03169182845260205260ff604084205416600014610e1d5780835282602052604083208284526020526040832060ff1981541690557ff6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b339380a4600190565b8054821015610eaf5760005260206000200190600090565b634e487b7160e01b600052603260045260246000fd5b91906001830160009082825280602052604082205415600014610f495784549468010000000000000000861015610f355783610f25610f0e886001604098999a01855584610e97565b819391549060031b91821b91600019901b19161790565b9055549382526020522055600190565b634e487b7160e01b83526041600452602483fd5b50925050565b9060018201906000928184528260205260408420549081151560001461103857600019918083018181116110245782549084820191821161101057818103610fdb575b50505080548015610fc757820191610faa8383610e97565b909182549160031b1b191690555582526020526040812055600190565b634e487b7160e01b86526031600452602486fd5b610ffb610feb610f0e9386610e97565b90549060031b1c92839286610e97565b90558652846020526040862055388080610f92565b634e487b7160e01b88526011600452602488fd5b634e487b7160e01b87526011600452602487fd5b505050509056fea2646970667358221220825f32248ddfc1ed4179cc0f09e7f42e1a649def218790fbe2cee75a6456d51f64736f6c63430008170033",
+        "sourceMap": "547:5208:80:-:0;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;3111:21;547:5208;2873:37;547:5208;;;635:12;;547:5208;686:11;;547:5208;;;;;;;;;;738:7;547:5208;;;738:7;547:5208;;2208:24;547:5208;;;2208:24;547:5208;;2242:22;547:5208;;;2242:22;547:5208;;2274:14;547:5208;;;2274:14;547:5208;;2298:22;547:5208;;;2298:22;547:5208;;2330:24;547:5208;;;2330:24;547:5208;2364:20;547:5208;;;2364:20;547:5208;2186:31:23;2426:10:80;2186:31:23;:::i;:::-;2227:69;;-1:-1:-1;2452:31:80;2232:4:20;635:12:80;2232:4:20;547:5208:80;;2232:4:20;;;2452:31:80;2498:34;2232:4:20;686:11:80;2232:4:20;547:5208:80;;2232:4:20;;;2498:34:80;2547:41;2232:4:20;738:7:80;2232:4:20;547:5208:80;;;;;;2232:4:20;;2547:41:80;547:5208;2603:31;547:5208;;;2232:4:20;;;;547:5208:80;2232:4:20;;2603:31:80;2649:47;547:5208;;;2232:4:20;;547:5208:80;2232:4:20;547:5208:80;2232:4:20;;2649:47:80;2711:51;547:5208;;;2232:4:20;;547:5208:80;2232:4:20;547:5208:80;2232:4:20;;2711:51:80;2777:31;547:5208;;;2232:4:20;;547:5208:80;2232:4:20;547:5208:80;2232:4:20;;2777:31:80;2823:35;547:5208;;;2232:4:20;;547:5208:80;2232:4:20;547:5208:80;2232:4:20;;2823:35:80;547:5208;;2232:4:20;547:5208:80;2232:4:20;547:5208:80;2232:4:20;;2873:37:80;2925:25;2232:4:20;;2208:24:80;2232:4:20;547:5208:80;;;2232:4:20;;;2925:25:80;2965:23;2232:4:20;;2242:22:80;2232:4:20;547:5208:80;;;2232:4:20;;;2965:23:80;3003:15;2232:4:20;;2274:14:80;2232:4:20;547:5208:80;;;2232:4:20;;;3003:15:80;3033:23;2232:4:20;;2298:22:80;2232:4:20;547:5208:80;;;2232:4:20;;;3033:23:80;3071:25;2232:4:20;;2330:24:80;2232:4:20;547:5208:80;;;2232:4:20;;;3071:25:80;2364:20;2232:4:20;547:5208:80;;;2232:4:20;;;3111:21:80;547:5208;;;;;;;;2227:69:23;-1:-1:-1;547:5208:80;;901:1;547:5208;;8409:50:49;2426:10:80;547:5208;-1:-1:-1;547:5208:80;8409:50:49;:::i;:::-;;2227:69:23;;547:5208:80;-1:-1:-1;547:5208:80;;;;;;-1:-1:-1;547:5208:80;;;;;-1:-1:-1;547:5208:80;6179:316:20;-1:-1:-1;;;;;547:5208:80;2232:4:20;547:5208:80;;;;;;;;;;2232:4:20;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;6347:4:20;547:5208:80;;;;;;;;735:10:36;6370:40:20;;;;;6347:4;6424:11;:::o;6272:217::-;6466:12;;:::o;2241:406:49:-;;;4360:14;;;-1:-1:-1;547:5208:80;;;;;;;;;;2232:4:20;4360:26:49;2320:321;547:5208:80;;;;;;;;;;;;4360:14:49;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;4360:14:49;2576:11;:::o;547:5208:80:-;-1:-1:-1;;;547:5208:80;;;;;;;;;-1:-1:-1;;;547:5208:80;;;;;;;;2320:321:49;-1:-1:-1;2618:12:49;-1:-1:-1;;2618:12:49:o",
+        "linkReferences": {}
+    },
+    "deployedBytecode": {
+        "object": "0x608060408181526004918236101561001657600080fd5b600090813560e01c90816301ffc9a714610c62575080630acbf44214610c3f5780631db1bd9914610c205780632052f3d814610baa57806320b0d27c14610b865780632117ba2314610b18578063248a9ca314610aee578063283a9f0914610a705780632f2ff15d14610a05578063303720851461098f578063346242571461096b57806335e68762146108f557806336568abe146108af57806339c6980b14610841578063491bf3c5146107cb5780634dbc51431461075d5780634e054a67146106ef5780635aa6e675146106c65780635dd8cdb0146106a25780639010d07c1461066157806390b3c4e71461063857806391d14854146105f2578063a217fddf146105d7578063a4b5fa56146105ae578063af4e4a8914610587578063ca15c8731461055f578063ca94bfa6146104ee578063d3a49a3a146104ca578063d3f83ae3146104a1578063d547741f14610462578063d59dab1814610439578063d83e9d2f146103eb578063dacda92f146103c2578063e4ccb37214610354578063ea1e80c814610306578063eebcf080146102e3578063f073259414610275578063f4fef92d146101f75763ffbbf597146101d157600080fd5b346101f457806003193601126101f4575061ffff6020925460501c169051908152f35b80fd5b5091346102715760203660031901126102715780359061ffff808316830361026d577f847492ad5fe02e1bb073a599a320ce65965d504a4157bff665bc8201e3742bd293602093610246610ceb565b835461ffff60801b1916608091821b61ffff60801b161793849055905192901c168152a180f35b8480fd5b8280fd5b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f24a8c4807b324a269a51827c3446b8ac1cc13810d7d0c0ca1efafabddd7b6219916020916102c9610ceb565b600580546001600160a01b0319168317905551908152a180f35b5090346103025781600319360112610302576020906002549051908152f35b5080fd5b509134610271576020366003190112610271577f34df1cda336a936ee00304296df11d791e38ca711c596c3772412473c4ffcb51916020913590610348610ceb565b8160035551908152a180f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f4f56f9653939c30cdbbf1ae7c136c1cf8ec13480cc0d90ab533a3d164412c00a916020916103a8610ceb565b600780546001600160a01b0319168317905551908152a180f35b50903461030257816003193601126103025760095490516001600160a01b039091168152602090f35b509134610271576020366003190112610271577f7ff5e931aa0fbebba57edefedb8dae6d4069884f29d6e795af1c0fcb2e1b2b6d91602091359061042d610ceb565b8160025551908152a180f35b50903461030257816003193601126103025760075490516001600160a01b039091168152602090f35b5091903461027157806003193601126102715761049d91356104986001610487610cd0565b938387528660205286200154610d43565b610d69565b5080f35b509034610302578160031936011261030257600a5490516001600160a01b039091168152602090f35b50346101f457806003193601126101f4575061ffff6020925460601c169051908152f35b50913461027157602036600319011261027157803567ffffffffffffffff811680910361055b577f36f64b1192717f8d1f8f2d0ce275d937470be5d5737d567f17575ebbfa47497592602092610542610ceb565b805467ffffffffffffffff19168317905551908152a180f35b8380fd5b5091346102715760203660031901126102715760209282913581526001845220549051908152f35b50346101f457806003193601126101f4575067ffffffffffffffff60209254169051908152f35b50903461030257816003193601126103025760065490516001600160a01b039091168152602090f35b50903461030257816003193601126103025751908152602090f35b5091346102715781600319360112610271578160209360ff92610613610cd0565b903582528186528282206001600160a01b039091168252855220549151911615158152f35b50903461030257816003193601126103025760085490516001600160a01b039091168152602090f35b50913461027157816003193601126102715760209261068c9135815260018452826024359120610e97565b905491519160018060a01b039160031b1c168152f35b50346101f457806003193601126101f4575061ffff6020925460701c169051908152f35b50903461030257816003193601126103025760055490516001600160a01b039091168152602090f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577ffcb184afdb98ba9604284e2709a83b47c499f15682830159ef3199b2d246a67791602091610743610ceb565b600680546001600160a01b0319168317905551908152a180f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f34623a90b120b6def6b8cb88b64cf59143ed68e8089abb3deb92394fb611d87f916020916107b1610ceb565b600980546001600160a01b0319168317905551908152a180f35b5091346102715760203660031901126102715780359061ffff808316830361026d577f632c269aa99ea9bf2a924afe222fa7579aacc63cb45c945ee4c889b19c269eeb9360209361081a610ceb565b835461ffff60601b1916606091821b61ffff60601b161793849055905192901c168152a180f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f5e650551e45a81b566e59c0d260258a27737bfbd40f864958264a4c2a958e5d191602091610895610ceb565b600880546001600160a01b0319168317905551908152a180f35b5090346103025780600319360112610302576108c9610cd0565b90336001600160a01b038316036108e6575061049d919235610d69565b5163334bd91960e11b81528390fd5b5091346102715760203660031901126102715780359061ffff808316830361026d577f083fc7ad8ee45da89b9d86af820bad88355ca93919a9b6b40824f77e1055641893602093610944610ceb565b835461ffff60501b1916605091821b61ffff60501b161793849055905192901c168152a180f35b50346101f457806003193601126101f4575061ffff6020925460901c169051908152f35b5091346102715760203660031901126102715780359061ffff808316830361026d577fd4925cb16ea0708f0fa6549a16c31ec4094b89e56fc8402ab62dcde049b9083b936020936109de610ceb565b835461ffff60901b1916609091821b61ffff60901b161793849055905192901c168152a180f35b5091346102715781600319360112610271573590610a21610cd0565b9082845283602052610a3860018286200154610d43565b610a428284610da4565b610a4a578380f35b9183526001602052908220610a68916001600160a01b031690610ec5565b503880808380f35b509190346102715760203660031901126102715781359061ffff808316830361026d577f14f222c299d5ae06f5ff52eca173326e39dbc8bb983bca2a49ef16aafe40e02c93602093610ac0610ceb565b815469ffff0000000000000000191690841b69ffff00000000000000001617908190558251921c168152a180f35b50913461027157602036600319011261027157816020936001923581528085522001549051908152f35b50913461027157602036600319011261027157356001600160a01b0381169190829003610271577f2c901b2a9b1a4d7a5ade38d9ca448d9b32bffda1eed662076353e32576940d7b91602091610b6c610ceb565b600a80546001600160a01b0319168317905551908152a180f35b50346101f457806003193601126101f4575061ffff6020925460801c169051908152f35b5091346102715760203660031901126102715780359061ffff808316830361026d577f3ba0c1e1eca52d762e8e42bd2da9ff377e7e8b10c2061abd63f245fb14d02d6093602093610bf9610ceb565b835461ffff60701b1916607091821b61ffff60701b161793849055905192901c168152a180f35b5090346103025781600319360112610302576020906003549051908152f35b50346101f457806003193601126101f4575061ffff60209254821c169051908152f35b90508334610271576020366003190112610271573563ffffffff60e01b81168091036102715760209250635a05180f60e01b8114908115610ca5575b5015158152f35b637965db0b60e01b811491508115610cbf575b5083610c9e565b6301ffc9a760e01b14905083610cb8565b602435906001600160a01b0382168203610ce657565b600080fd5b3360009081527fad3228b676f7d3cd4284a5443f17f1962b36e491b30a40b2405849e597ba5fb5602052604081205460ff1615610d255750565b6044906040519063e2517d3f60e01b82523360048301526024820152fd5b80600052600060205260406000203360005260205260ff6040600020541615610d255750565b610d738282610e22565b9182610d7e57505090565b600091825260016020526040909120610da0916001600160a01b031690610f4f565b5090565b9060009180835282602052604083209160018060a01b03169182845260205260ff60408420541615600014610e1d57808352826020526040832082845260205260408320600160ff198254161790557f2f8788117e7eff1d82e926ec794901d17c78024a50270940304540a733656f0d339380a4600190565b505090565b9060009180835282602052604083209160018060a01b03169182845260205260ff604084205416600014610e1d5780835282602052604083208284526020526040832060ff1981541690557ff6391f5c32d9c69d2a47ea670b442974b53935d1edc7fd64eb21e047a839171b339380a4600190565b8054821015610eaf5760005260206000200190600090565b634e487b7160e01b600052603260045260246000fd5b91906001830160009082825280602052604082205415600014610f495784549468010000000000000000861015610f355783610f25610f0e886001604098999a01855584610e97565b819391549060031b91821b91600019901b19161790565b9055549382526020522055600190565b634e487b7160e01b83526041600452602483fd5b50925050565b9060018201906000928184528260205260408420549081151560001461103857600019918083018181116110245782549084820191821161101057818103610fdb575b50505080548015610fc757820191610faa8383610e97565b909182549160031b1b191690555582526020526040812055600190565b634e487b7160e01b86526031600452602486fd5b610ffb610feb610f0e9386610e97565b90549060031b1c92839286610e97565b90558652846020526040862055388080610f92565b634e487b7160e01b88526011600452602488fd5b634e487b7160e01b87526011600452602487fd5b505050509056fea2646970667358221220825f32248ddfc1ed4179cc0f09e7f42e1a649def218790fbe2cee75a6456d51f64736f6c63430008170033",
+        "sourceMap": "547:5208:80:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;4578:35;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;547:5208:80;;-1:-1:-1;;;;547:5208:80;;;;;-1:-1:-1;;;547:5208:80;;;;;;;;;;;;;;4578:35;547:5208;;;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;4946:25;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;4916:15:80;547:5208;;-1:-1:-1;;;;;;547:5208:80;;;;;;;;;4946:25;547:5208;;;;;;;;;;;;;;;;;;604:43;547:5208;;;;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;3457:34;547:5208;;;;2475:4:20;;;:::i;:::-;547:5208:80;3422:20;547:5208;;;;;3457:34;547:5208;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;5261:15;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;5236:10:80;547:5208;;-1:-1:-1;;;;;;547:5208:80;;;;;;;;;5261:15;547:5208;;;;;;;;;;;;;;;;1201:29;547:5208;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;3278:31;547:5208;;;;2475:4:20;;;:::i;:::-;547:5208:80;3245:18;547:5208;;;;;3278:31;547:5208;;;;;;;;;;;;;;;;1133:27;547:5208;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;4747:26:20;547:5208:80;;2475:4:20;547:5208:80;;;:::i;:::-;;;;;;;;;;3901:22:20;547:5208:80;2475:4:20;:::i;:::-;4747:26;:::i;:::-;;547:5208:80;;;;;;;;;;;;;;;;1236:24;547:5208;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;3645:41;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;547:5208:80;;-1:-1:-1;;547:5208:80;;;;;;;;;3645:41;547:5208;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1095:32;547:5208;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1166:29;547:5208;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;5016:18:49;547:5208:80;;;;;;;;;;;;5016:18:49;:::i;:::-;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1064:25;547:5208;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;5116:23;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;5087:14:80;547:5208;;-1:-1:-1;;;;;;547:5208:80;;;;;;;;;5116:23;547:5208;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;5584:25;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;5554:15:80;547:5208;;-1:-1:-1;;;;;;547:5208:80;;;;;;;;;5584:25;547:5208;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;4218:51;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;547:5208:80;;-1:-1:-1;;;;547:5208:80;;;;;-1:-1:-1;;;547:5208:80;;;;;;;;;;;;;;4218:51;547:5208;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;5418:23;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;5389:14:80;547:5208;;-1:-1:-1;;;;;;547:5208:80;;;;;;;;;5418:23;547:5208;;;;;;;;;;;;;;;;;;:::i;:::-;735:10:36;;-1:-1:-1;;;;;547:5208:80;;5421:34:20;5417:102;;547:5208:80;5529:37:20;547:5208:80;;;5529:37:20;:::i;5417:102::-;547:5208:80;-1:-1:-1;;;5478:30:20;;547:5208:80;;5478:30:20;547:5208:80;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;4007:47;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;547:5208:80;;-1:-1:-1;;;;547:5208:80;;;;;-1:-1:-1;;;547:5208:80;;;;;;;;;;;;;;4007:47;547:5208;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;4763:37;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;547:5208:80;;-1:-1:-1;;;;547:5208:80;;;;;-1:-1:-1;;;547:5208:80;;;;;;;;;;;;;;4763:37;547:5208;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;2475:4:20;547:5208:80;;;;3901:22:20;547:5208:80;2475:4:20;:::i;:::-;2186:31:23;;;;:::i;:::-;2227:69;;547:5208:80;;;2227:69:23;547:5208:80;;;;;;;;;8409:50:49;;-1:-1:-1;;;;;547:5208:80;;8409:50:49;:::i;:::-;;2227:69:23;;;547:5208:80;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;3816:31;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;547:5208:80;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;;;;3816:31;547:5208;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;;3901:22:20;547:5208:80;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;-1:-1:-1;;;;;547:5208:80;;;;;;;;;5731:15;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;5703:13:80;547:5208;;-1:-1:-1;;;;;;547:5208:80;;;;;;;;;5731:15;547:5208;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;4399:31;2475:4:20;547:5208:80;2475:4:20;;;:::i;:::-;547:5208:80;;-1:-1:-1;;;;547:5208:80;;;;;-1:-1:-1;;;547:5208:80;;;;;;;;;;;;;;4399:31;547:5208;;;;;;;;;;;;;;;;;;653:44;547:5208;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;;;-1:-1:-1;;;;837:57:23;;;:97;;;;547:5208:80;;;;;;;837:97:23;-1:-1:-1;;;2673:47:20;;;-1:-1:-1;2673:87:20;;;;837:97:23;;;;;2673:87:20;-1:-1:-1;;;861:40:45;;-1:-1:-1;2673:87:20;;;547:5208:80;;;;-1:-1:-1;;;;;547:5208:80;;;;;;:::o;:::-;;;;3199:103:20;735:10:36;547:5208:80;;;;;;;;;;;;;3519:23:20;3515:108;;3199:103;:::o;3515:108::-;547:5208:80;;;;3565:47:20;;;;;;735:10:36;3565:47:20;;;547:5208:80;;;;;3565:47:20;3199:103;547:5208:80;2954:6:20;547:5208:80;2954:6:20;547:5208:80;;;2954:6:20;547:5208:80;735:10:36;2954:6:20;547:5208:80;;;;;2954:6:20;547:5208:80;;;3519:23:20;3515:108;;3199:103;:::o;2429:262:23:-;2547:32;;;;:::i;:::-;2589:72;;;;2670:14;;2429:262;:::o;2589:72::-;-1:-1:-1;547:5208:80;;;2616:12:23;547:5208:80;;;;;;8730:53:49;;-1:-1:-1;;;;;547:5208:80;;8730:53:49;:::i;:::-;;2429:262:23;:::o;6179:316:20:-;;2954:6;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;6276:23:20;6272:217;547:5208:80;;;;;;;;;;;;;;;;;;;;6347:4:20;547:5208:80;;;;;;;;6370:40:20;735:10:36;6370:40:20;;;6347:4;6424:11;:::o;6272:217::-;6466:12;;;:::o;6730:317::-;;2954:6;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;;;6824:217:20;547:5208:80;;;;;;;;;;;;;;;;;;;;;;;;;;;6922:40:20;735:10:36;6922:40:20;;;547:5208:80;6976:11:20;:::o;547:5208:80:-;;;;;;;;-1:-1:-1;547:5208:80;;-1:-1:-1;547:5208:80;;;-1:-1:-1;547:5208:80;:::o;:::-;;;;;;;;;;;;2241:406:49;;;4360:14;;;-1:-1:-1;547:5208:80;;;;;;;;;;;4360:26:49;2320:321;547:5208:80;;;;;;;;;;;;;;;;4360:14:49;547:5208:80;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;4360:14:49;2576:11;:::o;547:5208:80:-;-1:-1:-1;;;547:5208:80;;;;;;;;2320:321:49;-1:-1:-1;2618:12:49;-1:-1:-1;;2618:12:49:o;2815:1368::-;;3010:14;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;3046:13:49;;;;3042:1135;3046:13;;;-1:-1:-1;;547:5208:80;;;;;;;;;;;;;;;;;;;;3521:23:49;;;3517:378;;3042:1135;547:5208:80;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;3010:14:49;4112:11;:::o;547:5208:80:-;-1:-1:-1;;;547:5208:80;;;;;;;;3517:378:49;547:5208:80;3584:22:49;3705:23;3584:22;;;:::i;:::-;547:5208:80;;;;;;3705:23:49;;;;;:::i;547:5208:80:-;;;;;;;;;;;;3517:378:49;;;;;547:5208:80;-1:-1:-1;;;547:5208:80;;;;;;;;;-1:-1:-1;;;547:5208:80;;;;;;;;3042:1135:49;4154:12;;;;;:::o",
+        "linkReferences": {}
+    },
+    "methodIdentifiers": {
+        "DEFAULT_ADMIN_ROLE()": "a217fddf",
+        "ammFactory()": "dacda92f",
+        "ammRouter()": "90b3c4e7",
+        "ammZapV1()": "d3f83ae3",
+        "balanceCapBps()": "5dd8cdb0",
+        "balanceFloorBps()": "20b0d27c",
+        "blacklist()": "a4b5fa56",
+        "czusd()": "d59dab18",
+        "czusdGrantCap()": "eebcf080",
+        "czusdGrantFloor()": "1db1bd99",
+        "getRoleAdmin(bytes32)": "248a9ca3",
+        "getRoleMember(bytes32,uint256)": "9010d07c",
+        "getRoleMemberCount(bytes32)": "ca15c873",
+        "governance()": "5aa6e675",
+        "grantRole(bytes32,address)": "2f2ff15d",
+        "hasRole(bytes32,address)": "91d14854",
+        "launchTimestampCap()": "af4e4a89",
+        "renounceRole(bytes32,address)": "36568abe",
+        "revokeRole(bytes32,address)": "d547741f",
+        "setAmmFactory(address)": "4dbc5143",
+        "setAmmRouter(address)": "39c6980b",
+        "setAmmZapV1(address)": "2117ba23",
+        "setBalanceCapBps(uint16)": "2052f3d8",
+        "setBalanceFloorBps(uint16)": "f4fef92d",
+        "setBlacklist(address)": "4e054a67",
+        "setCzodiacGovernance(address)": "f0732594",
+        "setCzusd(address)": "e4ccb372",
+        "setCzusdGrantCap(uint256)": "d83e9d2f",
+        "setCzusdGrantFlor(uint256)": "ea1e80c8",
+        "setLaunchTimestampCap(uint64)": "ca94bfa6",
+        "setSwapLiquifyAtBps(uint16)": "30372085",
+        "setTaxesTotalCap(uint16)": "283a9f09",
+        "setTransactionSizeCapBps(uint16)": "35e68762",
+        "setTransactionSizeFloorBps(uint16)": "491bf3c5",
+        "supportsInterface(bytes4)": "01ffc9a7",
+        "swapLiquifyAtBps()": "34624257",
+        "taxesTotalCap()": "0acbf442",
+        "transactionSizeCapBps()": "ffbbf597",
+        "transactionSizeFloorBps()": "d3a49a3a"
+    },
+    "rawMetadata": "{\"compiler\":{\"version\":\"0.8.23+commit.f704f362\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_governance\",\"type\":\"address\"},{\"internalType\":\"contract TenXBlacklistV2\",\"name\":\"_blacklist\",\"type\":\"address\"},{\"internalType\":\"contract IERC20Mintable\",\"name\":\"_czusd\",\"type\":\"address\"},{\"internalType\":\"contract IAmmRouter02\",\"name\":\"_ammRouter\",\"type\":\"address\"},{\"internalType\":\"contract IAmmFactory\",\"name\":\"_ammFactory\",\"type\":\"address\"},{\"internalType\":\"contract AmmZapV1\",\"name\":\"_ammZapV1\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AccessControlBadConfirmation\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"internalType\":\"bytes32\",\"name\":\"neededRole\",\"type\":\"bytes32\"}],\"name\":\"AccessControlUnauthorizedAccount\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"cap\",\"type\":\"uint256\"}],\"name\":\"OverCap\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"floor\",\"type\":\"uint256\"}],\"name\":\"UnderFloor\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"previousAdminRole\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"newAdminRole\",\"type\":\"bytes32\"}],\"name\":\"RoleAdminChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleGranted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"sender\",\"type\":\"address\"}],\"name\":\"RoleRevoked\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract IAmmFactory\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SetAmmFactory\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract IAmmRouter02\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SetAmmRouter\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract AmmZapV1\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SetAmmZapV1\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"SetBalanceCapBps\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"SetBalanceFloorBps\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract TenXBlacklistV2\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SetBlacklist\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"contract IERC20Mintable\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SetCzusd\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"to\",\"type\":\"uint256\"}],\"name\":\"SetCzusdGrantCap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"to\",\"type\":\"uint256\"}],\"name\":\"SetCzusdGrantFlor\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"SetGovernance\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint64\",\"name\":\"to\",\"type\":\"uint64\"}],\"name\":\"SetLaunchTimestampCap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"SetSwapLiquifyAtBps\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"SetTaxesTotalCap\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"SetTransactionSizeCapBps\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"SetTransactionSizeFloorBps\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DEFAULT_ADMIN_ROLE\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"ammFactory\",\"outputs\":[{\"internalType\":\"contract IAmmFactory\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"ammRouter\",\"outputs\":[{\"internalType\":\"contract IAmmRouter02\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"ammZapV1\",\"outputs\":[{\"internalType\":\"contract AmmZapV1\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"balanceCapBps\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"balanceFloorBps\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"blacklist\",\"outputs\":[{\"internalType\":\"contract TenXBlacklistV2\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"czusd\",\"outputs\":[{\"internalType\":\"contract IERC20Mintable\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"czusdGrantCap\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"czusdGrantFloor\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleAdmin\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"uint256\",\"name\":\"index\",\"type\":\"uint256\"}],\"name\":\"getRoleMember\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"}],\"name\":\"getRoleMemberCount\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"governance\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"grantRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"hasRole\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"launchTimestampCap\",\"outputs\":[{\"internalType\":\"uint64\",\"name\":\"\",\"type\":\"uint64\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"callerConfirmation\",\"type\":\"address\"}],\"name\":\"renounceRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"role\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"account\",\"type\":\"address\"}],\"name\":\"revokeRole\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IAmmFactory\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"setAmmFactory\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IAmmRouter02\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"setAmmRouter\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract AmmZapV1\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"setAmmZapV1\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"setBalanceCapBps\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"setBalanceFloorBps\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract TenXBlacklistV2\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"setBlacklist\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"setCzodiacGovernance\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"contract IERC20Mintable\",\"name\":\"to\",\"type\":\"address\"}],\"name\":\"setCzusd\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"to\",\"type\":\"uint256\"}],\"name\":\"setCzusdGrantCap\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"to\",\"type\":\"uint256\"}],\"name\":\"setCzusdGrantFlor\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint64\",\"name\":\"to\",\"type\":\"uint64\"}],\"name\":\"setLaunchTimestampCap\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"setSwapLiquifyAtBps\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"setTaxesTotalCap\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"setTransactionSizeCapBps\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint16\",\"name\":\"to\",\"type\":\"uint16\"}],\"name\":\"setTransactionSizeFloorBps\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes4\",\"name\":\"interfaceId\",\"type\":\"bytes4\"}],\"name\":\"supportsInterface\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"swapLiquifyAtBps\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"taxesTotalCap\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"transactionSizeCapBps\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"transactionSizeFloorBps\",\"outputs\":[{\"internalType\":\"uint16\",\"name\":\"\",\"type\":\"uint16\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"errors\":{\"AccessControlBadConfirmation()\":[{\"details\":\"The caller of a function is not the expected one. NOTE: Don't confuse with {AccessControlUnauthorizedAccount}.\"}],\"AccessControlUnauthorizedAccount(address,bytes32)\":[{\"details\":\"The `account` is missing a role.\"}]},\"events\":{\"RoleAdminChanged(bytes32,bytes32,bytes32)\":{\"details\":\"Emitted when `newAdminRole` is set as ``role``'s admin role, replacing `previousAdminRole` `DEFAULT_ADMIN_ROLE` is the starting admin for all roles, despite {RoleAdminChanged} not being emitted signaling this.\"},\"RoleGranted(bytes32,address,address)\":{\"details\":\"Emitted when `account` is granted `role`. `sender` is the account that originated the contract call, an admin role bearer except when using {AccessControl-_setupRole}.\"},\"RoleRevoked(bytes32,address,address)\":{\"details\":\"Emitted when `account` is revoked `role`. `sender` is the account that originated the contract call:   - if using `revokeRole`, it is the admin role bearer   - if using `renounceRole`, it is the role bearer (i.e. `account`)\"}},\"kind\":\"dev\",\"methods\":{\"getRoleAdmin(bytes32)\":{\"details\":\"Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}.\"},\"getRoleMember(bytes32,uint256)\":{\"details\":\"Returns one of the accounts that have `role`. `index` must be a value between 0 and {getRoleMemberCount}, non-inclusive. Role bearers are not sorted in any particular way, and their ordering may change at any point. WARNING: When using {getRoleMember} and {getRoleMemberCount}, make sure you perform all queries on the same block. See the following https://forum.openzeppelin.com/t/iterating-over-elements-on-enumerableset-in-openzeppelin-contracts/2296[forum post] for more information.\"},\"getRoleMemberCount(bytes32)\":{\"details\":\"Returns the number of accounts that have `role`. Can be used together with {getRoleMember} to enumerate all bearers of a role.\"},\"grantRole(bytes32,address)\":{\"details\":\"Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleGranted} event.\"},\"hasRole(bytes32,address)\":{\"details\":\"Returns `true` if `account` has been granted `role`.\"},\"renounceRole(bytes32,address)\":{\"details\":\"Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been revoked `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `callerConfirmation`. May emit a {RoleRevoked} event.\"},\"revokeRole(bytes32,address)\":{\"details\":\"Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleRevoked} event.\"},\"supportsInterface(bytes4)\":{\"details\":\"See {IERC165-supportsInterface}.\"}},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"src/v2/TenXSettings.sol\":\"TenXSettingsV2\"},\"evmVersion\":\"paris\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[\":@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/\",\":@solmate/=lib/solmate/src/\",\":ds-test/=lib/solmate/lib/ds-test/src/\",\":erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/\",\":forge-std/=lib/forge-std/src/\",\":openzeppelin-contracts/=lib/openzeppelin-contracts/\",\":solmate/=lib/solmate/\"],\"viaIR\":true},\"sources\":{\"lib/openzeppelin-contracts/contracts/access/AccessControl.sol\":{\"keccak256\":\"0xa0e92d42942f4f57c5be50568dac11e9d00c93efcb458026e18d2d9b9b2e7308\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://46326c0bb1e296b67185e81c918e0b40501b8b6386165855df0a3f3c634b6a80\",\"dweb:/ipfs/QmTwyrDYtsxsk6pymJTK94PnEpzsmkpUxFuzEiakDopy4Z\"]},\"lib/openzeppelin-contracts/contracts/access/IAccessControl.sol\":{\"keccak256\":\"0xb6b36edd6a2999fd243ff226d6cbf84bd71af2432bbd0dfe19392996a1d9cb41\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1fd2f35495652e57e3f99bc6c510bc5f7dd398a176ea2e72d8ed730aebc6ca26\",\"dweb:/ipfs/QmTQV6X4gkikTib49cho5iDX3JvSQbdsoEChoDwrk3CbbH\"]},\"lib/openzeppelin-contracts/contracts/access/Ownable.sol\":{\"keccak256\":\"0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://8ed324d3920bb545059d66ab97d43e43ee85fd3bd52e03e401f020afb0b120f6\",\"dweb:/ipfs/QmfEckWLmZkDDcoWrkEvMWhms66xwTLff9DDhegYpvHo1a\"]},\"lib/openzeppelin-contracts/contracts/access/extensions/AccessControlEnumerable.sol\":{\"keccak256\":\"0xb1c906fcd870fc8dfedb63bfb1bc58b4d2a7469bc13cc44d996fda430693850a\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://bd98c7779af61b220166cf952a05f6aca82ec859744d407d29043f8100adfb9c\",\"dweb:/ipfs/Qmd6ftRk6cJgdooybM6F1X26R4SSUeNksv6Gni2NwEnKDw\"]},\"lib/openzeppelin-contracts/contracts/access/extensions/IAccessControlEnumerable.sol\":{\"keccak256\":\"0xc1435f102633849858e75d7bed14c636f25448ceb3406d82992b0f2df52f4306\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ce1815e3a1da24f91b8e2ec24cf09d0d46e0fbeddcbe2cb0d8b2e05b91ceb7b3\",\"dweb:/ipfs/QmYTy1AQB5EV5jwuGsB49yykng2oG3x5ss4bDjFNxk3He4\"]},\"lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol\":{\"keccak256\":\"0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://0ea104e577e63faea3b69c415637e99e755dcbf64c5833d7140c35a714d6d90c\",\"dweb:/ipfs/Qmau6x4Ns9XdyynRCNNp3RhLqijJjFm7z5fyZazfYFGYdq\"]},\"lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol\":{\"keccak256\":\"0x6008dabfe393240d73d7dd7688033f72740d570aa422254d29a7dce8568f3aff\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://f5196ec75139918c6c7bb4251b36395e668f1fa6d206beba7e7520e74913940d\",\"dweb:/ipfs/QmSyqjksXxmm2mCG6qRd1yuwLykypkSVBbnBnGqJRcuJMi\"]},\"lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol\":{\"keccak256\":\"0x37bb49513c49c87c4642a891b13b63571bc87013dde806617aa1efb54605f386\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b3036b3a83b7c48f96641f2a9002b9f2dcb6a5958dd670894ada21ae8229b3d0\",\"dweb:/ipfs/QmUNfSBdoVtjhETaUJCYcaC7pTMgbhht926tJ2uXJbiVd3\"]},\"lib/openzeppelin-contracts/contracts/utils/Address.sol\":{\"keccak256\":\"0xaf28a975a78550e45f65e559a3ad6a5ad43b9b8a37366999abd1b7084eb70721\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://b7bd24e224f67f65bfadf85dc2929fa965456bb2415478bd0125471b5ce35245\",\"dweb:/ipfs/QmRaydGr8BTHs1kvaZfsNU69pKzUAGFrvABn1KiRSbE51y\"]},\"lib/openzeppelin-contracts/contracts/utils/Context.sol\":{\"keccak256\":\"0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://6a708e8a5bdb1011c2c381c9a5cfd8a9a956d7d0a9dc1bd8bcdaf52f76ef2f12\",\"dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF\"]},\"lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol\":{\"keccak256\":\"0xf980daa263b661ab8ddee7d4fd833c7da7e7995e2c359ff1f17e67e4112f2236\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://7448ab095d6940130bcf76ba47a2eab14148c83119523b93dd89f6d84edd6c02\",\"dweb:/ipfs/QmawrZ4voKQjH3oomXT3Kuheb3Mnmo2VvVpxg8Ne5UJUrd\"]},\"lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol\":{\"keccak256\":\"0x9e8778b14317ba9e256c30a76fd6c32b960af621987f56069e1e819c77c6a133\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://1777404f1dcd0fac188e55a288724ec3c67b45288e49cc64723e95e702b49ab8\",\"dweb:/ipfs/QmZFdC626GButBApwDUvvTnUzdinevC3B24d7yyh57XkiA\"]},\"lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0x4296879f55019b23e135000eb36896057e7101fb7fb859c5ef690cf14643757b\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://87b3541437c8c443ccd36795e56a338ed12855eec17f8da624511b8d1a7e14df\",\"dweb:/ipfs/QmeJQCtZrQjtJLr6u7ZHWeH3pBnjtLWzvRrKViAi7UZqxL\"]},\"lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol\":{\"keccak256\":\"0x86c1470cbfd878491e5de030072b647352d36bd27122cffb928970b1945282aa\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://ad85dd393ee0a1917c57046abc5155f51f77844b2c6a42c05c1b8dd26d6ff3c1\",\"dweb:/ipfs/QmNqYc8To2NdnpP6E1tGz7t6A7beuENde5yovwov5pW1fA\"]},\"src/amm/AmmZapV1.sol\":{\"keccak256\":\"0x9831efdd92d15c51d80a32b9eb8a7f44e17859f56ca9cb6ebec7f1156b9380ec\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://a8e0f73a7b29937f7fddf7b6775f1a43ff55b06a669e5d2b88e9ee7bd723b8e7\",\"dweb:/ipfs/QmbbamsKFp3zMYDGdjkbGMfxBL6HYcLLpzTo7F1hkMcLax\"]},\"src/amm/lib/Babylonian.sol\":{\"keccak256\":\"0xcf92665551f1bcd7d666e45188baad35827cc0395428036a79b335fe4a5b088f\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://52c6c87064aa1d811bd44032b7ded69728b3db5fd9cfb7bd0923e054c11daacd\",\"dweb:/ipfs/QmWNjkD4XByFriGFTixKH2rDojyvD6vp2pFSE3vMf2EDkb\"]},\"src/interfaces/IAmmERC20.sol\":{\"keccak256\":\"0x0c12be44e12aa0f95236766bb3ee3b70a4e27dfadd10ef967fa6cf0d02f372de\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://1d99fdb22a3ab105b1b8571f712f418131c5196ffb731dee0f054d0c45367f6b\",\"dweb:/ipfs/QmPTG54WU2RVYECvZw945sBkNVEoGYU9gmMzELvEMe6Swu\"]},\"src/interfaces/IAmmFactory.sol\":{\"keccak256\":\"0x2d3b60c51f5226144b6c49c8409c30f9025c45294bf2a0f6e0ff762bddd10e7c\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://5fe72ec8062acd3e19a2475740dc5976cee55c826c3bf8612a04dd6906af4a04\",\"dweb:/ipfs/QmdMNyAynBqBevTjVex3Aw9EeUbp7Y5bDbhuiWu2zxFm74\"]},\"src/interfaces/IAmmPair.sol\":{\"keccak256\":\"0xec92607f0225aae3618fc7b40c77e59c8a31c0939e114eacb43aec1fc03eed96\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://7a687ffab1576e1b87834ffebfbb5043e46a43c5b3fa673d4384e4e4b52df41b\",\"dweb:/ipfs/QmaKf9HGmtwvx6zFQ2tqje5yPBsc1YWD4iRDb4cYdqepXA\"]},\"src/interfaces/IAmmRouter01.sol\":{\"keccak256\":\"0x40e49a7bc8a898b72e854a5e0afca8c506c80584de5bfc249357746b78cf8fcb\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://0f8b84e024038807aa490a3990ebf9819c09e615aae0c49ccc915b4f4a402ff1\",\"dweb:/ipfs/QmPaKae5YGYZtKM6PQJFBNicvNzHfDtjPRHPqztSHnnD5T\"]},\"src/interfaces/IAmmRouter02.sol\":{\"keccak256\":\"0xc0ff4376521ce3dfe4f7be77b44f31754b8da2fe70b9e749e7a433b74ca12585\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://2a2d39097872fe16db8752c9da1bf6ba5a33b999196855467a1bc89058e58a11\",\"dweb:/ipfs/QmUccECmdTBnuvXs3HMyxQe2AJeRKDRhBPjhZLurp5Fc7b\"]},\"src/interfaces/IERC20Mintable.sol\":{\"keccak256\":\"0xcfcba620d59f57de7550ae3094de7f70481c44018389ca2aeae345b3e4950d4e\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://66aefe6871c6d6d13fe29788889cc4f46ac99df9c2b09d8287da86b515929a25\",\"dweb:/ipfs/QmPsbuVqCpBr3aU8i7bAYQGUwrq3gbfaLwLWJbP1gxtEoj\"]},\"src/interfaces/IWETH.sol\":{\"keccak256\":\"0xe6185b5adc291f810b56dd116ca00f6554f8d9cc7b566acf4671cd37667cb7c1\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://aca49a7cbf21bd0d0633cf9c8cfaeeef8eb6389179be273362d7b326d0ad4c2e\",\"dweb:/ipfs/QmaeTH33iTgNun7hQ94sFpT8EqhLiG1gkG1EicCBT3hY3C\"]},\"src/lib/IterableArrayWithoutDuplicateKeys.sol\":{\"keccak256\":\"0x2bd7c637dddab5db74388c5b06de7e6c27f85d173e29acf35d29a29b998aebd3\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://d1ca10c19ae1788b55361f119c48666935e950b68bfa9a94f15754ff3522958a\",\"dweb:/ipfs/QmVzevrekHzo3UT2CoZhddYwPihccFRq8PniGZz6XER86N\"]},\"src/v2/TenXBlacklist.sol\":{\"keccak256\":\"0x3331e22a82c29f6148fcfb431fc8610a96a6fe98aa1982179b66dbabb373e593\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://77f0f6b5fb106fa2583a1142ac4e1de2def9720ef38861c00e7611b6dd889ed9\",\"dweb:/ipfs/QmWfLVtrYdi2VLB43j1XqUUML7rqRNGbDMQxDBcGoLxSSJ\"]},\"src/v2/TenXSettings.sol\":{\"keccak256\":\"0xa01705577524402ab588913d8bc12f34e7af0b7503aca2c5e25b4be178f256c7\",\"license\":\"GPL-3.0\",\"urls\":[\"bzz-raw://9969a5d5a8a32918f79a803a2bb085a8d6d09df45ebe517248832890e2252257\",\"dweb:/ipfs/QmZkHNc7NPGGa1ymtEYui1V8XrQpFvZ1bWzXnbLea9FUnJ\"]}},\"version\":1}",
+    "metadata": {
+        "compiler": {
+            "version": "0.8.23+commit.f704f362"
+        },
+        "language": "Solidity",
+        "output": {
+            "abi": [
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "_governance",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract TenXBlacklistV2",
+                            "name": "_blacklist",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IERC20Mintable",
+                            "name": "_czusd",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IAmmRouter02",
+                            "name": "_ammRouter",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract IAmmFactory",
+                            "name": "_ammFactory",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "contract AmmZapV1",
+                            "name": "_ammZapV1",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "constructor"
+                },
+                {
+                    "inputs": [],
+                    "type": "error",
+                    "name": "AccessControlBadConfirmation"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "account",
+                            "type": "address"
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "neededRole",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "type": "error",
+                    "name": "AccessControlUnauthorizedAccount"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "cap",
+                            "type": "uint256"
+                        }
+                    ],
+                    "type": "error",
+                    "name": "OverCap"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "amount",
+                            "type": "uint256"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "floor",
+                            "type": "uint256"
+                        }
+                    ],
+                    "type": "error",
+                    "name": "UnderFloor"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32",
+                            "indexed": true
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "previousAdminRole",
+                            "type": "bytes32",
+                            "indexed": true
+                        },
+                        {
+                            "internalType": "bytes32",
+                            "name": "newAdminRole",
+                            "type": "bytes32",
+                            "indexed": true
+                        }
+                    ],
+                    "type": "event",
+                    "name": "RoleAdminChanged",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32",
+                            "indexed": true
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "account",
+                            "type": "address",
+                            "indexed": true
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "sender",
+                            "type": "address",
+                            "indexed": true
+                        }
+                    ],
+                    "type": "event",
+                    "name": "RoleGranted",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32",
+                            "indexed": true
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "account",
+                            "type": "address",
+                            "indexed": true
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "sender",
+                            "type": "address",
+                            "indexed": true
+                        }
+                    ],
+                    "type": "event",
+                    "name": "RoleRevoked",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract IAmmFactory",
+                            "name": "to",
+                            "type": "address",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetAmmFactory",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract IAmmRouter02",
+                            "name": "to",
+                            "type": "address",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetAmmRouter",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract AmmZapV1",
+                            "name": "to",
+                            "type": "address",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetAmmZapV1",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetBalanceCapBps",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetBalanceFloorBps",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract TenXBlacklistV2",
+                            "name": "to",
+                            "type": "address",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetBlacklist",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract IERC20Mintable",
+                            "name": "to",
+                            "type": "address",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetCzusd",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "to",
+                            "type": "uint256",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetCzusdGrantCap",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "to",
+                            "type": "uint256",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetCzusdGrantFlor",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetGovernance",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint64",
+                            "name": "to",
+                            "type": "uint64",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetLaunchTimestampCap",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetSwapLiquifyAtBps",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetTaxesTotalCap",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetTransactionSizeCapBps",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16",
+                            "indexed": false
+                        }
+                    ],
+                    "type": "event",
+                    "name": "SetTransactionSizeFloorBps",
+                    "anonymous": false
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "DEFAULT_ADMIN_ROLE",
+                    "outputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "",
+                            "type": "bytes32"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "ammFactory",
+                    "outputs": [
+                        {
+                            "internalType": "contract IAmmFactory",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "ammRouter",
+                    "outputs": [
+                        {
+                            "internalType": "contract IAmmRouter02",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "ammZapV1",
+                    "outputs": [
+                        {
+                            "internalType": "contract AmmZapV1",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "balanceCapBps",
+                    "outputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "",
+                            "type": "uint16"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "balanceFloorBps",
+                    "outputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "",
+                            "type": "uint16"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "blacklist",
+                    "outputs": [
+                        {
+                            "internalType": "contract TenXBlacklistV2",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "czusd",
+                    "outputs": [
+                        {
+                            "internalType": "contract IERC20Mintable",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "czusdGrantCap",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "czusdGrantFloor",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "getRoleAdmin",
+                    "outputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "",
+                            "type": "bytes32"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "uint256",
+                            "name": "index",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "getRoleMember",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "getRoleMemberCount",
+                    "outputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "",
+                            "type": "uint256"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "governance",
+                    "outputs": [
+                        {
+                            "internalType": "address",
+                            "name": "",
+                            "type": "address"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "account",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "grantRole"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "account",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "hasRole",
+                    "outputs": [
+                        {
+                            "internalType": "bool",
+                            "name": "",
+                            "type": "bool"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "launchTimestampCap",
+                    "outputs": [
+                        {
+                            "internalType": "uint64",
+                            "name": "",
+                            "type": "uint64"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "callerConfirmation",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "renounceRole"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes32",
+                            "name": "role",
+                            "type": "bytes32"
+                        },
+                        {
+                            "internalType": "address",
+                            "name": "account",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "revokeRole"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract IAmmFactory",
+                            "name": "to",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setAmmFactory"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract IAmmRouter02",
+                            "name": "to",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setAmmRouter"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract AmmZapV1",
+                            "name": "to",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setAmmZapV1"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setBalanceCapBps"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setBalanceFloorBps"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract TenXBlacklistV2",
+                            "name": "to",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setBlacklist"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "address",
+                            "name": "to",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setCzodiacGovernance"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "contract IERC20Mintable",
+                            "name": "to",
+                            "type": "address"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setCzusd"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "to",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setCzusdGrantCap"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint256",
+                            "name": "to",
+                            "type": "uint256"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setCzusdGrantFlor"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint64",
+                            "name": "to",
+                            "type": "uint64"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setLaunchTimestampCap"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setSwapLiquifyAtBps"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setTaxesTotalCap"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setTransactionSizeCapBps"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "to",
+                            "type": "uint16"
+                        }
+                    ],
+                    "stateMutability": "nonpayable",
+                    "type": "function",
+                    "name": "setTransactionSizeFloorBps"
+                },
+                {
+                    "inputs": [
+                        {
+                            "internalType": "bytes4",
+                            "name": "interfaceId",
+                            "type": "bytes4"
+                        }
+                    ],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "supportsInterface",
+                    "outputs": [
+                        {
+                            "internalType": "bool",
+                            "name": "",
+                            "type": "bool"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "swapLiquifyAtBps",
+                    "outputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "",
+                            "type": "uint16"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "taxesTotalCap",
+                    "outputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "",
+                            "type": "uint16"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "transactionSizeCapBps",
+                    "outputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "",
+                            "type": "uint16"
+                        }
+                    ]
+                },
+                {
+                    "inputs": [],
+                    "stateMutability": "view",
+                    "type": "function",
+                    "name": "transactionSizeFloorBps",
+                    "outputs": [
+                        {
+                            "internalType": "uint16",
+                            "name": "",
+                            "type": "uint16"
+                        }
+                    ]
+                }
+            ],
+            "devdoc": {
+                "kind": "dev",
+                "methods": {
+                    "getRoleAdmin(bytes32)": {
+                        "details": "Returns the admin role that controls `role`. See {grantRole} and {revokeRole}. To change a role's admin, use {_setRoleAdmin}."
+                    },
+                    "getRoleMember(bytes32,uint256)": {
+                        "details": "Returns one of the accounts that have `role`. `index` must be a value between 0 and {getRoleMemberCount}, non-inclusive. Role bearers are not sorted in any particular way, and their ordering may change at any point. WARNING: When using {getRoleMember} and {getRoleMemberCount}, make sure you perform all queries on the same block. See the following https://forum.openzeppelin.com/t/iterating-over-elements-on-enumerableset-in-openzeppelin-contracts/2296[forum post] for more information."
+                    },
+                    "getRoleMemberCount(bytes32)": {
+                        "details": "Returns the number of accounts that have `role`. Can be used together with {getRoleMember} to enumerate all bearers of a role."
+                    },
+                    "grantRole(bytes32,address)": {
+                        "details": "Grants `role` to `account`. If `account` had not been already granted `role`, emits a {RoleGranted} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleGranted} event."
+                    },
+                    "hasRole(bytes32,address)": {
+                        "details": "Returns `true` if `account` has been granted `role`."
+                    },
+                    "renounceRole(bytes32,address)": {
+                        "details": "Revokes `role` from the calling account. Roles are often managed via {grantRole} and {revokeRole}: this function's purpose is to provide a mechanism for accounts to lose their privileges if they are compromised (such as when a trusted device is misplaced). If the calling account had been revoked `role`, emits a {RoleRevoked} event. Requirements: - the caller must be `callerConfirmation`. May emit a {RoleRevoked} event."
+                    },
+                    "revokeRole(bytes32,address)": {
+                        "details": "Revokes `role` from `account`. If `account` had been granted `role`, emits a {RoleRevoked} event. Requirements: - the caller must have ``role``'s admin role. May emit a {RoleRevoked} event."
+                    },
+                    "supportsInterface(bytes4)": {
+                        "details": "See {IERC165-supportsInterface}."
+                    }
+                },
+                "version": 1
+            },
+            "userdoc": {
+                "kind": "user",
+                "methods": {},
+                "version": 1
+            }
+        },
+        "settings": {
+            "remappings": [
+                "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+                "@solmate/=lib/solmate/src/",
+                "ds-test/=lib/solmate/lib/ds-test/src/",
+                "erc4626-tests/=lib/openzeppelin-contracts/lib/erc4626-tests/",
+                "forge-std/=lib/forge-std/src/",
+                "openzeppelin-contracts/=lib/openzeppelin-contracts/",
+                "solmate/=lib/solmate/"
+            ],
+            "optimizer": {
+                "enabled": true,
+                "runs": 200
+            },
+            "metadata": {
+                "bytecodeHash": "ipfs"
+            },
+            "compilationTarget": {
+                "src/v2/TenXSettings.sol": "TenXSettingsV2"
+            },
+            "evmVersion": "paris",
+            "libraries": {},
+            "viaIR": true
+        },
+        "sources": {
+            "lib/openzeppelin-contracts/contracts/access/AccessControl.sol": {
+                "keccak256": "0xa0e92d42942f4f57c5be50568dac11e9d00c93efcb458026e18d2d9b9b2e7308",
+                "urls": [
+                    "bzz-raw://46326c0bb1e296b67185e81c918e0b40501b8b6386165855df0a3f3c634b6a80",
+                    "dweb:/ipfs/QmTwyrDYtsxsk6pymJTK94PnEpzsmkpUxFuzEiakDopy4Z"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/access/IAccessControl.sol": {
+                "keccak256": "0xb6b36edd6a2999fd243ff226d6cbf84bd71af2432bbd0dfe19392996a1d9cb41",
+                "urls": [
+                    "bzz-raw://1fd2f35495652e57e3f99bc6c510bc5f7dd398a176ea2e72d8ed730aebc6ca26",
+                    "dweb:/ipfs/QmTQV6X4gkikTib49cho5iDX3JvSQbdsoEChoDwrk3CbbH"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/access/Ownable.sol": {
+                "keccak256": "0xff6d0bb2e285473e5311d9d3caacb525ae3538a80758c10649a4d61029b017bb",
+                "urls": [
+                    "bzz-raw://8ed324d3920bb545059d66ab97d43e43ee85fd3bd52e03e401f020afb0b120f6",
+                    "dweb:/ipfs/QmfEckWLmZkDDcoWrkEvMWhms66xwTLff9DDhegYpvHo1a"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/access/extensions/AccessControlEnumerable.sol": {
+                "keccak256": "0xb1c906fcd870fc8dfedb63bfb1bc58b4d2a7469bc13cc44d996fda430693850a",
+                "urls": [
+                    "bzz-raw://bd98c7779af61b220166cf952a05f6aca82ec859744d407d29043f8100adfb9c",
+                    "dweb:/ipfs/Qmd6ftRk6cJgdooybM6F1X26R4SSUeNksv6Gni2NwEnKDw"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/access/extensions/IAccessControlEnumerable.sol": {
+                "keccak256": "0xc1435f102633849858e75d7bed14c636f25448ceb3406d82992b0f2df52f4306",
+                "urls": [
+                    "bzz-raw://ce1815e3a1da24f91b8e2ec24cf09d0d46e0fbeddcbe2cb0d8b2e05b91ceb7b3",
+                    "dweb:/ipfs/QmYTy1AQB5EV5jwuGsB49yykng2oG3x5ss4bDjFNxk3He4"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": {
+                "keccak256": "0xc6a8ff0ea489379b61faa647490411b80102578440ab9d84e9a957cc12164e70",
+                "urls": [
+                    "bzz-raw://0ea104e577e63faea3b69c415637e99e755dcbf64c5833d7140c35a714d6d90c",
+                    "dweb:/ipfs/Qmau6x4Ns9XdyynRCNNp3RhLqijJjFm7z5fyZazfYFGYdq"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol": {
+                "keccak256": "0x6008dabfe393240d73d7dd7688033f72740d570aa422254d29a7dce8568f3aff",
+                "urls": [
+                    "bzz-raw://f5196ec75139918c6c7bb4251b36395e668f1fa6d206beba7e7520e74913940d",
+                    "dweb:/ipfs/QmSyqjksXxmm2mCG6qRd1yuwLykypkSVBbnBnGqJRcuJMi"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol": {
+                "keccak256": "0x37bb49513c49c87c4642a891b13b63571bc87013dde806617aa1efb54605f386",
+                "urls": [
+                    "bzz-raw://b3036b3a83b7c48f96641f2a9002b9f2dcb6a5958dd670894ada21ae8229b3d0",
+                    "dweb:/ipfs/QmUNfSBdoVtjhETaUJCYcaC7pTMgbhht926tJ2uXJbiVd3"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/utils/Address.sol": {
+                "keccak256": "0xaf28a975a78550e45f65e559a3ad6a5ad43b9b8a37366999abd1b7084eb70721",
+                "urls": [
+                    "bzz-raw://b7bd24e224f67f65bfadf85dc2929fa965456bb2415478bd0125471b5ce35245",
+                    "dweb:/ipfs/QmRaydGr8BTHs1kvaZfsNU69pKzUAGFrvABn1KiRSbE51y"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/utils/Context.sol": {
+                "keccak256": "0x493033a8d1b176a037b2cc6a04dad01a5c157722049bbecf632ca876224dd4b2",
+                "urls": [
+                    "bzz-raw://6a708e8a5bdb1011c2c381c9a5cfd8a9a956d7d0a9dc1bd8bcdaf52f76ef2f12",
+                    "dweb:/ipfs/Qmax9WHBnVsZP46ZxEMNRQpLQnrdE4dK8LehML1Py8FowF"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol": {
+                "keccak256": "0xf980daa263b661ab8ddee7d4fd833c7da7e7995e2c359ff1f17e67e4112f2236",
+                "urls": [
+                    "bzz-raw://7448ab095d6940130bcf76ba47a2eab14148c83119523b93dd89f6d84edd6c02",
+                    "dweb:/ipfs/QmawrZ4voKQjH3oomXT3Kuheb3Mnmo2VvVpxg8Ne5UJUrd"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol": {
+                "keccak256": "0x9e8778b14317ba9e256c30a76fd6c32b960af621987f56069e1e819c77c6a133",
+                "urls": [
+                    "bzz-raw://1777404f1dcd0fac188e55a288724ec3c67b45288e49cc64723e95e702b49ab8",
+                    "dweb:/ipfs/QmZFdC626GButBApwDUvvTnUzdinevC3B24d7yyh57XkiA"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol": {
+                "keccak256": "0x4296879f55019b23e135000eb36896057e7101fb7fb859c5ef690cf14643757b",
+                "urls": [
+                    "bzz-raw://87b3541437c8c443ccd36795e56a338ed12855eec17f8da624511b8d1a7e14df",
+                    "dweb:/ipfs/QmeJQCtZrQjtJLr6u7ZHWeH3pBnjtLWzvRrKViAi7UZqxL"
+                ],
+                "license": "MIT"
+            },
+            "lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol": {
+                "keccak256": "0x86c1470cbfd878491e5de030072b647352d36bd27122cffb928970b1945282aa",
+                "urls": [
+                    "bzz-raw://ad85dd393ee0a1917c57046abc5155f51f77844b2c6a42c05c1b8dd26d6ff3c1",
+                    "dweb:/ipfs/QmNqYc8To2NdnpP6E1tGz7t6A7beuENde5yovwov5pW1fA"
+                ],
+                "license": "MIT"
+            },
+            "src/amm/AmmZapV1.sol": {
+                "keccak256": "0x9831efdd92d15c51d80a32b9eb8a7f44e17859f56ca9cb6ebec7f1156b9380ec",
+                "urls": [
+                    "bzz-raw://a8e0f73a7b29937f7fddf7b6775f1a43ff55b06a669e5d2b88e9ee7bd723b8e7",
+                    "dweb:/ipfs/QmbbamsKFp3zMYDGdjkbGMfxBL6HYcLLpzTo7F1hkMcLax"
+                ],
+                "license": "MIT"
+            },
+            "src/amm/lib/Babylonian.sol": {
+                "keccak256": "0xcf92665551f1bcd7d666e45188baad35827cc0395428036a79b335fe4a5b088f",
+                "urls": [
+                    "bzz-raw://52c6c87064aa1d811bd44032b7ded69728b3db5fd9cfb7bd0923e054c11daacd",
+                    "dweb:/ipfs/QmWNjkD4XByFriGFTixKH2rDojyvD6vp2pFSE3vMf2EDkb"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/interfaces/IAmmERC20.sol": {
+                "keccak256": "0x0c12be44e12aa0f95236766bb3ee3b70a4e27dfadd10ef967fa6cf0d02f372de",
+                "urls": [
+                    "bzz-raw://1d99fdb22a3ab105b1b8571f712f418131c5196ffb731dee0f054d0c45367f6b",
+                    "dweb:/ipfs/QmPTG54WU2RVYECvZw945sBkNVEoGYU9gmMzELvEMe6Swu"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/interfaces/IAmmFactory.sol": {
+                "keccak256": "0x2d3b60c51f5226144b6c49c8409c30f9025c45294bf2a0f6e0ff762bddd10e7c",
+                "urls": [
+                    "bzz-raw://5fe72ec8062acd3e19a2475740dc5976cee55c826c3bf8612a04dd6906af4a04",
+                    "dweb:/ipfs/QmdMNyAynBqBevTjVex3Aw9EeUbp7Y5bDbhuiWu2zxFm74"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/interfaces/IAmmPair.sol": {
+                "keccak256": "0xec92607f0225aae3618fc7b40c77e59c8a31c0939e114eacb43aec1fc03eed96",
+                "urls": [
+                    "bzz-raw://7a687ffab1576e1b87834ffebfbb5043e46a43c5b3fa673d4384e4e4b52df41b",
+                    "dweb:/ipfs/QmaKf9HGmtwvx6zFQ2tqje5yPBsc1YWD4iRDb4cYdqepXA"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/interfaces/IAmmRouter01.sol": {
+                "keccak256": "0x40e49a7bc8a898b72e854a5e0afca8c506c80584de5bfc249357746b78cf8fcb",
+                "urls": [
+                    "bzz-raw://0f8b84e024038807aa490a3990ebf9819c09e615aae0c49ccc915b4f4a402ff1",
+                    "dweb:/ipfs/QmPaKae5YGYZtKM6PQJFBNicvNzHfDtjPRHPqztSHnnD5T"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/interfaces/IAmmRouter02.sol": {
+                "keccak256": "0xc0ff4376521ce3dfe4f7be77b44f31754b8da2fe70b9e749e7a433b74ca12585",
+                "urls": [
+                    "bzz-raw://2a2d39097872fe16db8752c9da1bf6ba5a33b999196855467a1bc89058e58a11",
+                    "dweb:/ipfs/QmUccECmdTBnuvXs3HMyxQe2AJeRKDRhBPjhZLurp5Fc7b"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/interfaces/IERC20Mintable.sol": {
+                "keccak256": "0xcfcba620d59f57de7550ae3094de7f70481c44018389ca2aeae345b3e4950d4e",
+                "urls": [
+                    "bzz-raw://66aefe6871c6d6d13fe29788889cc4f46ac99df9c2b09d8287da86b515929a25",
+                    "dweb:/ipfs/QmPsbuVqCpBr3aU8i7bAYQGUwrq3gbfaLwLWJbP1gxtEoj"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/interfaces/IWETH.sol": {
+                "keccak256": "0xe6185b5adc291f810b56dd116ca00f6554f8d9cc7b566acf4671cd37667cb7c1",
+                "urls": [
+                    "bzz-raw://aca49a7cbf21bd0d0633cf9c8cfaeeef8eb6389179be273362d7b326d0ad4c2e",
+                    "dweb:/ipfs/QmaeTH33iTgNun7hQ94sFpT8EqhLiG1gkG1EicCBT3hY3C"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/lib/IterableArrayWithoutDuplicateKeys.sol": {
+                "keccak256": "0x2bd7c637dddab5db74388c5b06de7e6c27f85d173e29acf35d29a29b998aebd3",
+                "urls": [
+                    "bzz-raw://d1ca10c19ae1788b55361f119c48666935e950b68bfa9a94f15754ff3522958a",
+                    "dweb:/ipfs/QmVzevrekHzo3UT2CoZhddYwPihccFRq8PniGZz6XER86N"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/v2/TenXBlacklist.sol": {
+                "keccak256": "0x3331e22a82c29f6148fcfb431fc8610a96a6fe98aa1982179b66dbabb373e593",
+                "urls": [
+                    "bzz-raw://77f0f6b5fb106fa2583a1142ac4e1de2def9720ef38861c00e7611b6dd889ed9",
+                    "dweb:/ipfs/QmWfLVtrYdi2VLB43j1XqUUML7rqRNGbDMQxDBcGoLxSSJ"
+                ],
+                "license": "GPL-3.0"
+            },
+            "src/v2/TenXSettings.sol": {
+                "keccak256": "0xa01705577524402ab588913d8bc12f34e7af0b7503aca2c5e25b4be178f256c7",
+                "urls": [
+                    "bzz-raw://9969a5d5a8a32918f79a803a2bb085a8d6d09df45ebe517248832890e2252257",
+                    "dweb:/ipfs/QmZkHNc7NPGGa1ymtEYui1V8XrQpFvZ1bWzXnbLea9FUnJ"
+                ],
+                "license": "GPL-3.0"
+            }
+        },
+        "version": 1
+    },
+    "id": 80
+}
