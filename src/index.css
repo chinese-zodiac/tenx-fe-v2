@@ -55,6 +55,12 @@ body {
   border: solid 3px #e16b31;
 }
 
+.datetime-box {
+  background: linear-gradient(308deg, rgba(250, 229, 233, 1) 0%, rgba(254, 247, 225, 1) 63%, rgba(254, 242, 207, 1) 83%, rgba(252, 226, 208, 1) 100%);
+  border-radius: 1.5em;
+  border: solid 3px #e16b31;
+}
+
 h1,
 p {
   margin: 0;

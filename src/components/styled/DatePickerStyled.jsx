@@ -12,28 +12,48 @@ import {
   QuestionMarkOutlined,
   QuestionMarkRounded,
 } from '@mui/icons-material';
+import { DateTimePicker } from '@mui/x-date-pickers';
 
-export default function TextFieldStyled({
+export default function DateTimePickerStyled({
   text,
   setText,
-  maxChar,
-  width,
   label,
   helpMsg,
 }) {
+
+  const popperSx = {
+    "& .MuiPaper-root": {
+      border: "1px solid black",
+      padding: 2,
+      marginTop: 1,
+      backgroundColor: "rgba(120, 120, 120, 0.2)"
+    },
+    "& .MuiCalendarPicker-root": {
+      backgroundColor: "rgba(45, 85, 255, 0.4)"
+    },
+    "& .PrivatePickersSlideTransition-root": {},
+    "& .MuiPickersDay-dayWithMargin": {
+      color: "rgb(229,228,226)",
+      backgroundColor: "rgba(50, 136, 153)"
+    },
+    "& .MuiTabs-root": { backgroundColor: "rgba(120, 120, 120, 0.4)" }
+  };
   return (
-    <TextField
-      className="input-box"
+    <DateTimePicker
+      className="datetime-box"
       label={label}
       variant="filled"
+      showDaysOutsideCurrentMonth
+      
       sx={{
         '&.MuiFormControl-root': {
           backgroundColor: 'transparent',
           border: 'solid 3px #e16b31',
-          width: { width },
+          width: '14em',
         },
         '& .MuiInputBase-root': {
           backgroundColor: 'transparent',
+          border: 'none !important',
         },
         '& .MuiFilledInput-root': {
           background: 'transparent',
@@ -42,7 +62,6 @@ export default function TextFieldStyled({
         '& .MuiInputBase-root::after': {
           border: 'none !important',
         },
-
         '& .MuiInputBase-root::before': {
           border: 'none !important',
           height: '0.1em',
@@ -53,13 +72,10 @@ export default function TextFieldStyled({
         },
         '& .MuiInputBase-root > .MuiInputBase-input': {
           borderBottom: 'none !important',
-        },
+        }        
       }}
       value={text}
-      onChange={(event) => {
-        const newText = event.target.value.substr(0, maxChar);
-        setText(newText);
-      }}
+      onChange={(newValue) => setText(getUnixTime(newValue))}
       InputProps={
         !!helpMsg && {
           startAdornment: (
@@ -75,6 +91,7 @@ export default function TextFieldStyled({
               </Tooltip>
             </InputAdornment>
           ),
+          sx: { "& .MuiSvgIcon-root": { color: "blue" } } 
         }
       }
     />

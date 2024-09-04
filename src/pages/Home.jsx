@@ -12,9 +12,9 @@ import {
 import FooterArea from '../components/layouts/FooterArea';
 import { LINK_TELEGRAM } from '../constants/links';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
-import { ADDRESS_TENXLAUNCH, ADDRESS_ZERO } from '../constants/addresses';
+import { ADDRESS_TENXLAUNCHV2, ADDRESS_ZERO } from '../constants/addresses';
 import { parseEther } from 'viem';
-import TenXLaunchAbi from '../abi/TenXLaunch.json';
+import TenXLaunchV2Abi from '../abi/TenXLaunchV2.json';
 import DialogTransaction from '../components/styled/DialogTransaction';
 import TenXToken from '../components/styled/TenXToken';
 import useTenXToken from '../hooks/useTenXToken';
@@ -22,6 +22,7 @@ import SliderPercentagePicker from '../components/styled/SliderPercentagePicker'
 import TextFieldStyled from '../components/styled/TextFieldStyled';
 import TenXTokenList from '../components/elements/TenXTokenList';
 import ReactGA from 'react-ga4';
+import DatePickerStyled from '../components/styled/DatePickerStyled';
 
 export default function Home() {
   const { address, isConnecting, isDisconnected } = useAccount();
@@ -32,6 +33,19 @@ export default function Home() {
   const [buyBurn, setBuyBurn] = useState(25);
   const [sellTax, setSellTax] = useState(275);
   const [sellBurn, setSellBurn] = useState(175);
+  const [czusdWad, setCzusdWad] = useState('5000');
+  const [tokenLogoCID, setTokenLogoCID] = useState('bafkreihj6w2jbkdq4v5ldqnd4exnzjqels677y3kv32o45c5jyfsbqnl5a');
+  const [descriptionMarkdownCID, setDescriptionMarkdownCID] = useState('bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm');
+  const [balanceMax, setBalanceMax] = useState('5000');
+  const [transactionSizeMax, setTransactionSizeMax] = useState('1000');
+  const [taxReceiver, setTaxReceiver] = useState(address);
+  const [buyLpFee, setBuyLpFee] = useState(0);
+  const [sellLpFee, setSellLpFee] = useState(0);
+  const [launchTimestamp, setLaunchTimestamp] = useState();
+
+  console.log({
+    launchTimestamp: launchTimestamp,
+  });
 
   return (
     <>
@@ -125,23 +139,106 @@ export default function Home() {
           label="Sell Burn"
           helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
         />
+        <TextFieldStyled
+          text={czusdWad}
+          setText={setCzusdWad}
+          maxChar={18}
+          width="11em"
+          label="CZUSD LP Grant"
+          helpMsg="CZUSD portion of the LP grant. The total LP will be worth 2x this amount"
+        />
+        <TextFieldStyled
+          text={tokenLogoCID}
+          setText={setTokenLogoCID}
+          maxChar={70}
+          width="36em"
+          label="Product Logo(IPFS CID)"
+          helpMsg="Shortened name for your new product. Up to 5 characters."
+        />
+        <TextFieldStyled
+          text={descriptionMarkdownCID}
+          setText={setDescriptionMarkdownCID}
+          maxChar={70}
+          width="36em"
+          label="Product Description IPFS CID(IPFS CID)"
+          helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and
+pin the description .md file first, then copy the IPFS CID here. Acceps MD file in
+CommonMark format. Must be smaller than 10kb."
+        />
+        <TextFieldStyled
+          text={balanceMax}
+          setText={setBalanceMax}
+          maxChar={18}
+          width="11em"
+          label="Max Balance For Accounts"
+          helpMsg="Maximum balance for each account. Accounts cannot receive tokens that
+would cause them to go over this balance. Must be at least 0.01% of supply. Good
+for reducing some types of bots and snipers."
+        />
+        <TextFieldStyled
+          text={transactionSizeMax}
+          setText={setTransactionSizeMax}
+          maxChar={18}
+          width="11em"
+          label="Max Transaction Size"
+          helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at
+least 0.01% of supply. Good for reducing some types of bots and snipers."
+        />
+        <TextFieldStyled
+          text={taxReceiver}
+          setText={setTaxReceiver}
+          maxChar={42}
+          width="25em"
+          label="Fee Receiver"
+          helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees
+and burns."
+        />
+        <SliderPercentagePicker
+          pct={buyLpFee}
+          setPct={setBuyLpFee}
+          label="Buy LP Fee"
+          helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing
+price stability and reducing slippage. May greatly increase trading gas costs."
+        />
+        <SliderPercentagePicker
+          pct={sellLpFee}
+          setPct={setSellLpFee}
+          label="Sell LP Fee"
+          helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing
+price stability and reducing slippage. May greatly increase trading gas costs"
+        />
+        <DatePickerStyled
+          text={launchTimestamp}
+          setText={setLaunchTimestamp}
+          label="Launch Time"
+          helpMsg="Optional time for token to open trading. Exempt accounts, such as the
+taxReceiver wallet, can trade before opening. You can add more exempt accounts
+after creating this product."
+        />
       </Stack>
       <br />
       {!!address ? (
         <DialogTransaction
           title={'LAUNCH ' + symbol}
-          address={ADDRESS_TENXLAUNCH}
-          abi={TenXLaunchAbi}
+          address={ADDRESS_TENXLAUNCHV2}
+          abi={TenXLaunchV2Abi}
           functionName="launchToken"
           args={[
+            parseEther(czusdWad), //czusdWad
             name, //name
             symbol, //symbol
-            parseEther('5000'), //czusdWad
-            address, //taxReceiver
+            tokenLogoCID, //tokenLogoCID
+            descriptionMarkdownCID, //descriptionMarkdownCID
+            parseEther(balanceMax), //balanceMax
+            parseEther(transactionSizeMax), //transactionSizeMax
+            taxReceiver, //taxReceiver
+            buyLpFee, //buyLpFee
             buyTax, //buyTax
             buyBurn, //buyBurn
             sellTax, //sellTax
             sellBurn, //sellburn
+            sellLpFee, //sellLpFee
+            launchTimestamp //launchTimestamp
           ]}
           btn={
             <ButtonPrimary
@@ -289,7 +386,7 @@ export default function Home() {
         flexWrap="wrap"
         rowGap={1}
       >
-        <TenXTokenList start={0} count={50} />
+        <TenXTokenList start={0} />
       </Stack>
       <FooterArea />
     </>

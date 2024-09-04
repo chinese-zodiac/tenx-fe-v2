@@ -1,15 +1,18 @@
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
-import { bsc } from 'viem/chains';
+import { bsc, bscTestnet } from 'viem/chains';
 import { WagmiConfig } from 'wagmi';
 import ReactGA from 'react-ga4';
 import { useEffect } from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 //WAGMI + WALLETCONNECT
 if (!import.meta.env.VITE_WALLETCONNECT_CLOUD_ID) {
   throw new Error('You need to provide WALLETCONNECT_CLOUD_ID env variable');
 }
 const projectId = import.meta.env.VITE_WALLETCONNECT_CLOUD_ID;
-const chains = [bsc];
+// console.log({projectId})
+const chains = [bsc, bscTestnet];
 const metadata = {
   name: 'TenX Automated Deployer',
   description:
@@ -32,7 +35,7 @@ function App({ children }) {
       title: 'tenx.cz.cash homepage',
     });
   }, []);
-  return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>;
+  return <WagmiConfig config={wagmiConfig}><LocalizationProvider dateAdapter={AdapterDayjs}>{children}</LocalizationProvider></WagmiConfig>;
 }
 
 export default App;

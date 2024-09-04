@@ -2,9 +2,9 @@ import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/node';
 import { readContract, readContracts } from '@wagmi/core';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import TenXLaunchViewAbi from '../abi/TenXLaunchView.json';
-import TenXTokenAbi from '../abi/TenXToken.json';
-import { ADDRESS_TENXLAUNCHVIEW } from '../constants/addresses';
+import TenXLaunchViewV2Abi from '../abi/TenXLaunchViewV2.json';
+import TenXTokenV2Abi from '../abi/TenXTokenV2.json';
+import { ADDRESS_TENXLAUNCHVIEWV2 } from '../constants/addresses';
 import { getIpfsJson, getIpfsUrl } from '../utils/getIpfsJson';
 import { formatEther } from 'viem';
 
@@ -18,25 +18,28 @@ let TENX_TOKEN_ARRAY_STATUS = [];
 const useStore = create(
   persist(
     (set, get) => ({
-      tenXTokenArray: [],
-      tenXTokenArrayStatus: [],
+      TenXTokenV2Array: [],
+      TenXTokenV2ArrayStatus: [],
       fetchTenXToken: async (_tokenIndex) => {
         if (
-          TENX_TOKEN_ARRAY_STATUS[_tokenIndex] == STATUS.SUCCESS ||
-          TENX_TOKEN_ARRAY_STATUS[_tokenIndex] == STATUS.PROCESSING
+          TENX_TOKEN_ARRAY_STATUS[_tokenIndex] == STATUS.SUCCESS || TENX_TOKEN_ARRAY_STATUS[_tokenIndex] == STATUS.PROCESSING
         ) {
           //do nothing
           return;
         }
         TENX_TOKEN_ARRAY_STATUS[_tokenIndex] = STATUS.PROCESSING;
+        console.log({address: ADDRESS_TENXLAUNCHVIEWV2,
+          abi: TenXLaunchViewV2Abi,
+          functionName: 'getTenXTokenDataFromIndex',
+          args: [_tokenIndex],})
 
         const res = await readContract({
-          address: ADDRESS_TENXLAUNCHVIEW,
-          abi: TenXLaunchViewAbi,
+          address: ADDRESS_TENXLAUNCHVIEWV2,
+          abi: TenXLaunchViewV2Abi,
           functionName: 'getTenXTokenDataFromIndex',
           args: [_tokenIndex],
         });
-        const newTenXToken = {
+        const newTenXTokenV2 = {
           tokenAddress: res[0],
           czusdPair: res[1],
           taxReceiver: res[2],
@@ -47,33 +50,33 @@ const useStore = create(
           sellBurn: res[7],
         };
 
-        const tenXTokenContract = {
-          address: newTenXToken.tokenAddress,
-          abi: TenXTokenAbi,
+        const TenXTokenV2Contract = {
+          address: newTenXTokenV2.tokenAddress,
+          abi: TenXTokenV2Abi,
         };
 
         const resName = await readContracts({
           contracts: [
             {
-              ...tenXTokenContract,
+              ...TenXTokenV2Contract,
               functionName: 'name',
             },
             {
-              ...tenXTokenContract,
+              ...TenXTokenV2Contract,
               functionName: 'symbol',
             },
           ],
         });
-        console.log(resName);
-        newTenXToken.name = resName[0].result;
-        newTenXToken.symbol = resName[1].result;
+        console.log({resName});
+        newTenXTokenV2.name = resName[0].result;
+        newTenXTokenV2.symbol = resName[1].result;
 
-        const newTenXTokenArray = [...get().tenXTokenArray];
-        newTenXTokenArray[_tokenIndex] = newTenXToken;
+        const newTenXTokenV2Array = [...get().TenXTokenV2Array];
+        newTenXTokenV2Array[_tokenIndex] = newTenXTokenV2;
 
         TENX_TOKEN_ARRAY_STATUS[_tokenIndex] = STATUS.SUCCESS;
         return set((state) => ({
-          tenXTokenArray: newTenXTokenArray,
+          TenXTokenV2Array: newTenXTokenV2Array,
         }));
       },
     }),

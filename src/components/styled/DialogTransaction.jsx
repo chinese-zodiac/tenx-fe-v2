@@ -36,8 +36,8 @@ export default function DialogTransaction({
     gas: debouncedGas,
     value: debouncedValue,
   });
-  const { data, error, isError, isLoading, isSuccess, write } =
-    useContractWrite({ ...config, onSuccess });
+  const { data, error, isError, isLoading, isSuccess, writeAsync } = useContractWrite({ ...config, onSuccess });
+
   const txHash = data?.hash ?? '';
 
   const handleClickOpen = () => {
@@ -77,7 +77,7 @@ export default function DialogTransaction({
     setOpenTxStatus(false);
   };
 
-  const handleConfirmed = () => {
+  const handleConfirmed = async () => {
     ReactGA.event({
       category: 'tenx_action',
       action: 'send_tx_attempt_' + title,
@@ -88,7 +88,7 @@ export default function DialogTransaction({
         address, // optional
     });
     //send tx
-    write();
+    await writeAsync();
 
     ReactGA.event({
       category: 'tenx_action',

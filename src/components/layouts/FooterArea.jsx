@@ -9,7 +9,7 @@ import {
   LINK_TWITTER,
 } from '../../constants/links';
 import MenuLinkSocialIcon from '../styled/MenuLinkSocialIcon';
-import { ADDRESS_CZUSD, ADDRESS_TENXLAUNCH } from '../../constants/addresses';
+import { ADDRESS_CZUSD, ADDRESS_TENXLAUNCHV2 } from '../../constants/addresses';
 
 export default function FooterArea({ sx }) {
   const theme = useTheme();

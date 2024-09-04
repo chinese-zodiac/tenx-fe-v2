@@ -11,7 +11,7 @@ export function useTenXTokenMulti(start, count) {
       (val, index) => index < start + count && index >= start
     )
   );
-  console.log(tenXTokenArray);
+  console.log({tenXTokenArray});
   return { tenXTokenArray };
 }
 
