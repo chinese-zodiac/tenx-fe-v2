@@ -1,18 +1,8 @@
-import React, { useState } from 'react';
-import {
-  Typography,
-  Box,
-  Slider,
-  TextField,
-  InputAdornment,
-  Tooltip,
-} from '@mui/material';
-import {
-  HelpOutline,
-  QuestionMarkOutlined,
-  QuestionMarkRounded,
-} from '@mui/icons-material';
+import React from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers';
+import { Tooltip } from '@mui/material';
+import { HelpOutline } from '@mui/icons-material';
+import { getUnixTime, fromUnixTime } from 'date-fns';
 
 export default function DateTimePickerStyled({
   text,
@@ -20,41 +10,46 @@ export default function DateTimePickerStyled({
   label,
   helpMsg,
 }) {
+  // Convert Unix time to Date object for DateTimePicker
 
   return (
-    <DateTimePicker
-      className="datetime-box"
-      label={label}
-      variant="filled"
-      showDaysOutsideCurrentMonth
-      
-      sx={{
-        '&.MuiFormControl-root': {
-          backgroundColor: 'transparent',
-          border: 'solid 3px #e16b31',
-          width: '14em',
-        }              
-      }}
-      value={text}
-      onChange={(newValue) => setText(getUnixTime(newValue))}
-      InputProps={
-        !!helpMsg && {
-          startAdornment: (
-            <InputAdornment position="start">
-              <Tooltip title={helpMsg}>
-                <HelpOutline
-                  sx={{
-                    fontSize: '1em',
-                    marginRight: '-0.5em',
-                    cursor: 'help',
-                  }}
-                />
-              </Tooltip>
-            </InputAdornment>
-          ),
-          sx: { "& .MuiSvgIcon-root": { color: "blue" } } 
-        }
-      }
-    />
+    <div style={{ position: 'relative', width: 'fit-content' }}>
+      <DateTimePicker className='datetime-box'
+        label={label}
+        sx={{
+          '&.MuiFormControl-root': {
+            backgroundColor: 'transparent',
+            border: 'solid 3px #e16b31',
+            width: '14em',
+          }              
+        }}
+        onChange={(newValue) => setText(getUnixTime(newValue.$d))}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="filled"
+            sx={{
+              '& .MuiInputBase-root': {
+                backgroundColor: 'transparent',
+                border: '0',
+              },
+              width: '14em',
+            }}
+          />
+        )}
+      />
+      <Tooltip title={helpMsg} placement="top">
+        <HelpOutline
+          sx={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            fontSize: '1em',
+            marginRight: '-0.5em',
+            cursor: 'help',
+          }}
+        />
+      </Tooltip>
+    </div>
   );
 }

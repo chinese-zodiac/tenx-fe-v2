@@ -43,9 +43,7 @@ export default function Home() {
   const [sellLpFee, setSellLpFee] = useState(0);
   const [launchTimestamp, setLaunchTimestamp] = useState();
 
-  console.log({
-    launchTimestamp: launchTimestamp,
-  });
+  console.log({launchTimestamp});
 
   return (
     <>
