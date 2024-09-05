@@ -5,6 +5,7 @@ import ButtonImageLink from './ButtonImageLink';
 import { czCashBuyLink } from '../../utils/czcashLink';
 import { useAccount } from 'wagmi';
 import ReactGA from 'react-ga4';
+import dayjs from 'dayjs';
 
 export default function TenXToken({
   tokenAddress,
@@ -17,9 +18,21 @@ export default function TenXToken({
   sellBurn,
   name,
   symbol,
+  tokenLogoCID,
+  launchTimestamp
 }) {
   const { address, isConnecting, isDisconnected } = useAccount();
   const theme = useTheme();
+
+  const getAge = (birthDate) => {
+
+    const now = dayjs();
+    const days = now.diff(birthDate, 'days');
+    const hours = now.diff(birthDate, 'hours') % 24;
+    const minutes = now.diff(birthDate, 'minutes') % 60;
+    console.log({ birthDate, today: dayjs().$d, diff: `${days} days, ${hours} hours, and ${minutes} minutes` })
+    return `${days} days, ${hours} hours, and ${minutes} minutes`;
+  };
   return (
     <Box
       sx={{
@@ -47,13 +60,20 @@ export default function TenXToken({
       />
       <Box
         as="img"
-        src={`./images/tenxtokens/${tokenAddress}.png`}
+        src={tokenLogoCID}
         sx={{
           width: '5em',
           heigh: '5em',
-          display: 'inline-block',
-          position: 'relative',
-          top: '0.25em',
+          margin: 0,
+          marginLeft: '0.5em',
+          padding: 0,
+          backgroundColor: 'white',
+          border: 'solid 0.15em white',
+          borderRadius: '5em',
+          '&:hover': {
+            border: 'solid 0.15em grey',
+            backgroundColor: 'grey',
+          },
         }}
       />
       <Box
@@ -134,6 +154,10 @@ export default function TenXToken({
         %<br />
         Sell Fee/Burn: {(sellTax / 100).toFixed(2)}% /{' '}
         {(sellBurn / 100).toFixed(2)}%
+        <br />
+        Launch time:{new Date(launchTimestamp).toString()}
+        <br />
+        Age: {getAge(launchTimestamp)}
       </Typography>
       <ButtonPrimary
         as="a"
@@ -162,6 +186,34 @@ export default function TenXToken({
         }}
       >
         BUY {symbol?.substr(0, 7)}
+      </ButtonPrimary>
+      <ButtonPrimary
+        as="a"
+        target="_blank"
+        href={`${tokenAddress}`}
+        focusRipple
+        sx={{
+          width: '100%',
+          marginTop: '0em',
+          fontSize: '1.5em',
+          padding: 0,
+          position: 'relative',
+          fontWeight: 'bold',
+          textTransform: 'none',
+          color: '#e16b31',
+          borderRadius: '1.5em',
+          border: 'solid 2px #e16b31',
+          backgroundColor: '#f3f3f3',
+          display: 'block',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+          textDecoration: 'none',
+          '&:hover': {
+            backgroundColor: '#080830',
+          },
+        }}
+      >
+        Learn More
       </ButtonPrimary>
     </Box>
   );

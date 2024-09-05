@@ -45,23 +45,23 @@ export default function Home() {
   const [sellLpFee, setSellLpFee] = useState(0);
   const [launchTimestamp, setLaunchTimestamp] = useState(dayjs());
 
-  console.log({
-    czusdWad:parseEther(czusdWad), 
-    name, 
-    symbol, 
-    tokenLogoCID, 
-    descriptionMarkdownCID, 
-    balanceMax:parseEther(balanceMax), 
-    transactionSizeMax:parseEther(transactionSizeMax), 
-    taxReceiver, 
-    buyLpFee, 
-    buyTax, 
-    buyBurn,
-    sellTax, 
-    sellBurn, 
-    sellLpFee, 
-    launchTimestamp:getUnixTime(launchTimestamp.$d) 
-  });
+  // console.log({
+  //   czusdWad:parseEther(czusdWad), 
+  //   name, 
+  //   symbol, 
+  //   tokenLogoCID, 
+  //   descriptionMarkdownCID, 
+  //   balanceMax:parseEther(balanceMax), 
+  //   transactionSizeMax:parseEther(transactionSizeMax), 
+  //   taxReceiver, 
+  //   buyLpFee, 
+  //   buyTax, 
+  //   buyBurn,
+  //   sellTax, 
+  //   sellBurn, 
+  //   sellLpFee, 
+  //   launchTimestamp:getUnixTime(launchTimestamp.$d) 
+  // });
 
   return (
     <>
@@ -144,6 +144,18 @@ export default function Home() {
           helpMsg="Portion of the product that will be destroyed every time someone buys on cz.cash. Good for scarcity. Maximum 9.00%"
         />
         <SliderPercentagePicker
+          pct={buyLpFee}
+          setPct={setBuyLpFee}
+          label="Buy LP Fee"
+          helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs."
+        />
+        <SliderPercentagePicker
+          pct={sellLpFee}
+          setPct={setSellLpFee}
+          label="Sell LP Fee"
+          helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
+        />
+        <SliderPercentagePicker
           pct={sellTax}
           setPct={setSellTax}
           label="Sell Fee"
@@ -164,6 +176,30 @@ export default function Home() {
           helpMsg="CZUSD portion of the LP grant. The total LP will be worth 2x this amount"
         />
         <TextFieldStyled
+          text={balanceMax}
+          setText={setBalanceMax}
+          maxChar={18}
+          width="11em"
+          label="Max Balance For Accounts"
+          helpMsg="Maximum balance for each account. Accounts cannot receive tokens that would cause them to go over this balance. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
+        />
+        <TextFieldStyled
+          text={transactionSizeMax}
+          setText={setTransactionSizeMax}
+          maxChar={18}
+          width="11em"
+          label="Max Transaction Size"
+          helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
+        />
+        <TextFieldStyled
+          text={taxReceiver}
+          setText={setTaxReceiver}
+          maxChar={42}
+          width="25em"
+          label="Fee Receiver"
+          helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees and burns."
+        />
+        <TextFieldStyled
           text={tokenLogoCID}
           setText={setTokenLogoCID}
           maxChar={70}
@@ -177,59 +213,13 @@ export default function Home() {
           maxChar={70}
           width="36em"
           label="Product Description IPFS CID(IPFS CID)"
-          helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and
-pin the description .md file first, then copy the IPFS CID here. Acceps MD file in
-CommonMark format. Must be smaller than 10kb."
-        />
-        <TextFieldStyled
-          text={balanceMax}
-          setText={setBalanceMax}
-          maxChar={18}
-          width="11em"
-          label="Max Balance For Accounts"
-          helpMsg="Maximum balance for each account. Accounts cannot receive tokens that
-would cause them to go over this balance. Must be at least 0.01% of supply. Good
-for reducing some types of bots and snipers."
-        />
-        <TextFieldStyled
-          text={transactionSizeMax}
-          setText={setTransactionSizeMax}
-          maxChar={18}
-          width="11em"
-          label="Max Transaction Size"
-          helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at
-least 0.01% of supply. Good for reducing some types of bots and snipers."
-        />
-        <TextFieldStyled
-          text={taxReceiver}
-          setText={setTaxReceiver}
-          maxChar={42}
-          width="25em"
-          label="Fee Receiver"
-          helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees
-and burns."
-        />
-        <SliderPercentagePicker
-          pct={buyLpFee}
-          setPct={setBuyLpFee}
-          label="Buy LP Fee"
-          helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing
-price stability and reducing slippage. May greatly increase trading gas costs."
-        />
-        <SliderPercentagePicker
-          pct={sellLpFee}
-          setPct={setSellLpFee}
-          label="Sell LP Fee"
-          helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing
-price stability and reducing slippage. May greatly increase trading gas costs"
+          helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
         />
         <DatePickerStyled
           text={launchTimestamp}
           setText={setLaunchTimestamp}
           label="Launch Time"
-          helpMsg="Optional time for token to open trading. Exempt accounts, such as the
-taxReceiver wallet, can trade before opening. You can add more exempt accounts
-after creating this product."
+          helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
         />
       </Stack>
       <br />

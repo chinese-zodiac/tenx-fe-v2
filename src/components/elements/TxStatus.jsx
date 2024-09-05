@@ -1,7 +1,8 @@
 import Typography from '@mui/material/Typography';
 import React from 'react';
-
+import { useNetwork } from 'wagmi';
 const TxStatus = ({ isLoading, isSuccess, isError, txHash, errMsg }) => {
+  const { chain } = useNetwork();
   return (
     <>
       <Typography
@@ -25,7 +26,7 @@ const TxStatus = ({ isLoading, isSuccess, isError, txHash, errMsg }) => {
               as="a"
               color="black"
               target="_blank"
-              href={'https://bscscan.com/tx/' + txHash}
+              href={chain?.blockExplorers?.default?.url+'/tx/' + txHash}
             >
               {txHash.slice(0, 5) + '...' + txHash.slice(-3)}
             </Typography>

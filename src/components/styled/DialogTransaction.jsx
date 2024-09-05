@@ -6,6 +6,7 @@ import { useDebounce } from 'usehooks-ts';
 import { useContractWrite, usePrepareContractWrite } from 'wagmi';
 import DialogConfirm from './DialogConfirm';
 import ReactGA from 'react-ga4';
+import { useNetwork } from 'wagmi';
 
 export default function DialogTransaction({
   btn,
@@ -22,7 +23,7 @@ export default function DialogTransaction({
 }) {
   const [open, setOpen] = React.useState(false);
   const [openTxStatus, setOpenTxStatus] = React.useState(false);
-
+  const { chain } = useNetwork();
   const debouncedAddress = useDebounce(address);
   const debouncedFunctionName = useDebounce(functionName);
   const debouncedArgs = useDebounce(args);
@@ -158,7 +159,7 @@ export default function DialogTransaction({
                 as="a"
                 color="black"
                 target="_blank"
-                href={'https://bscscan.com/tx/' + txHash}
+                href={chain?.blockExplorers?.default?.url+'/tx/' + txHash}
               >
                 {txHash.slice(0, 5) + '...' + txHash.slice(-3)}
               </Typography>
