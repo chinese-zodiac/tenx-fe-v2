@@ -382,18 +382,22 @@ export default function Home() {
       <br />
       <br />
       <br />
-      <Typography as="h1" sx={{ fontSize: '2em' }}>
-        TenX Products
-      </Typography>
-      <Stack
-        direction="row"
-        spacing={1}
-        justifyContent="center"
-        flexWrap="wrap"
-        rowGap={1}
-      >
-        <TenXTokenList start={0} />
-      </Stack>
+      { address &&
+        <>
+          <Typography as="h1" sx={{ fontSize: '2em' }}>
+            TenX Products
+          </Typography>
+          <Stack
+            direction="row"
+            spacing={1}
+            justifyContent="center"
+            flexWrap="wrap"
+            rowGap={1}
+          >
+            <TenXTokenList start={0} />
+          </Stack>
+        </>
+      }
       <FooterArea />
     </>
   );
