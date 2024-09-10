@@ -163,7 +163,6 @@ export default function TenXToken({
         as="a"
         target="_blank"
         href={czCashBuyLink('BNB', tokenAddress)}
-        focusRipple
         sx={{
           width: '100%',
           marginTop: '0em',
@@ -191,7 +190,6 @@ export default function TenXToken({
         as="a"
         target="_blank"
         href={`${tokenAddress}`}
-        focusRipple
         sx={{
           width: '100%',
           marginTop: '0em',
