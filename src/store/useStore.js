@@ -40,6 +40,7 @@ const useStore = create(
           });
 
           const newTenXTokenV2 = {
+            tokenIndex:_tokenIndex,
             tokenAddress: res[0],
             tokenLogoCID: 'https://ipfs.io/ipfs/' + res[1],
             descriptionMarkdownCID: 'https://ipfs.io/ipfs/' + res[2],

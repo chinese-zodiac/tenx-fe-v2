@@ -1,4 +1,4 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Checkbox, IconButton, Stack, Typography, useTheme } from '@mui/material';
 import { LINK_BSCSCAN, LINK_GECKOTERMINAL } from '../../constants/links';
 import ButtonPrimary from './ButtonPrimary';
 import ButtonImageLink from './ButtonImageLink';
@@ -6,7 +6,43 @@ import { czCashBuyLink } from '../../utils/czcashLink';
 import { useAccount } from 'wagmi';
 import ReactGA from 'react-ga4';
 import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
+import { readContract } from '@wagmi/core';
+import TenXTokenV2Abi from '../../abi/TenXTokenV2.json';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { styled } from '@mui/system';
+const StarCheckbox = styled(Checkbox)(({ theme }) => ({
+  color: '#e16b31',
+  '&:checked': {
+    color: '#e16b31',
+  },
+  '& .MuiSvgIcon-root': {
+    fontSize: 32, // Adjust the size of the star icon
+  },
+}));
 
+// Star icon component
+const StarIcon = (props) => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    {...props}
+  >
+    <path
+      d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"
+      fill="currentColor"
+    />
+  </svg>
+);
+const BlueIconButton = styled(IconButton)(({ theme }) => ({
+  color: '#1976d2', // Blue color
+  '&:hover': {
+    color: '#1565c0', // Darker blue color on hover
+  },
+}));
 export default function TenXToken({
   tokenAddress,
   czusdPair,
@@ -19,10 +55,55 @@ export default function TenXToken({
   name,
   symbol,
   tokenLogoCID,
-  launchTimestamp
+  launchTimestamp,
+  descriptionMarkdownCID,
+  tokenIndex
 }) {
   const { address, isConnecting, isDisconnected } = useAccount();
+  const [content, setContent] = useState('Loading...');
+  const [holdings, setHoldings] = useState('Loading...');
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
   const theme = useTheme();
+
+  useEffect(() => {
+    const fetchFileContent = async (ipfsLink) => {
+      try {
+        const response = await fetch(ipfsLink);
+        const text = await response.text(); // Convert the response to text
+        const lines = text.split('\n').slice(0, 3).join('\n');
+        setContent(lines); // Update state with the fetched content
+      } catch (error) {
+        console.error('Error fetching file from IPFS:', error);
+        setContent('No data found'); // Update state with error message
+      }
+    };
+
+    fetchFileContent(descriptionMarkdownCID); // Call the async function
+  }, [descriptionMarkdownCID]);
+
+  useEffect(() => {
+    const getHoldings = async () => {
+      try {
+        const result = await readContract({
+          address: tokenAddress,
+          abi: TenXTokenV2Abi,
+          functionName: 'balanceOf',
+          args: [address]
+        });
+        setHoldings(result.toString());
+      } catch (error) {
+        console.error('Error fetching Holdings:', error);
+        setContent('No data found');
+      }
+    };
+
+    getHoldings(); // Call the async function
+  }, [tokenAddress, address]);
+
 
   const getAge = (birthDate) => {
 
@@ -30,7 +111,7 @@ export default function TenXToken({
     const days = now.diff(birthDate, 'days');
     const hours = now.diff(birthDate, 'hours') % 24;
     const minutes = now.diff(birthDate, 'minutes') % 60;
-    console.log({ birthDate, today: dayjs().$d, diff: `${days} days, ${hours} hours, and ${minutes} minutes` })
+    // console.log({ birthDate, today: dayjs().$d, diff: `${days} days, ${hours} hours, and ${minutes} minutes` })
     return `${days} days, ${hours} hours, and ${minutes} minutes`;
   };
   return (
@@ -57,6 +138,12 @@ export default function TenXToken({
           borderRadius: '1.5em',
           zIndex: -1,
         }}
+      />
+      <StarCheckbox
+        icon={<StarIcon />}
+        checkedIcon={<StarIcon />}
+        checked={checked}
+        onChange={handleChange}
       />
       <Box
         as="img"
@@ -148,6 +235,14 @@ export default function TenXToken({
           />
         </Box>
       </Box>
+      <BlueIconButton
+      component="a" 
+      href={'#'}
+      target="_blank" 
+      rel="noopener noreferrer" 
+    >
+      <SettingsIcon />
+    </BlueIconButton>
       <Typography>
         Buy Fee/Burn: {(buyTax / 100).toFixed(2)}% /{' '}
         {(buyBurn / 100).toFixed(2)}
@@ -158,6 +253,10 @@ export default function TenXToken({
         Launch time:{new Date(launchTimestamp).toString()}
         <br />
         Age: {getAge(launchTimestamp)}
+        <br />
+        Your holdings: {holdings}
+        <br />
+        Description: {content}
       </Typography>
       <ButtonPrimary
         as="a"
@@ -188,8 +287,8 @@ export default function TenXToken({
       </ButtonPrimary>
       <ButtonPrimary
         as="a"
-        target="_blank"
-        href={`${tokenAddress}`}
+        target="_self"
+        href={`/product/${tokenIndex}`}
         sx={{
           width: '100%',
           marginTop: '0em',

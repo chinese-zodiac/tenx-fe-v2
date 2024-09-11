@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { useAccount, useBalance, useContractRead } from 'wagmi';
-import ConnectWallet from '../components/elements/ConnectWallet';
+import { useAccount, useBalance, useContractRead, useNetwork } from 'wagmi';
 import {
   Typography,
   Box,
@@ -10,7 +9,6 @@ import {
   keyframes,
 } from '@mui/material';
 import FooterArea from '../components/layouts/FooterArea';
-import { LINK_TELEGRAM } from '../constants/links';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
 import { ADDRESS_TENXLAUNCHV2, ADDRESS_ZERO } from '../constants/addresses';
 import { parseEther } from 'viem';
@@ -25,8 +23,10 @@ import ReactGA from 'react-ga4';
 import DatePickerStyled from '../components/styled/DatePickerStyled';
 import { getUnixTime, fromUnixTime } from 'date-fns';
 import dayjs from 'dayjs';
+import Header from '../components/elements/Header';
 
 export default function Home() {
+  const { chain } = useNetwork();
   const { address, isConnecting, isDisconnected } = useAccount();
 
   const [name, setName] = useState('ProductX');
@@ -65,47 +65,7 @@ export default function Home() {
 
   return (
     <>
-      <ConnectWallet />
-      <Box
-        as="img"
-        src="./logo.png"
-        sx={{
-          width: '10em',
-          height: '10em',
-          marginTop: '1em',
-        }}
-      />
-      <Typography as="h1" sx={{ fontSize: '2em' }}>
-        Create Your Digital Product in Seconds.
-      </Typography>
-
-      <Typography
-        as="p"
-        sx={{
-          maxWidth: '360px',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          marginBottom: '1em',
-          lineHeight: '1.2em',
-        }}
-      >
-        Unlock Community Value, Digital Marketing,
-        <br />
-        Free Marketing, and $10,000 Business Grants
-        <br />
-        <br />
-        Ask Questions On Telegram:
-        <br />
-        <Typography
-          as="a"
-          href={LINK_TELEGRAM}
-          target="_blank"
-          rel="noreferrer"
-          sx={{ color: '#f0eeed' }}
-        >
-          {LINK_TELEGRAM}
-        </Typography>
-      </Typography>
+      <Header/>
       <br />
       <Stack
         direction="row"
@@ -325,7 +285,7 @@ export default function Home() {
           <Typography sx={{ fontSize: '1.25em', lineHeight: '1em' }}>
             Send the Launch transaction to your wallet that will immediately
             launch your new token with the parameters below. The Launch
-            transaction costs approximately 0.015 BNB. Taxes will be sent to
+            transaction costs approximately 0.015 {chain?.nativeCurrency?.name}. Taxes will be sent to
             your currently connected wallet.
             <br />
             <br />

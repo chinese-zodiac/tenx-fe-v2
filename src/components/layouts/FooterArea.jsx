@@ -53,14 +53,14 @@ export default function FooterArea({ sx }) {
               >
                 <MenuLinkSocialIcon
                   href={LINK_TWITTER}
-                  src="./images/icons/Twitter-White.svg"
+                  src="/images/icons/Twitter-White.svg"
                   alt="Twitter"
                   width={27}
                   height={23}
                 />
                 <MenuLinkSocialIcon
                   href={LINK_TELEGRAM}
-                  src="./images/icons/TG-White.svg"
+                  src="/images/icons/TG-White.svg"
                   alt="Telegram"
                   width={27}
                   height={23}
