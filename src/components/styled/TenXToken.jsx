@@ -3,7 +3,7 @@ import { LINK_BSCSCAN, LINK_GECKOTERMINAL } from '../../constants/links';
 import ButtonPrimary from './ButtonPrimary';
 import ButtonImageLink from './ButtonImageLink';
 import { czCashBuyLink } from '../../utils/czcashLink';
-import { useAccount } from 'wagmi';
+import { useAccount, useNetwork } from 'wagmi';
 import ReactGA from 'react-ga4';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
@@ -60,6 +60,7 @@ export default function TenXToken({
   tokenIndex
 }) {
   const { address, isConnecting, isDisconnected } = useAccount();
+  const { chain } = useNetwork()
   const [content, setContent] = useState('Loading...');
   const [holdings, setHoldings] = useState('Loading...');
   const [checked, setChecked] = useState(false);
@@ -175,7 +176,7 @@ export default function TenXToken({
       >
         <Typography
           sx={{ lineHeight: '1.81em', fontSize: '2em' }}
-        >{`${name?.substr(0, 8)} (${symbol?.substr(0, 4)})`}</Typography>
+        ><span>{`${name?.substr(0, 8)} (${symbol?.substr(0, 4)})`}</span></Typography>
         <Box
           as="a"
           target="_blank"
@@ -236,27 +237,26 @@ export default function TenXToken({
         </Box>
       </Box>
       <BlueIconButton
-      component="a" 
-      href={'#'}
-      target="_blank" 
-      rel="noopener noreferrer" 
-    >
-      <SettingsIcon />
-    </BlueIconButton>
+        component="a"
+        href={'#'}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <SettingsIcon />
+      </BlueIconButton>
       <Typography>
-        Buy Fee/Burn: {(buyTax / 100).toFixed(2)}% /{' '}
-        {(buyBurn / 100).toFixed(2)}
-        %<br />
-        Sell Fee/Burn: {(sellTax / 100).toFixed(2)}% /{' '}
-        {(sellBurn / 100).toFixed(2)}%
-        <br />
-        Launch time:{new Date(launchTimestamp).toString()}
-        <br />
-        Age: {getAge(launchTimestamp)}
-        <br />
-        Your holdings: {holdings}
-        <br />
-        Description: {content}
+        <ul class="homelist">
+          <li> Buy Fee/Burn: <span>{(buyTax / 100).toFixed(2)}% /{' '}
+            {(buyBurn / 100).toFixed(2)}
+            %</span></li>
+          <li>Sell Fee/Burn: <span>{(sellTax / 100).toFixed(2)}% /{' '}
+            {(sellBurn / 100).toFixed(2)}%</span>
+          </li>
+
+          <li>Age: <span>{getAge(launchTimestamp)}</span></li>
+          <li>Your holdings: <span>{holdings}</span></li>
+          <li> Description: <span>{content}</span></li>
+        </ul>
       </Typography>
       <ButtonPrimary
         as="a"
@@ -288,7 +288,7 @@ export default function TenXToken({
       <ButtonPrimary
         as="a"
         target="_self"
-        href={`/product/${tokenIndex}`}
+        href={`/product/${tokenIndex}/${chain.id}`}
         sx={{
           width: '100%',
           marginTop: '0em',

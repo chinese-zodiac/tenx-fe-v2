@@ -11,7 +11,7 @@ import ButtonPrimary from '../components/styled/ButtonPrimary';
 import { czCashBuyLink } from '../utils/czcashLink';
 import { Typography, Button, Snackbar, Alert } from '@mui/material';
 const Products = () => {
-  const { index } = useParams();
+  const { index, chainId } = useParams();
   const { address } = useAccount();
   const { chain } = useNetwork();
   const details = useTenXToken(index);
@@ -40,6 +40,7 @@ const Products = () => {
     const getHoldings = async () => {
       try {
         const result = await readContract({
+          chainId:'97',
           address: details.tenXToken.tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'balanceOf',
@@ -74,10 +75,21 @@ const Products = () => {
   };
 
   return (
-    <div>
+    <div Class="detailspage">
       <Header />
-      Image CID: {details.tenXToken.tokenLogoCID.split('/')[4]} edit<br/>
-      Image Logo <Box
+      <div class="maindetails">
+      <div class="leftbox">
+      <li class="sharebtn">
+      <Button variant="contained" color="primary" onClick={handleCopy}>
+        Share Product
+      </Button><br/>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="success">
+          Link copied to clipboard!
+        </Alert>
+      </Snackbar>
+      </li>
+      <Box
         as="img"
         src={details.tenXToken.tokenLogoCID}
         sx={{
@@ -87,73 +99,67 @@ const Products = () => {
           border: 'solid 0.15em white',
           borderRadius: '5em',
         }}
-      /><br/>
-      Name: {details.tenXToken.name}<br/>
-      Symbol: {details.tenXToken.symbol}<br/>
-      Price in CZUSD<br/>
-      Launch timestamp in epoch number: {timestamp}<br/>
-      Launch timestamp in local time: {details.tenXToken.launchTimestamp.toString()}<br/>
-      Connected wallet’s holdings: {holdings}<br/>
-      <Button variant="contained" color="primary" onClick={handleCopy}>
-        Share Product
-      </Button><br/>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
-        <Alert onClose={handleCloseSnackbar} severity="success">
-          Link copied to clipboard!
-        </Alert>
-      </Snackbar>
-      Total Supply<br/>
-      Total LP Value in CZUSD<br/>
-      Market capitalization<br/>
-      Token Description CID: {details.tenXToken.descriptionMarkdownCID.split('/')[4]} edit<br/>
-      Token Description:<br/> {content}<br/>
-      Total Buy/Sell Taxes: {details.tenXToken.buyTax+details.tenXToken.sellTax}<br/>
-      Buy Tax: {details.tenXToken.buyTax} edit<br/>
-      Sell Tax: {details.tenXToken.sellTax} edit<br/>
-      Buy Burn: {details.tenXToken.buyBurn} edit<br/>
-      Sell Burn: {details.tenXToken.sellBurn_} edit<br/>
-      Buy LP Fee: {details.tenXToken.buyLpFee} edit<br/>
-      Sell LP Fee: {details.tenXToken.sellTax} edit<br/>
-      Balance Max: {details.tenXToken.balanceMax} edit<br/>
-      Transaction Max: {details.tenXToken.transactionSizeMax} edit<br/>
-      Is Connected Wallet Exempt True/false<br/>
-      (ONLY SHOW TO MANAGER) Set Exempt Wallet: True/False edit<br/>
-      Token contract address: <Typography
+      /><br/><br/>
+     <li> Name: <span>{details.tenXToken.name}</span></li>
+     <li>Symbol: <span>{details.tenXToken.symbol}</span></li>
+     <li>Image CID: <span>{details.tenXToken.tokenLogoCID.split('/')[4]} edit</span></li>
+     <li>Price in CZUSD</li>
+     <li>Launch timestamp in epoch number: <span>{timestamp}</span></li>
+     <li>Launch timestamp in local time: <span>{details.tenXToken.launchTimestamp.toString()}</span></li>
+     <li>Connected wallet’s holdings: <span>{holdings}</span></li>
+     <li>Total Supply</li>
+      <li>Total LP Value in CZUSD</li>
+      <li>Market capitalization</li>
+      <li>Token Description CID: <span>{details.tenXToken.descriptionMarkdownCID.split('/')[4]} edit</span></li>
+      <li>Token Description:<span> {content} </span></li>
+      <li>Total Buy/Sell Taxes: <span>{details.tenXToken.buyTax+details.tenXToken.sellTax}</span></li>
+      <li>Buy Tax: <span>{details.tenXToken.buyTax} edit </span></li>
+      <li>Sell Tax: <span>{details.tenXToken.sellTax} edit</span></li>
+      <li>Buy Burn: <span>{details.tenXToken.buyBurn} edit </span></li>
+      <li>Sell Burn: <span>{details.tenXToken.sellBurn_} edit </span></li>
+      <li>Buy LP Fee: <span>{details.tenXToken.buyLpFee} edit </span></li>
+      <li>Sell LP Fee: <span>{details.tenXToken.sellTax} edit </span></li>
+      <li>Balance Max: <span>{details.tenXToken.balanceMax} edit </span></li>
+      <li>Transaction Max:<span> {details.tenXToken.transactionSizeMax} edit</span></li>
+      <li>Is Connected Wallet Exempt True/false</li>
+      <li>(ONLY SHOW TO MANAGER) Set Exempt Wallet: <span>True/False edit</span></li>
+      <li>Token contract address: <span><Typography
         as="a"
         color="black"
         target="_blank"
         href={chain?.blockExplorers?.default?.url + '/address/' + details.tenXToken.tokenAddress}
       >
         {details.tenXToken.tokenAddress}
-      </Typography><br/>
-      LP Address: <Typography
+      </Typography></span></li>
+      <li>LP Address: <span><Typography
         as="a"
         color="black"
         target="_blank"
         href={chain?.blockExplorers?.default?.url + '/address/' + details.tenXToken.czusdPair}
       >
         {details.tenXToken.czusdPair}
-      </Typography><br/>
-      Tax Receiver address: <Typography
+      </Typography></span></li>
+      <li>Tax Receiver address: <span><Typography
         as="a"
         color="black"
         target="_blank"
         href={chain?.blockExplorers?.default?.url + '/address/' + details.tenXToken.taxReceiver}
       >
         {details.tenXToken.taxReceiver}
-      </Typography> edit<br/>
-      TenX Setting address: <Typography
+      </Typography> edit</span></li>
+      <li>TenX Setting address: <span><Typography
         as="a"
         color="black"
         target="_blank"
         href={chain?.blockExplorers?.default?.url + '/address/' + '0xd28c22d8194a33c90d98bCFe331EbfEe9d4fC1C9'}
       >
         0xd28c22d8194a33c90d98bCFe331EbfEe9d4fC1C9
-      </Typography><br/>
-      Total taxes in tokens/usd: event TenXToken.TaxesCollected<br/>
-      Total burn in tokens/usd: event TenXToken.TaxesCollected<br/>
-      Total lp in tokens/usd: event TenXToken.TaxesCollected<br/>
-      Initial CZUSD grant: 0<br/>
+      </Typography></span></li>
+      <li>Total taxes in tokens/usd: <span>event TenXToken.TaxesCollected</span></li>
+      <li>Total burn in tokens/usd: <span>event TenXToken.TaxesCollected</span></li>
+      <li>Total lp in tokens/usd: <span>event TenXToken.TaxesCollected</span></li>
+      <li>Initial CZUSD grant: 0</li>
+      <li class='detailspagebtn'>
       <ButtonPrimary
         as="a"
         target="_blank"
@@ -180,9 +186,16 @@ const Products = () => {
         }}
       >
         BUY {details.tenXToken.symbol?.substr(0, 7)}
+        
       </ButtonPrimary>
+      </li>
+      </div>
+     
+      </div>
+
       <FooterArea />
     </div>
+    
   )
 }
 

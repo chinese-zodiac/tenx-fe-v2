@@ -6,6 +6,6 @@ import Admin from "../pages/Admin";
 
 export const router = createBrowserRouter([
     { path: '/', element: <Home /> },
-    { path: 'product/:index', element: <Products /> },
+    { path: 'product/:index/:chainId', element: <Products /> },
     { path: 'admin', element: <Admin /> },
 ]);
