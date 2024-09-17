@@ -6,3 +6,8 @@ export const ADDRESS_WBNB = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
 
 export const ADDRESS_TENXLAUNCHV2 = '0xca611BdAeF106d508D5CceD0e387bbe7aB17566A';
 export const ADDRESS_TENXLAUNCHVIEWV2 = '0xf93dC391a6B59195aAF275B7DC53C46ecAaa1B36';
+
+export const deployment_block ={
+    '97':'',
+    '56':''
+}

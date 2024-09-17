@@ -302,7 +302,7 @@ export default function Home() {
             your currently connected wallet.
             <br />
             <br />
-            <ul class="homelist">
+            <ul className="homelist">
               <li>Name: <span>{name}</span></li>
               <li>Symbol: <span>{symbol}</span></li>
               <li> Liquidity:<span> $10,000 </span></li>
@@ -358,18 +358,18 @@ export default function Home() {
             flexWrap="wrap"
             rowGap={1}
           >
-            <Typography class="hedding" as="h1" sx={{ fontSize: '2em' }}>
+            <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
               TenX Products
             </Typography>
 
-            <TenXTokenList class="productbox" start={0} />
+            <TenXTokenList className="productbox" start={0} />
           </Stack>
 
         </>
       }
 
       <>
-        <Container class="contentbox">
+        <Container className="contentbox">
           <Grid2
             container
             justifyContent="center"
@@ -402,7 +402,7 @@ export default function Home() {
                 />*/}
               </Stack>
             </Grid2>
-            <Grid2 class="box1">
+            <Grid2 className="box1">
               <Grid2 xs={12}>
                 <h1>Terms of Use</h1>
               </Grid2>
@@ -436,7 +436,7 @@ export default function Home() {
                 </p>
               </Grid2>
             </Grid2>
-            <Grid2 class="box1">
+            <Grid2 className="box1">
               <Grid2 xs={12}>
                 <h1>Privacy Policy</h1>
               </Grid2>

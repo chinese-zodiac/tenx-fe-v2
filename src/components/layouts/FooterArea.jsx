@@ -31,8 +31,8 @@ export default function FooterArea({ sx }) {
         
         <Grid2 xs={12}>
               <p css={{ fontSize: 14, fontWeight: 400 }}>
-                <span class="copyright">© 2023 CZodiac. All rights reserved</span>
-                <span class="socialicon">
+                <span className="copyright">© 2023 CZodiac. All rights reserved</span>
+                <span className="socialicon">
               
                 <MenuLinkSocialIcon
                   href={LINK_TWITTER}

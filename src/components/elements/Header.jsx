@@ -10,10 +10,10 @@ import { LINK_TELEGRAM } from '../../constants/links';
 const Header = () => {
     return (
         <><ConnectWallet />
-		<div class="header">
-            <div class="container">
+		<div className="header">
+            <div className="container">
              <a href='/'>  
-            <Box Class="logo"
+            <Box className="logo"
                 as="img"
                 src="/logo.png"
                 sx={{

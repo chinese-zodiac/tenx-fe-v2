@@ -60,14 +60,28 @@ export default function TenXToken({
   tokenIndex
 }) {
   const { address, isConnecting, isDisconnected } = useAccount();
-  const { chain } = useNetwork()
+  const { chain } = useNetwork();
   const [content, setContent] = useState('Loading...');
   const [holdings, setHoldings] = useState('Loading...');
   const [checked, setChecked] = useState(false);
 
+  useEffect(() => {
+    const storedPinnedState = localStorage.getItem(`pinned-${tokenAddress}`);
+    if (storedPinnedState !== null) {
+      setChecked(JSON.parse(storedPinnedState));
+    }
+  }, [tokenAddress]);
+
   const handleChange = (event) => {
-    setChecked(event.target.checked);
+    const isChecked = event.target.checked;
+    setChecked(isChecked);
+    // Store the pinned state in localStorage
+    localStorage.setItem(`pinned-${tokenAddress}`, isChecked);
+    if (onPinnedChange) {
+      onPinnedChange(tokenAddress, isChecked);
+    }
   };
+
   const theme = useTheme();
 
   useEffect(() => {
@@ -245,7 +259,7 @@ export default function TenXToken({
         <SettingsIcon />
       </BlueIconButton>
       <Typography>
-        <ul class="homelist">
+        <ul className="homelist">
           <li> Buy Fee/Burn: <span>{(buyTax / 100).toFixed(2)}% /{' '}
             {(buyBurn / 100).toFixed(2)}
             %</span></li>
