@@ -104,17 +104,17 @@ p {
 
 .header{ background: #bb5d5d; clear: both; width: 100%; height: 80px; padding: 6px 0px;}
 .container{margin: 0px auto;}
-.logo{float: left; width: 80px; height: 80px; margin-left: 14px;}
-.css-citawo-MuiButtonBase-root-MuiButton-root{font-size: 17px !important;  margin-top:22px !important;}
+.logo{float: left; width: 80px !important;height: 80px !important; margin-left: 14px; margin-top: -1px !important;}
+.css-citawo-MuiButtonBase-root-MuiButton-root{font-size: 17px !important;  margin-top:37px !important;}
 .css-ue5gqe-MuiStack-root{ padding-top:50px;  padding-left: 30px; padding-right: 30px;}
 
 .css-um1m20-MuiButtonBase-root-MuiButton-root{border: solid 5px #ffffff !important;  background: radial-gradient(circle, #ffbf00 0%, rgb(255 141 0) 75%, rgb(255 179 0) 100%) !important; margin-bottom:70px !important;}
 .css-um1m20-MuiButtonBase-root-MuiButton-root:hover{background: radial-gradient(circle, #ffbf00 0%, rgb(255 141 0) 75%, rgb(255 179 0) 100%) !important; color:#fff !important;}
 .css-15qaur2-MuiTypography-root{color: #000; margin-bottom: 20px !important; text-transform: uppercase;}
 .MuiBox-root .css-ahj2mt-MuiTypography-root{color: #000;}
-.MuiButton-root{border: solid 2px #f0bb44 !important; background-color: #f0bb44 !important;  color: #000 !important;    margin: 8px;border: 2px solid #ffffff !important;
-  box-shadow: 1px 1px 2px rgb(0 0 0 / 10%) !important;}
+.MuiButton-root{border: solid 2px #f0bb44 !important; background-color: #f0bb44 !important;  color: #000 !important;    margin: 8px;border: 2px solid #ffffff !important;  box-shadow: 1px 1px 2px rgb(0 0 0 / 10%) !important; }
 .MuiTypography-root{color:#000;}
+
 
 
 .css-ysh6fe{width:28%;background-color: #ffffff !important;box-shadow: 1px 1px 5px rgb(0 0 0 / 10%);    padding:15px 12px !important;}
@@ -124,7 +124,7 @@ p {
 .css-eck8fq-MuiStack-root{background: #e38c8c; padding:60px 0px 80px;}
 .css-6rynz7{ float:left;}
 .css-sm0c8e{text-align: left; padding-left: 0.5em; float: left;}
-.hedding{width: 100%; margin-bottom: 20px !important; text-transform: uppercase;text-shadow: 1px 7px 1px #af6c6c; font-size: 37px;}
+.hedding{width: 100%; margin-bottom: 20px !important; text-transform: uppercase;text-shadow: 1px 7px 1px #af6c6c; font-size: 37px; color: #fff;}
 .css-f564t4{ margin-top: 0px !important; }
 .css-f564t4 {background-color: #bb5d5d !important; color: #ffffff;  padding:0px 0px 0px !important;  width: 100%;overflow-y: hidden;}
 .MuiBox-root .css-ahj2mt-MuiTypography-root{margin-top: 19px; padding-bottom: 20px; display: inline-block; line-height: 28px;    border-top: 1px dashed #ddd;}
@@ -137,7 +137,7 @@ p {
 .css-an7gnq-FooterArea {background: #742424; height: 35px; padding-top: 18px;    padding-bottom: 8px;}
 .css-16fnxy3-MuiGrid2-root{ padding:0px !important;}
 .contentbox{padding: 80px 50px 100px !important; background: #bf6060 !important;}
-.box1 {width: 43%; float: left; padding:30px; background: #fff; height: 485px;  margin-right: 10px; border-radius: 10px;margin-left: 10px;}
+.box1 {width:47%; float: left; padding:30px !important; background: #fff; height:575px;  margin-right: 10px; border-radius: 10px;margin-left: 10px;     box-shadow: 1px 0px 12px #953f3f;}
 .box1 p{color: #505050; line-height: 24px; text-align: justify;}
 .box1 h1{color:#000; margin-bottom: 20px;text-align: left;}
 .box1 a{color:#bb5d5d;}
@@ -147,6 +147,7 @@ p {
 .socialicon a{margin-right: 5px;}
 .css-161qhmh-MuiButtonBase-root-MuiCheckbox-root{padding:0px !important;}
 .css-1n9p01q-MuiGrid2-root{max-width: inherit !important;}
+.MuiButtonBase-root{}
 
 
 .css-ltwa9e-MuiDialogContent-root{ border:none !important; background: #fff !important;}
@@ -171,6 +172,10 @@ p {
 .css-5gp6tw-MuiTypography-root{     font-size: 24px !important; letter-spacing: 0px !important;line-height: 30px !important;}
 .sharebtn{border-bottom: 0px !important; float: right;}
 .sharebtn button{ border-radius: 50px; background: #ed743a !important; border: none !important; color: #fff !important;letter-spacing: 0px !important;    margin-top: 12px;}
+.MuiBox-root{top: -15px !important;}
+.css-ysh6fe .MuiButton-root{margin-bottom:5px !important;}
+.MuiInputLabel-root{top:2px !important;}
+.css-1ux12ge-MuiButtonBase-root-MuiButton-root{ margin-bottom: 50px !important;}
 
 
 @media only screen and (max-width: 767px) {

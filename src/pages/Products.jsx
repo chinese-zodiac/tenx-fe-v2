@@ -13,7 +13,9 @@ import { Typography, Button, Snackbar, Alert } from '@mui/material';
 import ConnectWallet from '../components/elements/ConnectWallet';
 import { parseAbiItem } from 'viem'
 import { ADDRESS_TENXLAUNCHVIEWV2 } from '../constants/addresses';
-import TenXLaunchViewV2Abi  from '../abi/TenXLaunchViewV2.json';
+import TenXLaunchViewV2Abi from '../abi/TenXLaunchViewV2.json';
+import DOMPurify from 'dompurify';
+import EditModal from '../components/elements/EditModal';
 const Products = () => {
   const { index, chainId } = useParams();
 
@@ -33,8 +35,12 @@ const Products = () => {
   const [totalLpValue, setTotalLpValue] = useState('Loading...');
   const [manager, setManager] = useState('Loading...');
   const [exempt, setExempt] = useState('Loading...');
+  const [role, setRole] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpen = () => setIsModalOpen(prev => !prev);
+
   const config = getConfig();
-console.log({manager})
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -43,7 +49,7 @@ console.log({manager})
         const fromBlock = 43529178n;
         const maxBlocksPerQuery = 50000n;
         let logs = [];
-        
+
         // Fetch logs in chunks
         for (let startBlock = fromBlock; startBlock <= latestBlock; startBlock += maxBlocksPerQuery) {
           const endBlock = startBlock + maxBlocksPerQuery - 1n <= latestBlock ? startBlock + maxBlocksPerQuery - 1n : latestBlock;
@@ -55,13 +61,12 @@ console.log({manager})
           });
           logs = logs.concat(chunkLogs);
         }
-        
         console.log('Logs:', logs);
       } catch (error) {
         console.error('Error fetching logs:', error);
       }
     };
-  
+
     fetchEvents();
   }, [details.tenXToken.tokenAddress, config]);
 
@@ -71,7 +76,9 @@ console.log({manager})
       try {
         const response = await fetch(ipfsLink);
         const text = await response.text();
-        setContent(text);
+        console.log({ text })
+        const sanitizedText = DOMPurify.sanitize(text);
+        setContent(sanitizedText);
       } catch (error) {
         console.error('Error fetching file from IPFS:', error);
         setContent('No data found'); // Update state with error message
@@ -89,7 +96,7 @@ console.log({manager})
           abi: TenXTokenV2Abi,
           functionName: 'balanceOf',
           args: [address]
-        }):'Not found';
+        }) : 'Not found';
 
         setHoldings(result.toString());
       } catch (error) {
@@ -101,17 +108,17 @@ console.log({manager})
     const getLpDetails = async () => {
       try {
         const result = await readContract({
-          address:ADDRESS_TENXLAUNCHVIEWV2,
+          address: ADDRESS_TENXLAUNCHVIEWV2,
           abi: TenXLaunchViewV2Abi,
           functionName: 'getTenXTokenLpData',
-          args:[details.tenXToken.tokenAddress],
-          chainId:parseInt(chainId),
+          args: [details.tenXToken.tokenAddress],
+          chainId: parseInt(chainId),
         });
-        setInitialGrant((parseInt(result[0])/10**18).toString());
-        setTotalSupply((parseInt(result[1])/10**18).toString());
-        setPrice((parseInt(result[4])/10**18).toString());
-        setMarketCap((parseInt(result[4])/10**18).toString());
-        setTotalLpValue((parseInt(result[6])/10**18).toString());
+        setInitialGrant((parseInt(result[0]) / 10 ** 18).toString());
+        setTotalSupply((parseInt(result[1]) / 10 ** 18).toString());
+        setPrice((parseInt(result[4]) / 10 ** 18).toString());
+        setMarketCap((parseInt(result[4]) / 10 ** 18).toString());
+        setTotalLpValue((parseInt(result[6]) / 10 ** 18).toString());
       } catch (error) {
         console.error('Error fetching Holdings:', error);
         setContent('Not found');
@@ -124,10 +131,10 @@ console.log({manager})
           address: details.tenXToken.tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'MANAGER_ROLE',
-          chainId:parseInt(chainId),
+          chainId: parseInt(chainId),
         });
         setManager(result.toString());
-        
+
       } catch (error) {
         console.error('Error fetching Holdings:', error);
         setContent('Not found');
@@ -137,22 +144,36 @@ console.log({manager})
           address: details.tenXToken.tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'isExempt',
-          chainId:parseInt(chainId),
-          args:[address],
-        }):
-        false
-        ;
+          chainId: parseInt(chainId),
+          args: [address],
+        }) :
+          false;
         setExempt(result.toString());
-        
+
       } catch (error) {
         console.error('Error fetching Holdings:', error);
         setContent('Not found');
       }
     };
+    const getRole = async () => {
+      try {
+        const result = address ? await readContract({
+          address: tokenAddress,
+          abi: TenXTokenV2Abi,
+          functionName: 'hasRole',
+          args: [keccak256(toBytes('MANAGER_ROLE')), address]
+        }) : false;
+        setRole(result);
+      } catch (error) {
+        console.error('Error fetching Holdings:', error);
+        setRole(false);
+      }
+    };
+    getRole();
     getTokenDetails()
     getLpDetails();
-    getHoldings(); 
-  }, [chain,details.tenXToken.tokenAddress]);
+    getHoldings();
+  }, [chain, details.tenXToken.tokenAddress]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -189,7 +210,7 @@ console.log({manager})
           </li>
           <Box
             as="img"
-            src={details.tenXToken.tokenLogoCID}
+            src={DOMPurify.sanitize(details.tenXToken.tokenLogoCID)}
             sx={{
               width: '5em',
               heigh: '5em',
@@ -198,29 +219,49 @@ console.log({manager})
               borderRadius: '5em',
             }}
           /><br /><br />
+          <li>About the token: <span className='discriptionbox'> {content} </span></li>
           <li> Name: <span>{details.tenXToken.name}</span></li>
           <li>Symbol: <span>{details.tenXToken.symbol}</span></li>
-          <li>Image CID: <span>{details.tenXToken.tokenLogoCID.split('/')[4]} edit</span></li>
+          <li>Image CID: <span>{details.tenXToken.tokenLogoCID.split('/')[4]} </span> 
+          {/* <span
+            onClick={handleOpen}
+            style={{
+              color: 'blue',
+              textDecoration: 'underline',
+              cursor: 'pointer',
+              marginLeft: '8px',
+            }}
+          >
+            edit
+          </span> */}
+          </li>
+          {/* <EditModal
+            tokenAddress={details.tenXToken.tokenAddress}
+            label={'Image CID'}
+            fun={'MANAGER_setTokenLogoCID'}
+            previous={details.tenXToken.tokenLogoCID.split('/')[4]}
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+          /> */}
           <li>Price in CZUSD: <span>{price}</span></li>
           <li>Launch timestamp in epoch number: <span>{timestamp}</span></li>
           <li>Launch timestamp in local time: <span>{details.tenXToken.launchTimestamp.toString()}</span></li>
           <li>Connected wallet’s holdings: <span>{holdings}</span></li>
           <li>Total Supply: <span>{totalSupply}</span></li>
-          <li>Total LP Value in CZUSD:<span>{totalLpValue}</span></li>
+          <li>Total LP Value in CZUSD:<span>{totalLpValue} edit</span></li>
           <li>Market capitalization:<span>{marketCap}</span></li>
           <li>Token Description CID: <span>{details.tenXToken.descriptionMarkdownCID.split('/')[4]} edit</span></li>
-          <li>Token Description:<span> {content} </span></li>
           <li>Total Buy/Sell Taxes: <span>{details.tenXToken.buyTax + details.tenXToken.sellTax}</span></li>
-          <li>Buy Tax: <span>{details.tenXToken.buyTax} edit </span></li>
+          <li>Buy Tax: <span>{details.tenXToken.buyTax} </span></li>
           <li>Sell Tax: <span>{details.tenXToken.sellTax} edit</span></li>
           <li>Buy Burn: <span>{details.tenXToken.buyBurn} edit </span></li>
-          <li>Sell Burn: <span>{details.tenXToken.sellBurn_} edit </span></li>
+          <li>Sell Burn: <span>{details.tenXToken.sellBurn} edit </span></li>
           <li>Buy LP Fee: <span>{details.tenXToken.buyLpFee} edit </span></li>
           <li>Sell LP Fee: <span>{details.tenXToken.sellTax} edit </span></li>
           <li>Balance Max: <span>{details.tenXToken.balanceMax} edit </span></li>
           <li>Transaction Max:<span> {details.tenXToken.transactionSizeMax} edit</span></li>
           <li>Is Connected Wallet Exempt <span>{exempt} edit</span></li>
-          <li>(ONLY SHOW TO MANAGER) Set Exempt Wallet: </li>
+          {role && <li>Set Exempt Wallet: </li>}
           <li>Token contract address: <span><Typography
             as="a"
             color="black"

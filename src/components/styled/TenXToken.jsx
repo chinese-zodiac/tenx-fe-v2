@@ -11,6 +11,10 @@ import { readContract } from '@wagmi/core';
 import TenXTokenV2Abi from '../../abi/TenXTokenV2.json';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { styled } from '@mui/system';
+import DOMPurify from 'dompurify';
+import { keccak256, toBytes } from 'viem';
+import { ADDRESS_TENXLAUNCHVIEWV2 } from '../../constants/addresses';
+import TenXLaunchViewV2Abi from '../../abi/TenXLaunchViewV2.json';
 const StarCheckbox = styled(Checkbox)(({ theme }) => ({
   color: '#e16b31',
   '&:checked': {
@@ -43,6 +47,7 @@ const BlueIconButton = styled(IconButton)(({ theme }) => ({
     color: '#1565c0', // Darker blue color on hover
   },
 }));
+
 export default function TenXToken({
   tokenAddress,
   czusdPair,
@@ -63,7 +68,10 @@ export default function TenXToken({
   const { chain } = useNetwork();
   const [content, setContent] = useState('Loading...');
   const [holdings, setHoldings] = useState('Loading...');
+  const [role, setRole] = useState(false);
   const [checked, setChecked] = useState(false);
+  const [price, setPrice] = useState('Loading...');
+  const [marketCap, setMarketCap] = useState('Loading...');
 
   useEffect(() => {
     const storedPinnedState = localStorage.getItem(`pinned-${tokenAddress}`);
@@ -89,7 +97,8 @@ export default function TenXToken({
       try {
         const response = await fetch(ipfsLink);
         const text = await response.text(); // Convert the response to text
-        const lines = text.split('\n').slice(0, 3).join('\n');
+        const sanitizedText = DOMPurify.sanitize(text); // Sanitize the content
+        const lines = sanitizedText.split('\n').slice(0, 3).join('\n');
         setContent(lines); // Update state with the fetched content
       } catch (error) {
         console.error('Error fetching file from IPFS:', error);
@@ -98,7 +107,7 @@ export default function TenXToken({
     };
 
     fetchFileContent(descriptionMarkdownCID); // Call the async function
-  }, [descriptionMarkdownCID]);
+  }, [tokenAddress]);
 
   useEffect(() => {
     const getHoldings = async () => {
@@ -115,14 +124,52 @@ export default function TenXToken({
         setContent('No data found');
       }
     };
-
+    const getRole = async () => {
+      try {
+        const result = address ? await readContract({
+          address: tokenAddress,
+          abi: TenXTokenV2Abi,
+          functionName: 'hasRole',
+          args: [keccak256(toBytes('MANAGER_ROLE')), address]
+        }) : false;
+        setRole(result);
+      } catch (error) {
+        console.error('Error fetching Holdings:', error);
+        setRole(false);
+      }
+    };
+    const getLpDetails = async () => {
+      try {
+        const result = await readContract({
+          address: ADDRESS_TENXLAUNCHVIEWV2,
+          abi: TenXLaunchViewV2Abi,
+          functionName: 'getTenXTokenLpData',
+          args: [tokenAddress],
+        });
+        // setInitialGrant((parseInt(result[0]) / 10 ** 18).toString());
+        // setTotalSupply((parseInt(result[1]) / 10 ** 18).toString());
+        setPrice((parseInt(result[4]) / 10 ** 18).toString());
+        setMarketCap((parseInt(result[4]) / 10 ** 18).toString());
+        // setTotalLpValue((parseInt(result[6]) / 10 ** 18).toString());
+      } catch (error) {
+        console.error('Error fetching Holdings:', error);
+        setContent('Not found');
+      }
+    };
+    getLpDetails()
+    getRole();
     getHoldings(); // Call the async function
   }, [tokenAddress, address]);
 
 
   const getAge = (birthDate) => {
-
+    const birthDay = dayjs(birthDate);
+    // Current date and time
     const now = dayjs();
+    // Check if birthDate is in the future
+    if (birthDay.isAfter(now)) {
+      return 'Yet to be launched';
+    }
     const days = now.diff(birthDate, 'days');
     const hours = now.diff(birthDate, 'hours') % 24;
     const minutes = now.diff(birthDate, 'minutes') % 60;
@@ -154,15 +201,10 @@ export default function TenXToken({
           zIndex: -1,
         }}
       />
-      <StarCheckbox
-        icon={<StarIcon />}
-        checkedIcon={<StarIcon />}
-        checked={checked}
-        onChange={handleChange}
-      />
+
       <Box
         as="img"
-        src={tokenLogoCID}
+        src={DOMPurify.sanitize(tokenLogoCID)}
         sx={{
           width: '5em',
           heigh: '5em',
@@ -250,14 +292,20 @@ export default function TenXToken({
           />
         </Box>
       </Box>
-      <BlueIconButton
+      <StarCheckbox
+        icon={<StarIcon />}
+        checkedIcon={<StarIcon />}
+        checked={checked}
+        onChange={handleChange}
+      />
+      {role && <BlueIconButton
         component="a"
-        href={'#'}
+        href={`/product/${tokenIndex}/${chain.id}`}
         target="_blank"
         rel="noopener noreferrer"
       >
         <SettingsIcon />
-      </BlueIconButton>
+      </BlueIconButton>}
       <Typography>
         <ul className="homelist">
           <li> Buy Fee/Burn: <span>{(buyTax / 100).toFixed(2)}% /{' '}
@@ -266,8 +314,10 @@ export default function TenXToken({
           <li>Sell Fee/Burn: <span>{(sellTax / 100).toFixed(2)}% /{' '}
             {(sellBurn / 100).toFixed(2)}%</span>
           </li>
-
+          <li>Market capitalization: <span>{marketCap}</span></li>
+          <li>Price in CUSD: <span>{price}</span></li>
           <li>Age: <span>{getAge(launchTimestamp)}</span></li>
+          <li>Launch Time: <span>{dayjs(launchTimestamp).format('YYYY-MM-DD HH:mm:ss')}</span></li>
           <li>Your holdings: <span>{holdings}</span></li>
           <li> Description: <span>{content}</span></li>
         </ul>

@@ -13,7 +13,7 @@ export function useTenXTokenMulti(start, count) {
     )
   );
 
-  console.log({ tenXTokenArray });
+  // console.log({ tenXTokenArray });
   return { tenXTokenArray };
 }
 

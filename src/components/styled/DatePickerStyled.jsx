@@ -15,6 +15,7 @@ export default function DateTimePickerStyled({
     <div style={{ position: 'relative', width: 'fit-content' }}>
       <DateTimePicker className='datetime-box'
         label={label}
+        value={text}
         sx={{
           '&.MuiFormControl-root': {
             backgroundColor: 'transparent',
