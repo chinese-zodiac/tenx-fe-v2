@@ -184,8 +184,7 @@ export default function TenXToken({
         fontSize: '0.89em',
         position: 'relative',
         borderRadius: '1.5em',
-        border:
-          !!address && taxReceiver == address ? 'solid 3px #ef915b' : 'none',
+        border:'none',
       }}
     >
       <Box
@@ -300,7 +299,7 @@ export default function TenXToken({
       />
       {role && <BlueIconButton
         component="a"
-        href={`/product/${tokenIndex}/${chain.id}`}
+        href={`/settings/${tokenIndex}`}
         target="_blank"
         rel="noopener noreferrer"
       >

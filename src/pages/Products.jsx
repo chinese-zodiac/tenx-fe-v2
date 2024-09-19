@@ -15,7 +15,6 @@ import { parseAbiItem } from 'viem'
 import { ADDRESS_TENXLAUNCHVIEWV2 } from '../constants/addresses';
 import TenXLaunchViewV2Abi from '../abi/TenXLaunchViewV2.json';
 import DOMPurify from 'dompurify';
-import EditModal from '../components/elements/EditModal';
 const Products = () => {
   const { index, chainId } = useParams();
 
@@ -36,9 +35,6 @@ const Products = () => {
   const [manager, setManager] = useState('Loading...');
   const [exempt, setExempt] = useState('Loading...');
   const [role, setRole] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpen = () => setIsModalOpen(prev => !prev);
 
   const config = getConfig();
 
@@ -222,45 +218,26 @@ const Products = () => {
           <li>About the token: <span className='discriptionbox'> {content} </span></li>
           <li> Name: <span>{details.tenXToken.name}</span></li>
           <li>Symbol: <span>{details.tenXToken.symbol}</span></li>
-          <li>Image CID: <span>{details.tenXToken.tokenLogoCID.split('/')[4]} </span> 
-          {/* <span
-            onClick={handleOpen}
-            style={{
-              color: 'blue',
-              textDecoration: 'underline',
-              cursor: 'pointer',
-              marginLeft: '8px',
-            }}
-          >
-            edit
-          </span> */}
-          </li>
-          {/* <EditModal
-            tokenAddress={details.tenXToken.tokenAddress}
-            label={'Image CID'}
-            fun={'MANAGER_setTokenLogoCID'}
-            previous={details.tenXToken.tokenLogoCID.split('/')[4]}
-            isModalOpen={isModalOpen}
-            setIsModalOpen={setIsModalOpen}
-          /> */}
+          <li>Image CID: <span>{details.tenXToken.tokenLogoCID.split('/')[4]} </span></li>
+
           <li>Price in CZUSD: <span>{price}</span></li>
           <li>Launch timestamp in epoch number: <span>{timestamp}</span></li>
           <li>Launch timestamp in local time: <span>{details.tenXToken.launchTimestamp.toString()}</span></li>
           <li>Connected wallet’s holdings: <span>{holdings}</span></li>
           <li>Total Supply: <span>{totalSupply}</span></li>
-          <li>Total LP Value in CZUSD:<span>{totalLpValue} edit</span></li>
+          <li>Total LP Value in CZUSD:<span>{totalLpValue} </span></li>
           <li>Market capitalization:<span>{marketCap}</span></li>
-          <li>Token Description CID: <span>{details.tenXToken.descriptionMarkdownCID.split('/')[4]} edit</span></li>
+          <li>Token Description CID: <span>{details.tenXToken.descriptionMarkdownCID.split('/')[4]} </span></li>
           <li>Total Buy/Sell Taxes: <span>{details.tenXToken.buyTax + details.tenXToken.sellTax}</span></li>
           <li>Buy Tax: <span>{details.tenXToken.buyTax} </span></li>
-          <li>Sell Tax: <span>{details.tenXToken.sellTax} edit</span></li>
-          <li>Buy Burn: <span>{details.tenXToken.buyBurn} edit </span></li>
-          <li>Sell Burn: <span>{details.tenXToken.sellBurn} edit </span></li>
-          <li>Buy LP Fee: <span>{details.tenXToken.buyLpFee} edit </span></li>
-          <li>Sell LP Fee: <span>{details.tenXToken.sellTax} edit </span></li>
-          <li>Balance Max: <span>{details.tenXToken.balanceMax} edit </span></li>
-          <li>Transaction Max:<span> {details.tenXToken.transactionSizeMax} edit</span></li>
-          <li>Is Connected Wallet Exempt <span>{exempt} edit</span></li>
+          <li>Sell Tax: <span>{details.tenXToken.sellTax} </span></li>
+          <li>Buy Burn: <span>{details.tenXToken.buyBurn}  </span></li>
+          <li>Sell Burn: <span>{details.tenXToken.sellBurn}  </span></li>
+          <li>Buy LP Fee: <span>{details.tenXToken.buyLpFee}  </span></li>
+          <li>Sell LP Fee: <span>{details.tenXToken.sellTax}  </span></li>
+          <li>Balance Max: <span>{details.tenXToken.balanceMax}  </span></li>
+          <li>Transaction Max:<span> {details.tenXToken.transactionSizeMax} </span></li>
+          <li>Is Connected Wallet Exempt <span>{exempt} </span></li>
           {role && <li>Set Exempt Wallet: </li>}
           <li>Token contract address: <span><Typography
             as="a"
@@ -285,7 +262,7 @@ const Products = () => {
             href={chain?.blockExplorers?.default?.url + '/address/' + details.tenXToken.taxReceiver}
           >
             {details.tenXToken.taxReceiver}
-          </Typography> edit</span></li>
+          </Typography> </span></li>
           <li>TenX Setting address: <span><Typography
             as="a"
             color="black"
@@ -306,7 +283,6 @@ const Products = () => {
                 href={czCashBuyLink('BNB', details.tenXToken.tokenAddress)}
                 sx={{
                   width: '100%',
-                  marginTop: '0em',
                   fontSize: '1.5em',
                   padding: 0,
                   position: 'relative',

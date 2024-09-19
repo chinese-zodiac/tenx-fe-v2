@@ -82,6 +82,7 @@
         "type": "uint64"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
@@ -665,6 +666,7 @@
         "type": "address"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "ADMIN_setAmmCzusdPair"
@@ -677,12 +679,14 @@
         "type": "address"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "ADMIN_setTenXSettings"
   },
   {
     "inputs": [],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "ADMIN_zap"
@@ -747,6 +751,7 @@
         "type": "string"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "MANAGER_setDescriptionMarkdownCID"
@@ -764,6 +769,7 @@
         "type": "bool"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "MANAGER_setIsExempt"
@@ -781,6 +787,7 @@
         "type": "uint256"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "MANAGER_setMaxes"
@@ -793,6 +800,7 @@
         "type": "address"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "MANAGER_setTaxReceiver"
@@ -830,6 +838,7 @@
         "type": "uint16"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "MANAGER_setTaxes"
@@ -842,6 +851,7 @@
         "type": "string"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "MANAGER_setTokenLogoCID"
@@ -896,6 +906,7 @@
         "type": "uint256"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "approve",
@@ -947,6 +958,7 @@
         "type": "uint256"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "burn"
@@ -964,6 +976,7 @@
         "type": "uint256"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "burnFrom"
@@ -1151,6 +1164,7 @@
         "type": "address"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "grantRole"
@@ -1281,6 +1295,7 @@
         "type": "bytes32"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "permit"
@@ -1298,6 +1313,7 @@
         "type": "address"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "renounceRole"
@@ -1315,6 +1331,7 @@
         "type": "address"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "revokeRole"
@@ -1468,6 +1485,7 @@
         "type": "uint256"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "transfer",
@@ -1497,6 +1515,7 @@
         "type": "uint256"
       }
     ],
+    "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function",
     "name": "transferFrom",

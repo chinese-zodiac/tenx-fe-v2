@@ -4,35 +4,28 @@ import {
   Typography,
   Box,
   Stack,
-  TextField,
-  Slider,
   keyframes,
   useTheme,
 } from '@mui/material';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
-import { ADDRESS_TENXLAUNCHV2, ADDRESS_ZERO } from '../constants/addresses';
+import { ADDRESS_TENXLAUNCHV2 } from '../constants/addresses';
 import { parseEther } from 'viem';
 import TenXLaunchV2Abi from '../abi/TenXLaunchV2.json';
 import DialogTransaction from '../components/styled/DialogTransaction';
-import TenXToken from '../components/styled/TenXToken';
-import useTenXToken from '../hooks/useTenXToken';
 import SliderPercentagePicker from '../components/styled/SliderPercentagePicker';
 import TextFieldStyled from '../components/styled/TextFieldStyled';
 import TenXTokenList from '../components/elements/TenXTokenList';
 import ReactGA from 'react-ga4';
 import DatePickerStyled from '../components/styled/DatePickerStyled';
-import { getUnixTime, fromUnixTime } from 'date-fns';
+import { getUnixTime } from 'date-fns';
 import dayjs from 'dayjs';
 import Header from '../components/elements/Header';
 import { Container } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import {
-  LINK_DISCORD,
   LINK_PRIVACY_POLICY,
-  LINK_TELEGRAM,
   LINK_TERMS_OF_USE,
-  LINK_TWITTER,
 } from '../constants/links';
 
 
