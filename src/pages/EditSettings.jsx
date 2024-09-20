@@ -10,7 +10,10 @@ import Header from '../components/elements/Header';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
 import { prepareWriteContract, writeContract } from '@wagmi/core'
+import { waitForTransaction } from 'wagmi/actions'
 import TenXTokenV2Abi from '../abi/TenXTokenV2.json'
+import ChangeArea from '../components/elements/ChangeArea';
+import { CircularProgress } from '@mui/material';
 const EditSettings = () => {
     const { index } = useParams();
     const { address } = useAccount();
@@ -47,16 +50,14 @@ const EditSettings = () => {
 
     const [tokenLogoCID, setTokenLogoCID] = useState(details.tenXToken.tokenLogoCID.split('/')[4]);
 
+    const [loading, setLoading] = useState(null);
+
     const [completion, setCompletion] = useState(null);
 
     const onEdit = async () => {
         try {
             if (selectedValue == '0') {
-                console.log({ selectedValue, descriptionMarkdownCID });
-                console.log({address: details.tenXToken.tokenAddress,
-                    abi: TenXTokenV2Abi,
-                    functionName: 'MANAGER_setDescriptionMarkdownCID',
-                    args: [descriptionMarkdownCID],})
+                // console.log({ selectedValue, descriptionMarkdownCID });
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -65,12 +66,14 @@ const EditSettings = () => {
                     args: [descriptionMarkdownCID]
                 })
 
-                const { hash } = await writeContract(config)
-                console.log(hash);
-                setCompletion(hash);
+                const { hash } = await writeContract(config);
+                setLoading(true);
+                const receipt = await waitForTransaction({ hash });
+                setCompletion(receipt);
+                setLoading(false);
             }
             else if (selectedValue == '1') {
-                console.log({ exemptee, exempt:exempt == 1 })
+                // console.log({ exemptee, exempt:exempt == 1 });
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -79,15 +82,14 @@ const EditSettings = () => {
                     args: [exemptee, exempt == 1],
                 })
 
-                console.log({config})
-
-                const { hash } = await writeContract(config)
-                console.log(hash);
-                setCompletion(hash);
-
+                const { hash } = await writeContract(config);
+                setLoading(true);
+                const receipt = await waitForTransaction({ hash });
+                setCompletion(receipt);
+                setLoading(false);
             }
             else if (selectedValue == '2') {
-                console.log({ selectedValue, balanceMax, transactionSizeMax, });
+                // console.log({ selectedValue, balanceMax, transactionSizeMax, });
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -96,15 +98,14 @@ const EditSettings = () => {
                     args: [balanceMax, transactionSizeMax],
                 })
 
-                console.log({config})
-
-                const { hash } = await writeContract(config)
-                console.log(hash);
-                setCompletion(hash);
-
+                const { hash } = await writeContract(config);
+                setLoading(true);
+                const receipt = await waitForTransaction({ hash });
+                setCompletion(receipt);
+                setLoading(false);
             }
             else if (selectedValue == '3') {
-                console.log({ selectedValue, taxReceiver })
+                // console.log({ selectedValue, taxReceiver });
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -113,15 +114,14 @@ const EditSettings = () => {
                     args: [taxReceiver],
                 })
 
-                console.log({config})
-
-                const { hash } = await writeContract(config)
-                console.log(hash);
-                setCompletion(hash);
-
+                const { hash } = await writeContract(config);
+                setLoading(true);
+                const receipt = await waitForTransaction({ hash });
+                setCompletion(receipt);
+                setLoading(false);
             }
             else if (selectedValue == '4') {
-                console.log({ selectedValue, buyTax, buyBurn, buyLpFee, sellTax, sellBurn, sellLpFee })
+                // console.log({ selectedValue, buyTax, buyBurn, buyLpFee, sellTax, sellBurn, sellLpFee });
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -130,15 +130,14 @@ const EditSettings = () => {
                     args: [buyTax, buyBurn, buyLpFee, sellTax, sellBurn, sellLpFee],
                 })
 
-                console.log({config})
-
-                const { hash } = await writeContract(config)
-                console.log(hash);
-                setCompletion(hash);
-
+                const { hash } = await writeContract(config);
+                setLoading(true);
+                const receipt = await waitForTransaction({ hash });
+                setCompletion(receipt);
+                setLoading(false);
             }
             else if (selectedValue == '5') {
-                console.log({ selectedValue, tokenLogoCID })
+                // console.log({ selectedValue, tokenLogoCID });
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -147,15 +146,14 @@ const EditSettings = () => {
                     args: [tokenLogoCID],
                 })
 
-                console.log({config})
-
-                const { hash } = await writeContract(config)
-                console.log(hash);
-                setCompletion(hash);
-
+                const { hash } = await writeContract(config);
+                setLoading(true);
+                const receipt = await waitForTransaction({ hash });
+                setCompletion(receipt);
+                setLoading(false);
             }
             else {
-                console.log("Wrong Choice")
+                console.log("Wrong Choice");
             }
         } catch (error) {
             console.error("Error in writing contract:", error);
@@ -363,6 +361,22 @@ const EditSettings = () => {
                     Apply Changes
                 </ButtonPrimary>
             </Stack>
+            {/* Show loading spinner if transaction is in progress */}
+            {loading && (
+                <Stack
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{
+                        minHeight: '200px', // Ensure the spinner section has height
+                    }}
+                >
+                    <CircularProgress size={50} thickness={4} />
+                    <Typography sx={{ marginTop: 2 }}>Processing transaction...</Typography>
+                </Stack>
+            )}
+
+            {/* Show transaction details once completion is true */}
+            {completion && <ChangeArea transactionHash={completion.transactionHash} status={completion.status} token={completion.to} index={index} chainId={chain.id} blockExplorer={chain?.blockExplorers?.default?.url} />}
             <FooterArea />
         </Stack>
     );
