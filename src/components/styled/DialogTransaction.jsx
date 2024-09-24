@@ -7,6 +7,10 @@ import { useContractWrite, usePrepareContractWrite } from 'wagmi';
 import DialogConfirm from './DialogConfirm';
 import ReactGA from 'react-ga4';
 import { useNetwork } from 'wagmi';
+import { parseEther } from 'viem';
+import { readContract } from '@wagmi/core';
+import { ADDRESS_TENXBLACKLISTV2 } from '../../constants/addresses';
+import TenXBlacklistV2Abi from '../../abi/TenXBlacklistV2.json';
 
 export default function DialogTransaction({
   btn,
@@ -20,6 +24,7 @@ export default function DialogTransaction({
   onSuccess,
   value,
   gas,
+  toast,
 }) {
   const [open, setOpen] = React.useState(false);
   const [openTxStatus, setOpenTxStatus] = React.useState(false);
@@ -39,9 +44,102 @@ export default function DialogTransaction({
   });
   const { data, error, isError, isLoading, isSuccess, writeAsync } = useContractWrite({ ...config, onSuccess });
 
+
   const txHash = data?.hash ?? '';
 
-  const handleClickOpen = () => {
+  const handleClickOpen = async () => {
+    if (debouncedArgs[1] === 'Profane' || debouncedArgs[1] === 'profane') {
+      toast.error('Profane words may cause your account or token to be blacklisted.');
+      return;
+    } 
+    else if (debouncedArgs[2] === 'Profane' || debouncedArgs[2] === 'profane') {
+      toast.error('Profane words may cause your account or token to be blacklisted.');
+      return;
+    } 
+    else if (debouncedArgs[1].length <3) {
+      toast.error('Name should have atleast 3 characters');
+      return;
+    } 
+    else if (debouncedArgs[1].length <1) {
+      toast.error('Name should have atleast 1 character');
+      return;
+    } 
+    else if (debouncedArgs[0] <= parseEther('5000')) {
+      toast.error('CZUSD LP Grant must be greater than 5000.');
+      return;
+    } 
+    else if (debouncedArgs[0] > parseEther('10000')) {
+      toast.error('CZUSD LP Grant must be less than 10000.');
+      return;
+    } 
+    else if (debouncedArgs[5] > debouncedArgs[0] ) {
+      toast.error('Max Balance For Accounts must be lesser than CZUSD LP Grant.');
+      return;
+    } 
+    else if (debouncedArgs[6] > debouncedArgs[0]) {
+      toast.error('Max Transaction Size must be lesser than CZUSD LP Grant.');
+      return;
+    } 
+    else if (debouncedArgs[5] < debouncedArgs[0] / BigInt(100)) {
+      toast.error('Max Balance For Accounts must be lesser than CZUSD LP Grant.');
+      return;
+    } 
+    else if (debouncedArgs[6] < debouncedArgs[0] / BigInt(100)) {
+      toast.error('Max Transaction Size must be lesser than CZUSD LP Grant.');
+      return;
+    }
+    try {
+      const result = await readContract({
+        address: ADDRESS_TENXBLACKLISTV2,
+        abi: TenXBlacklistV2Abi,
+        functionName: 'isAccountBlacklisted',
+        args: [debouncedArgs[7]],
+      });
+  
+      if (result) {
+        toast.error('The address is blacklisted.');
+        return;
+      }
+    } catch (err) {
+      toast.error('Invalid fee receiver address.');
+      return;
+    }
+  
+    if (debouncedArgs[14] != 0 && debouncedArgs[14] < Math.floor(Date.now() / 1000) + (30 * 60)) {
+      toast.error('Invalid launch time as it must be at least 30 minutes in the future.');
+      return;
+    }
+  
+    if (debouncedArgs[3]) {
+      try {
+        const response = await fetch(`https://ipfs.io/ipfs/${debouncedArgs[3]}`);
+        const contentType = response.headers.get('content-type');
+        
+        
+        if (!contentType || !contentType.startsWith('image/')) {
+          toast.error('The CID does not point to a valid image for logo.');
+          return;
+        }
+      } catch (err) {
+        toast.error('Invalid IPFS CID for image.');
+        return;
+      }
+    }
+  
+    if (debouncedArgs[4]) {
+      try {
+        const response = await fetch(`https://ipfs.io/ipfs/${debouncedArgs[4]}`);
+        const contentType = response.headers.get('content-type');
+        console.log({contentType})
+        if (!contentType || !contentType.startsWith('text/')) {
+          toast.error('The CID does not point to a valid text file for description.');
+          return;
+        }
+      } catch (err) {
+        toast.error('Invalid IPFS CID for description.');
+        return;
+      }
+    }
     ReactGA.event({
       category: 'tenx_action',
       action: 'open_tx_dialog_' + title,
@@ -159,7 +257,7 @@ export default function DialogTransaction({
                 as="a"
                 color="black"
                 target="_blank"
-                href={chain?.blockExplorers?.default?.url+'/tx/' + txHash}
+                href={chain?.blockExplorers?.default?.url + '/tx/' + txHash}
               >
                 {txHash.slice(0, 5) + '...' + txHash.slice(-3)}
               </Typography>

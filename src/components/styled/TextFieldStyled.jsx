@@ -57,7 +57,7 @@ export default function TextFieldStyled({
       }}
       value={text}
       onChange={(event) => {
-        const newText = event.target.value.substr(0, maxChar);
+        const newText = event.target.value.slice(0, maxChar);
         setText(newText);
       }}
       InputProps={

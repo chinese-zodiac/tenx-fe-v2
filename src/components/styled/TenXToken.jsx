@@ -184,7 +184,7 @@ export default function TenXToken({
         fontSize: '0.89em',
         position: 'relative',
         borderRadius: '1.5em',
-        border:'none',
+        border: 'none',
       }}
     >
       <Box
@@ -201,9 +201,9 @@ export default function TenXToken({
         }}
       />
 
-      <Box
+      DOMPurify.sanitize(<Box
         as="img"
-        src={DOMPurify.sanitize(tokenLogoCID)}
+        src={tokenLogoCID}
         sx={{
           width: '5em',
           heigh: '5em',
@@ -218,7 +218,7 @@ export default function TenXToken({
             backgroundColor: 'grey',
           },
         }}
-      />
+      />)
       <Box
         direction="row"
         spacing={1}
@@ -231,7 +231,7 @@ export default function TenXToken({
       >
         <Typography
           sx={{ lineHeight: '1.81em', fontSize: '2em' }}
-        ><span>{`${name?.substr(0, 8)} (${symbol?.substr(0, 4)})`}</span></Typography>
+        ><span>{`${name?.slice(0, 8)} (${symbol?.slice(0, 4)})`}</span></Typography>
         <Box
           as="a"
           target="_blank"
@@ -291,7 +291,7 @@ export default function TenXToken({
           />
         </Box>
       </Box>
-       {role && <BlueIconButton
+      {role && <BlueIconButton
         component="a"
         href={`/settings/${tokenIndex}`}
         target="_blank"
@@ -305,7 +305,7 @@ export default function TenXToken({
         checked={checked}
         onChange={handleChange}
       />
-     
+
       <Typography>
         <ul className="homelist">
           <li> Buy Fee/Burn: <span>{(buyTax / 100).toFixed(2)}% /{' '}
@@ -347,7 +347,7 @@ export default function TenXToken({
           },
         }}
       >
-        BUY {symbol?.substr(0, 7)}
+        BUY {symbol?.slice(0, 7)}
       </ButtonPrimary>
       <ButtonPrimary
         as="a"

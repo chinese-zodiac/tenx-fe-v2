@@ -15,6 +15,8 @@ import TenXTokenV2Abi from '../abi/TenXTokenV2.json'
 import ChangeArea from '../components/elements/ChangeArea';
 import { CircularProgress } from '@mui/material';
 import { Typography } from '@mui/material';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditSettings = () => {
     const { index } = useParams();
@@ -60,6 +62,24 @@ const EditSettings = () => {
         try {
             if (selectedValue == '0') {
                 // console.log({ selectedValue, descriptionMarkdownCID });
+                if (!descriptionMarkdownCID) {
+                    toast.error('Please enter an Ipfs Link');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`https://ipfs.io/ipfs/${descriptionMarkdownCID}`);
+                    const contentType = response.headers.get('content-type');
+                    console.log({ contentType })
+                    if (!contentType || !contentType.startsWith('text/')) {
+                        toast.error('The CID does not point to a valid text file for description.');
+                        return;
+                    }
+                } catch (err) {
+                    toast.error('Invalid IPFS CID for description.');
+                    return;
+                }
+
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -76,6 +96,11 @@ const EditSettings = () => {
             }
             else if (selectedValue == '1') {
                 // console.log({ exemptee, exempt:exempt == 1 });
+
+                if (!exemptee || !/^0x[a-fA-F0-9]{40}$/.test(exemptee.trim())) {
+                    toast.error('Please enter a valid wallet address');
+                    return;
+                }
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -109,6 +134,11 @@ const EditSettings = () => {
             else if (selectedValue == '3') {
                 // console.log({ selectedValue, taxReceiver });
 
+                if (!taxReceiver || !/^0x[a-fA-F0-9]{40}$/.test(taxReceiver.trim())) {
+                    toast.error('Please enter a valid wallet address');
+                    return;
+                }
+
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
                     abi: TenXTokenV2Abi,
@@ -140,6 +170,24 @@ const EditSettings = () => {
             }
             else if (selectedValue == '5') {
                 // console.log({ selectedValue, tokenLogoCID });
+                if (!tokenLogoCID) {
+                    toast.error('Please enter an Ipfs Link');
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`https://ipfs.io/ipfs/${tokenLogoCID}`);
+                    const contentType = response.headers.get('content-type');
+
+
+                    if (!contentType || !contentType.startsWith('image/')) {
+                        toast.error('The CID does not point to a valid image for logo.');
+                        return;
+                    }
+                } catch (err) {
+                    toast.error('Invalid IPFS CID for image.');
+                    return;
+                }
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -203,7 +251,7 @@ const EditSettings = () => {
                         />
                     }
                     {selectedValue == '1' && <>
-                        <TextFieldStyled 
+                        <TextFieldStyled
                             text={exemptee}
                             setText={setExemptee}
                             maxChar={42}
@@ -376,7 +424,7 @@ const EditSettings = () => {
                     <Typography sx={{ marginTop: 2 }}>Processing transaction...</Typography>
                 </Stack>
             )}
-
+            <ToastContainer />
             {/* Show transaction details once completion is true */}
             {completion && <ChangeArea transactionHash={completion.transactionHash} status={completion.status} token={completion.to} index={index} chainId={chain.id} blockExplorer={chain?.blockExplorers?.default?.url} />}
             <FooterArea />

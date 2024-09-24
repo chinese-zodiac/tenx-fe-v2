@@ -7,7 +7,7 @@ export default function ButtonPrimary(props) {
       variant="contained"
       target="_blank"
       rel="noreferrer"
-      disableElevation
+      disableElevation={true}
       {...props}
     >
       {props?.children}

@@ -12,7 +12,7 @@ import { czCashBuyLink } from '../utils/czcashLink';
 import { Typography, Button, Snackbar, Alert } from '@mui/material';
 import ConnectWallet from '../components/elements/ConnectWallet';
 import { parseAbiItem } from 'viem'
-import { ADDRESS_TENXLAUNCHVIEWV2 } from '../constants/addresses';
+import { ADDRESS_TENXLAUNCHVIEWV2, ADDRESS_TENXSETTINGSV2 } from '../constants/addresses';
 import TenXLaunchViewV2Abi from '../abi/TenXLaunchViewV2.json';
 import DOMPurify from 'dompurify';
 const Products = () => {
@@ -72,7 +72,6 @@ const Products = () => {
       try {
         const response = await fetch(ipfsLink);
         const text = await response.text();
-        console.log({ text })
         const sanitizedText = DOMPurify.sanitize(text);
         setContent(sanitizedText);
       } catch (error) {
@@ -204,9 +203,9 @@ const Products = () => {
               </Alert>
             </Snackbar>
           </li>
-          <Box
+          DOMPurify.sanitize(<Box
             as="img"
-            src={DOMPurify.sanitize(details.tenXToken.tokenLogoCID)}
+            src={details.tenXToken.tokenLogoCID}
             sx={{
               width: '5em',
               heigh: '5em',
@@ -214,7 +213,7 @@ const Products = () => {
               border: 'solid 0.15em white',
               borderRadius: '5em',
             }}
-          /><br /><br />
+          />)<br /><br />
           <li>About the token: <span className='discriptionbox'> {content} </span></li>
           <li> Name: <span>{details.tenXToken.name}</span></li>
           <li>Symbol: <span>{details.tenXToken.symbol}</span></li>
@@ -267,9 +266,9 @@ const Products = () => {
             as="a"
             color="black"
             target="_blank"
-            href={chain?.blockExplorers?.default?.url + '/address/' + '0xd28c22d8194a33c90d98bCFe331EbfEe9d4fC1C9'}
+            href={chain?.blockExplorers?.default?.url + '/address/' + ADDRESS_TENXSETTINGSV2}
           >
-            0xd28c22d8194a33c90d98bCFe331EbfEe9d4fC1C9
+            {ADDRESS_TENXSETTINGSV2}
           </Typography></span></li>
           <li>Total taxes in tokens/usd: <span>event TenXToken.TaxesCollected</span></li>
           <li>Total burn in tokens/usd: <span>event TenXToken.TaxesCollected</span></li>
@@ -301,7 +300,7 @@ const Products = () => {
                   },
                 }}
               >
-                BUY {details.tenXToken.symbol?.substr(0, 7)}
+                BUY {details.tenXToken.symbol?.slice(0, 7)}
 
               </ButtonPrimary>
               :

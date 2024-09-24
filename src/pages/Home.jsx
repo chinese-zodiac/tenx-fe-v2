@@ -27,7 +27,8 @@ import {
   LINK_PRIVACY_POLICY,
   LINK_TERMS_OF_USE,
 } from '../constants/links';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
   const { chain } = useNetwork();
@@ -210,8 +211,9 @@ export default function Home() {
             sellTax, //sellTax
             sellBurn, //sellburn
             sellLpFee, //sellLpFee
-            getUnixTime(launchTimestamp.$d) //launchTimestamp
+            launchTimestamp ==0 ? 0 : getUnixTime(launchTimestamp.$d) //launchTimestamp
           ]}
+          toast = {toast}
           btn={
             <ButtonPrimary
               onClick={() => {
@@ -298,13 +300,13 @@ export default function Home() {
             <ul className="homelist">
               <li>Name: <span>{name}</span></li>
               <li>Symbol: <span>{symbol}</span></li>
-              <li> Liquidity:<span> $10,000 </span></li>
+              <li>Liquidity:<span> $10,000 </span></li>
               <li>Supply: <span>5,000 {symbol}</span></li>
               <li>Buy Fee: <span>{(buyTax / 100).toFixed(2)}%</span></li>
               <li>Buy Burn: <span>{(buyBurn / 100).toFixed(2)}%</span></li>
               <li>Sell Fee: <span>{(sellTax / 100).toFixed(2)}%</span></li>
               <li>Sell Burn: <span>{(sellBurn / 100).toFixed(2)}%</span></li>
-              <li>Tax Receiver: <span>{address.substring(0, 8)}...{address.substring(36)}</span></li>
+              <li>Tax Receiver: <span>{address.slice(0, 8)}...{address.slice(36)}</span></li>
             </ul>
 
           </Typography>
@@ -315,10 +317,9 @@ export default function Home() {
             ReactGA.event({
               category: 'tenx_action',
               action: 'click_createnow_btn_1_not_connected',
-              label:
-                'Click on "create now btn 1" on tenx.cz.cash when not connected', // optional
+              label: 'Click on "create now btn 1" on tenx.cz.cash when not connected',
             });
-            alert('Connect your BSC (BNB Smart Chain) Wallet first.');
+            toast.error('Connect your BSC (BNB Smart Chain) Wallet first.');
           }}
           sx={{
             width: '9em',
@@ -336,14 +337,13 @@ export default function Home() {
             },
           }}
         >
-          CREATE NOW 🚀
+          CREATE NOW <Box as="span">🚀</Box>
         </ButtonPrimary>
       )}
-
+      <ToastContainer />
 
       {address &&
         <>
-
           <Stack
             direction="row"
             spacing={1}
@@ -357,10 +357,8 @@ export default function Home() {
 
             <TenXTokenList className="productbox" start={0} />
           </Stack>
-
         </>
       }
-
       <>
         <Container className="contentbox">
           <Grid2

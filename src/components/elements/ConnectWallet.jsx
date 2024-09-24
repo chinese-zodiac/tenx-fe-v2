@@ -65,7 +65,7 @@ export default function ConnectWallet(sx) {
                       border: 'solid 3px #e16b31',
                     }}
                   />
-                  0x...{address.substring(36)}
+                  {address.slice(0, 5)}...{address.slice(-3)}
                 </Button>
               </Tooltip>
             </>
