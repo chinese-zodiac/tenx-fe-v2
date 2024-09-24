@@ -10,7 +10,7 @@ const ChangeArea = ({ transactionHash, status, token, index, chainId, blockExplo
       justifyContent="center"
       alignItems="center"
     >
-      <Box
+      <Box id="Transactionbox"
         sx={{
           backgroundColor: 'white',
           color: 'black',
@@ -47,8 +47,8 @@ const ChangeArea = ({ transactionHash, status, token, index, chainId, blockExplo
         href={`/product/${index}/${chainId}`}
         sx={{
           width: '50%',
-          fontSize: '1.5em',
-          padding: 0,
+          fontSize: '1.3em',
+          padding: '10px',
           position: 'relative',
           fontWeight: 'bold',
           textTransform: 'none',

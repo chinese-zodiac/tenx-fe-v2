@@ -14,6 +14,8 @@ import { waitForTransaction } from 'wagmi/actions'
 import TenXTokenV2Abi from '../abi/TenXTokenV2.json'
 import ChangeArea from '../components/elements/ChangeArea';
 import { CircularProgress } from '@mui/material';
+import { Typography } from '@mui/material';
+
 const EditSettings = () => {
     const { index } = useParams();
     const { address } = useAccount();
@@ -166,7 +168,7 @@ const EditSettings = () => {
             minHeight="100vh"
         >
             <Header />
-            <Stack
+            <Stack id='selectbox'
                 direction="column"
                 flexGrow={1}
                 flexWrap="wrap"
@@ -182,7 +184,7 @@ const EditSettings = () => {
                     labels={['Description CID', 'Fee Exemption', 'Maxes', 'Tax Reciever', 'Taxes', 'Logo CID']}
                     helpMsg={'Which detail is to be edited'}
                 />
-                <Stack
+                <Stack id="editmainbox"
                     direction="row"
                     flexWrap="wrap"
                     justifyContent="center"
@@ -201,7 +203,7 @@ const EditSettings = () => {
                         />
                     }
                     {selectedValue == '1' && <>
-                        <TextFieldStyled
+                        <TextFieldStyled 
                             text={exemptee}
                             setText={setExemptee}
                             maxChar={42}
@@ -209,7 +211,7 @@ const EditSettings = () => {
                             label="Exempt fee"
                             helpMsg="Account that is exempt from fees"
                         />
-                        <RadioFieldStyled
+                        <RadioFieldStyled id="Exempted"
                             selectedValue={exempt}
                             setSelectedValue={setExempt}
                             title={'Exempted address'}

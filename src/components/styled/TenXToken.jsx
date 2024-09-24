@@ -291,13 +291,7 @@ export default function TenXToken({
           />
         </Box>
       </Box>
-      <StarCheckbox
-        icon={<StarIcon />}
-        checkedIcon={<StarIcon />}
-        checked={checked}
-        onChange={handleChange}
-      />
-      {role && <BlueIconButton
+       {role && <BlueIconButton
         component="a"
         href={`/settings/${tokenIndex}`}
         target="_blank"
@@ -305,6 +299,13 @@ export default function TenXToken({
       >
         <SettingsIcon />
       </BlueIconButton>}
+      <StarCheckbox
+        icon={<StarIcon />}
+        checkedIcon={<StarIcon />}
+        checked={checked}
+        onChange={handleChange}
+      />
+     
       <Typography>
         <ul className="homelist">
           <li> Buy Fee/Burn: <span>{(buyTax / 100).toFixed(2)}% /{' '}
