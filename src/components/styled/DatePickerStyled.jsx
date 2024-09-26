@@ -12,7 +12,8 @@ export default function DatePickerStyled({
 }) {
   // State for the checkbox
   const [isChecked, setIsChecked] = useState(false);
-
+  const minDate = dayjs().add(1, 'hour');
+  const maxDate = dayjs().add(90, 'days');
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
     setIsChecked(checked);
@@ -44,6 +45,8 @@ export default function DatePickerStyled({
             className='datetime-box'
             label={label}
             value={text}
+            minDateTime={minDate}
+            maxDateTime={maxDate}
             sx={{
               '&.MuiFormControl-root': {
                 backgroundColor: 'transparent',

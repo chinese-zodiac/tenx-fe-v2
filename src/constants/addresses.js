@@ -4,12 +4,9 @@ export const ADDRESS_DEAD = '0x000000000000000000000000000000000000dEaD';
 export const ADDRESS_CZUSD = '0xE68b79e51bf826534Ff37AA9CeE71a3842ee9c70';
 export const ADDRESS_WBNB = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
 
-export const ADDRESS_TENXLAUNCHV2 = '0xca611BdAeF106d508D5CceD0e387bbe7aB17566A';
-export const ADDRESS_TENXLAUNCHVIEWV2 = '0xf93dC391a6B59195aAF275B7DC53C46ecAaa1B36';
-export const ADDRESS_TENXSETTINGSV2 = '0xd28c22d8194a33c90d98bCFe331EbfEe9d4fC1C9';
-export const ADDRESS_TENXBLACKLISTV2= '0xf461DC79454cad65B0FBa4bf12219F0b484e3B35';
+export const ADDRESS_TENXLAUNCHV2 = '0xB959E7D27fe1A44A0315D5c134D2BbA3E0c1246f';
+export const ADDRESS_TENXLAUNCHVIEWV2 = '0x7dc2F4B81846Af198D5E8d94c6E013B98E9C6Cba';
+export const ADDRESS_TENXSETTINGSV2 = '0x1C6ca5e2B2a41aF0C4bF781D43D5A31AFaB4EdaF';
+export const ADDRESS_TENXBLACKLISTV2 = '0xf06AE5E56dB54004C0a166240A5c0CfcC6dfcd45';
 
-export const deployment_block ={
-    '97':'',
-    '56':''
-}
+export const badWords = ["damnword!", "helloworld", "jerkface!!", "pieceofsh", "thisisbs!", "shutfckup", "whatabch!", "yousuck!!", "fckawesome", "crappy!!1"]
