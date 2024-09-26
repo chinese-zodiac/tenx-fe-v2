@@ -35,6 +35,9 @@ const Products = () => {
   const [manager, setManager] = useState('Loading...');
   const [exempt, setExempt] = useState('Loading...');
   const [role, setRole] = useState(false);
+  const [totalTax, setTotalTax] = useState('Loading...');
+  const [totalBurn,setTotalBurn] = useState('Loading...');
+  const [totalLp, setTotalLp] = useState('Loading...');
 
   const config = getConfig();
 
@@ -120,6 +123,24 @@ const Products = () => {
       }
     };
 
+    const getTaxDetails = async () => {
+      try {
+        const result = await readContract({
+          address: ADDRESS_TENXLAUNCHVIEWV2,
+          abi: TenXLaunchViewV2Abi,
+          functionName: 'getTenXTokenFees',
+          args: [details.tenXToken.tokenAddress],
+          chainId: parseInt(chainId),
+        });
+        setTotalTax((parseInt(result[0]) / 10 ** 18).toString());
+        setTotalBurn((parseInt(result[1]) / 10 ** 18).toString());
+        setTotalLp((parseInt(result[2]) / 10 ** 18).toString());
+      } catch (error) {
+        console.error('Error fetching Holdings:', error);
+        setContent('Not found');
+      }
+    };
+
     const getTokenDetails = async () => {
       try {
         const result = await readContract({
@@ -166,6 +187,7 @@ const Products = () => {
     };
     getRole();
     getTokenDetails()
+    getTaxDetails();
     getLpDetails();
     getHoldings();
   }, [chain, details.tenXToken.tokenAddress]);
@@ -270,9 +292,9 @@ const Products = () => {
           >
             {ADDRESS_TENXSETTINGSV2}
           </Typography></span></li>
-          <li>Total taxes in tokens/usd: <span>event TenXToken.TaxesCollected</span></li>
-          <li>Total burn in tokens/usd: <span>event TenXToken.TaxesCollected</span></li>
-          <li>Total lp in tokens/usd: <span>event TenXToken.TaxesCollected</span></li>
+          <li>Total taxes in tokens/usd: <span>{totalTax}</span></li>
+          <li>Total burn in tokens/usd: <span>{totalBurn}</span></li>
+          <li>Total lp in tokens/usd: <span>{totalLp}</span></li>
           <li>Initial CZUSD grant: <span>{initialGrant}</span></li>
           <li className='detailspagebtn'>
             {chain ?

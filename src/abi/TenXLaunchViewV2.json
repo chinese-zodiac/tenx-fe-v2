@@ -204,6 +204,35 @@
         "type": "address"
       }
     ],
+    "name": "getTenXTokenFees",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "totalTaxWad_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalBurnWad_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalLpWad_",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "contract TenXTokenV2",
+        "name": "_token",
+        "type": "address"
+      }
+    ],
     "name": "getTenXTokenLpData",
     "outputs": [
       {

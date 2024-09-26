@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAccount, useBalance, useContractRead, useNetwork } from 'wagmi';
 import {
   Typography,
@@ -29,6 +29,7 @@ import {
 } from '../constants/links';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DOMPurify from 'dompurify';
 
 export default function Home() {
   const { chain } = useNetwork();
@@ -49,6 +50,23 @@ export default function Home() {
   const [buyLpFee, setBuyLpFee] = useState(0);
   const [sellLpFee, setSellLpFee] = useState(0);
   const [launchTimestamp, setLaunchTimestamp] = useState(dayjs());
+  const [content, setContent] = useState('Loading...');
+  useEffect(() => {
+    const fetchFileContent = async (ipfsLink) => {
+      try {
+        const response = await fetch('https://ipfs.io/ipfs/' + ipfsLink);
+        const text = await response.text();
+        const sanitizedText = DOMPurify.sanitize(text);
+        console.log({response})
+        setContent(sanitizedText);
+      } catch (error) {
+        console.error('Error fetching file from IPFS:', error);
+        setContent('No data found'); // Update state with error message
+      }
+    };
+
+    fetchFileContent(descriptionMarkdownCID); // Call the async function
+  }, [descriptionMarkdownCID]);
 
   // console.log({
   //   czusdWad:parseEther(czusdWad), 
@@ -174,6 +192,24 @@ export default function Home() {
           label="Product Logo(IPFS CID)"
           helpMsg="Shortened name for your new product. Up to 5 characters."
         />
+        {tokenLogoCID && <Box
+          as="img"
+          src={DOMPurify.sanitize('https://ipfs.io/ipfs/' + tokenLogoCID)}
+          sx={{
+            width: '5em',
+            heigh: '5em',
+            margin: 0,
+            marginLeft: '0.5em',
+            padding: 0,
+            backgroundColor: 'white',
+            border: 'solid 0.15em white',
+            borderRadius: '5em',
+            '&:hover': {
+              border: 'solid 0.15em grey',
+              backgroundColor: 'grey',
+            },
+          }}
+        />}
         <TextFieldStyled
           text={descriptionMarkdownCID}
           setText={setDescriptionMarkdownCID}
@@ -182,7 +218,7 @@ export default function Home() {
           label="Product Description IPFS CID(IPFS CID)"
           helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
         />
-        
+
         <DatePickerStyled class="datepicker"
           text={launchTimestamp}
           backgroundColor="#fff"
@@ -190,7 +226,11 @@ export default function Home() {
           label="Launch Time"
           helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
         />
-      
+        {descriptionMarkdownCID &&
+          <>Description content:-<br />
+            {content}</>
+        }
+
       </Stack>
       <br />
       {!!address ? (
@@ -214,9 +254,9 @@ export default function Home() {
             sellTax, //sellTax
             sellBurn, //sellburn
             sellLpFee, //sellLpFee
-            launchTimestamp ==0 ? 0 : getUnixTime(launchTimestamp.$d) //launchTimestamp
+            launchTimestamp == 0 ? 0 : getUnixTime(launchTimestamp.$d) //launchTimestamp
           ]}
-          toast = {toast}
+          toast={toast}
           btn={
             <ButtonPrimary
               onClick={() => {
@@ -396,6 +436,19 @@ export default function Home() {
                 />*/}
               </Stack>
             </Grid2>
+
+            <Grid2 className="box1">
+              <Grid2 xs={12}>
+                <h1>Instructions:</h1>
+              </Grid2>
+              <Grid2 xs={12}>
+                <ul>
+                  <li><Box as="a" color="black" target="_blank" href={'https://docs.ipfs.tech/quickstart/publish/#pinning-services'}>How to genrate a mark down file</Box></li>
+                  <li><Box as="a" color="black" target="_blank" href={'https://commonmark.org/help/'}>How to create an IPFS Link for Token logo and Token Description</Box></li>
+                </ul>
+              </Grid2>
+            </Grid2>
+
             <Grid2 className="box1">
               <Grid2 xs={12}>
                 <h1>Terms of Use</h1>

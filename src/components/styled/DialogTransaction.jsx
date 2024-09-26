@@ -136,7 +136,8 @@ export default function DialogTransaction({
       }
     }
 
-    if ((debouncedArgs[8] + debouncedArgs[9] + debouncedArgs[10] + debouncedArgs[11] + debouncedArgs[12] + debouncedArgs[13])> 30) {
+    if ((debouncedArgs[8] + debouncedArgs[9] + debouncedArgs[10] + debouncedArgs[11] + debouncedArgs[12] + debouncedArgs[13])> 3000) {
+      console.log(debouncedArgs[8] + debouncedArgs[9] + debouncedArgs[10] + debouncedArgs[11] + debouncedArgs[12] + debouncedArgs[13])
       toast.error('Total fees too high.');
       return;
     }
@@ -150,7 +151,7 @@ export default function DialogTransaction({
       toast.error('Profane words may cause your account or token to be blacklisted.  Please give a different Symbol');
 
     }
-    if (debouncedArgs[9] > 1) {
+    if (debouncedArgs[9] > 100) {
       toast.warn('May cause some buys and sells to fail, as Buy Fees is over 1%.', {
         position: "top-left"
       });
