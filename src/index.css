@@ -318,7 +318,7 @@ p {
 }
 
 .contentbox {
-  padding: 80px 50px 100px !important;
+  padding: 50px 50px 100px !important;
   background: #bf6060 !important;
 }
 
@@ -532,7 +532,7 @@ p {
 #Transactionbox a{color: #e7680a !important; padding-left: 5px;}
 .css-cj2u8-MuiStack-root>:not(style)~:not(style){ margin-top:25px;}
 
-.css-90glc5{margin-top: 24px !important;  font-size:17px !important;}
+.css-90glc5{margin-top:37px !important;  font-size:17px !important;}
 .css-uxj1mv{margin-top: 0px !important;}
 .css-2tsctb{padding-top: 50px !important; padding-left: 30px !important; padding-right: 30px !important;}
 .css-1h8btyt{border: none !important;}
@@ -542,68 +542,80 @@ p {
 .css-1dagbwe{border: none !important;}
 .css-15vfxm7{border: none !important;}
 .css-1wbauj5{border: none !important;}
-.css-igs3ac{ border-color:#fbd1c3 !important;}
+.css-igs3ac{ border-color:#fff !important;}
 .css-1stt5tn{background: radial-gradient(circle, #ffbf00 0%, rgb(255 141 0) 75%, rgb(255 179 0) 100%) !important;
     margin-bottom: 70px !important; font-size: 1.5em !important;}
 .css-zbq4mc{background: #e38c8c !important;  padding: 60px 0px 80px !important;}
-.css-9l3uo3{margin-top: 19px !important; padding-bottom: 0px !important; display: inline-block !important; line-height: 28px !important; border-top: 1px dashed #ddd !important;}	
+.css-9l3uo3{margin-top:0px !important; padding-bottom: 0px !important; display: inline-block !important; line-height: 28px !important; border-top: 0px dashed #ddd !important;}
+
+.css-ysh6fe{margin-top:0px !important; border-top:0px dashed #ddd !important;}
+.css-ysh6fe .css-9l3uo3{margin-top: 12px !important; border-top: 1px dashed #ddd !important;}
+.css-14xkk9b{left: 23px !important; top: 23px !important; color: #5c5858 !important;}
+.css-1njrtnr.MuiFormControl-root{background-color: #fff !important;}
+.css-bzh63r .MuiFilledInput-root{background-color: #fff !important; border-radius: 10px !important;}
+.css-2tsctb > :not(style):not(style){border-radius: 10px !important; background: #fff;}
+.css-1dagbwe.MuiFormControl-root{background-color: #fff !important;}
+.css-bzh63r .MuiFilledInput-root{border-radius: 10px !important;}
+.css-1h8btyt .MuiFilledInput-root{background: #fff !important; border-radius: 10px!important;}
+.css-15vfxm7 .MuiFilledInput-root{background: #fff !important;}
+.css-zbq4mc>:not(style)~:not(style){margin-right: 0px !important;}
+
+	
 .css-il73ku{width: 95% !important; font-size: 16px !important;  padding: 5px !important;  text-transform: uppercase !important; letter-spacing: 0px !important; margin-top: 10px !important;}
 .css-11thtl3{ padding:0px !important;}
-.css-9l3uo3{margin-top: 19px !important; padding-bottom: 20px !important; display: inline-block !important; line-height: 28px !important; border-top: 1px dashed #ddd !important;}
+
 .css-zbq4mc > :not(style) ~ :not(style){margin-left: 8px !important;  margin-bottom: 10px !important; margin-right: 8px !important;}
 .css-1qsxih2{max-width: 100% !important;} 
 .socialicon img{width: 22px !important;}
 .css-90qt67{font-size: 24px !important; letter-spacing: 0px !important; line-height: 30px !important;}
 .css-1msxy34{padding:0px !important;}
 .css-11thtl3{padding:0px !important;}	
+.css-2tsctb {padding-top: 16px !important;}
+
+.css-2tsctb > :not(style):not(style){margin: 0px; background: #fff !important; border: solid 2px #ffffff !important; box-shadow: 1px 2px 2px #e7b1b1 !important; border-radius: 15px !important;}
+.css-zun73v{padding: 0px 9px !important; margin-top:0px !important; margin-left: 4px !important;}
+
+.descriptionbox {color:#333; padding:20px;line-height: 26px; height: 108px; overflow-y: scroll;}
+.descriptionbox h2{font-size: 22px;color: #000; text-transform: uppercase;    margin-top: 0px;}
+.Instructions{width: 100%;}
+.Instructions li{ list-style: none;}
+.Instructions ul{ padding-left: 0px;}
 
 
 
 
 
 
-@media only screen and (max-width: 767px) {
-  .css-1oz23yp {
-    width: 100% !important;
-  }
 
-  .css-1hsqu8b-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {
-    width: 100% !important;
-  }
-
-  .css-ymdnc8-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {
-    width: 100% !important;
-  }
-
-  .css-h3eu0c-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {
-    width: 100% !important;
-  }
-
-  .css-gnxslw-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {
-    width: 100% !important;
-  }
-
-  .css-ue5gqe-MuiStack-root>:not(style)~:not(style) {
-    width: 100% !important;
-  }
-
+@media only screen and (max-width: 850px) {
+  .css-1oz23yp {width: 100% !important;}
+  .css-1hsqu8b-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {width: 100% !important;}
+  .css-ymdnc8-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {width: 100% !important;  }
+  .css-h3eu0c-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {width: 100% !important;}
+  .css-gnxslw-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {width: 100% !important;  }
   .css-4tsb0m-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {width: 100% !important;}
-
   .css-ysh6fe {width: 85%;}
   .box1 {width: 85%; margin-bottom: 20px; height: auto;}
   .leftbox {width:80%;padding: 30px 15px !important;}
-  
-  .css-2tsctb{padding-top: 50px !important; padding-left: 30px !important; padding-right: 30px !important;}
+  .css-2tsctb{padding-top:20px !important; padding-left: 30px !important; padding-right: 30px !important;}
   .css-bzh63r{border: 0px !important; width: 100% !important;}
   .css-1njrtnr{border: 0px !important;}
   .css-1dagbwe{border: 0px !important;}
   .css-1wbauj5{border: 0px !important;}
   .css-135ev8c{border: 0px !important;}
-  .css-2tsctb > :not(style) ~ :not(style){width: 100%;}
+  .css-2tsctb > :not(style) ~ :not(style){width: 100%; margin-left: 0px !important;}
   .css-zbq4mc > :not(style) ~ :not(style){margin-left: 0px !important;}
   .css-135ev8c{width: 87% !important;}
   .css-1h8btyt{border: 0px solid rgb(225, 107, 49) !important; width: 100% !important;}
   .css-15vfxm7{border: 0px solid rgb(225, 107, 49) !important; width: 100% !important;}
   .leftbox li span, .leftbox li span a{word-break: break-word !important;}
-
+  .contentbox {padding: 45px 25px 50px !important;}
+  .css-f564t4{padding-bottom: 25px !important;}
+  .socialicon {float: inherit !important; padding-right: 0px !important;}
+  .copyright {float: initial !important; padding-left: 0px !important; display: inline-block !important;    width: 100% !important;     text-align: center !important;}
+  #selectbox .css-1rg2p2b {width: 78% !important;}
+  .css-1dagbwe.MuiFormControl-root{width:100% !important;}
+  #editmainbox{width: 86% !important;}
+  #selectbox .css-p58oka{display: inline-grid !important;}
+  #selectbox .css-9l3uo3 {margin-top: 9px !important; padding-bottom: 8px !important;border-top: 0px dashed #ddd !important;}
 }

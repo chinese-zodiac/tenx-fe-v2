@@ -196,8 +196,8 @@ export default function Home() {
           as="img"
           src={DOMPurify.sanitize('https://ipfs.io/ipfs/' + tokenLogoCID)}
           sx={{
-            width: '5em',
-            heigh: '5em',
+            width: '3.5em',
+            heigh: '3.5em',
             margin: 0,
             marginLeft: '0.5em',
             padding: 0,
@@ -226,10 +226,14 @@ export default function Home() {
           label="Launch Time"
           helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
         />
+
+        
         {descriptionMarkdownCID &&
-          <>Description content:-<br />
-            {content}</>
+          <div className="descriptionbox">
+            <h2>Description content:-</h2>
+            {content}</div>
         }
+        
 
       </Stack>
       <br />
@@ -437,17 +441,16 @@ export default function Home() {
               </Stack>
             </Grid2>
 
-            <Grid2 className="box1">
+            <Grid2 className="Instructions">
               <Grid2 xs={12}>
                 <h1>Instructions:</h1>
-              </Grid2>
-              <Grid2 xs={12}>
                 <ul>
-                  <li><Box as="a" color="black" target="_blank" href={'https://docs.ipfs.tech/quickstart/publish/#pinning-services'}>How to genrate a mark down file</Box></li>
-                  <li><Box as="a" color="black" target="_blank" href={'https://commonmark.org/help/'}>How to create an IPFS Link for Token logo and Token Description</Box></li>
+                  <li><Box as="a" color="white" target="_blank" href={'https://docs.ipfs.tech/quickstart/publish/#pinning-services'}>How to genrate a mark down file</Box></li>
+                  <li><Box as="a" color="white" target="_blank" href={'https://commonmark.org/help/'}>How to create an IPFS Link for Token logo and Token Description</Box></li>
                 </ul>
               </Grid2>
             </Grid2>
+            
 
             <Grid2 className="box1">
               <Grid2 xs={12}>
@@ -512,6 +515,8 @@ export default function Home() {
                 </p>
               </Grid2>
             </Grid2>
+            
+
           </Grid2>
         </Container>
         <FooterArea />
