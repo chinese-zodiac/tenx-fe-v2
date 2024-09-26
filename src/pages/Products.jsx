@@ -203,9 +203,9 @@ const Products = () => {
               </Alert>
             </Snackbar>
           </li>
-          DOMPurify.sanitize(<Box
+          <Box
             as="img"
-            src={details.tenXToken.tokenLogoCID}
+            src={DOMPurify.sanitize(details.tenXToken.tokenLogoCID)}
             sx={{
               width: '5em',
               heigh: '5em',
@@ -213,7 +213,7 @@ const Products = () => {
               border: 'solid 0.15em white',
               borderRadius: '5em',
             }}
-          />)<br /><br />
+          /><br /><br />
           <li>About the token: <span className='discriptionbox'> {content} </span></li>
           <li> Name: <span>{details.tenXToken.name}</span></li>
           <li>Symbol: <span>{details.tenXToken.symbol}</span></li>

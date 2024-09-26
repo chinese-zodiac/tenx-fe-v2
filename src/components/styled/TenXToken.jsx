@@ -201,9 +201,9 @@ export default function TenXToken({
         }}
       />
 
-      DOMPurify.sanitize(<Box
+      <Box
         as="img"
-        src={tokenLogoCID}
+        src={DOMPurify.sanitize(tokenLogoCID)}
         sx={{
           width: '5em',
           heigh: '5em',
@@ -218,7 +218,7 @@ export default function TenXToken({
             backgroundColor: 'grey',
           },
         }}
-      />)
+      />
       <Box
         direction="row"
         spacing={1}

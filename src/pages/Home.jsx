@@ -182,12 +182,15 @@ export default function Home() {
           label="Product Description IPFS CID(IPFS CID)"
           helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
         />
-        <DatePickerStyled
+        
+        <DatePickerStyled class="datepicker"
           text={launchTimestamp}
+          backgroundColor="#fff"
           setText={setLaunchTimestamp}
           label="Launch Time"
           helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
         />
+      
       </Stack>
       <br />
       {!!address ? (
