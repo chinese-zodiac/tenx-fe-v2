@@ -37,13 +37,14 @@ const useStore = create(
             abi: TenXLaunchViewV2Abi,
             functionName: 'getTenXTokenDataFromIndex',
             args: [_tokenIndex],
+            chainId:97
           });
 
           const newTenXTokenV2 = {
             tokenIndex:_tokenIndex,
             tokenAddress: res[0],
-            tokenLogoCID: 'https://ipfs.io/ipfs/' + res[1],
-            descriptionMarkdownCID: 'https://ipfs.io/ipfs/' + res[2],
+            tokenLogoCID: res[1],
+            descriptionMarkdownCID: res[2],
             balanceMax: formatEther(res[3]),
             transactionSizeMax: formatEther(res[4]),
             czusdPair: res[5],
@@ -74,6 +75,7 @@ const useStore = create(
                 functionName: 'symbol',
               },
             ],
+            chainId:97
           });
 
           newTenXTokenV2.name = resName[0].result;

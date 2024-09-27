@@ -1,21 +1,26 @@
-import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/node';
+import IPFSGatewayTools from '@pinata/ipfs-gateway-tools/dist/browser';
 import { memoize } from 'lodash';
 
-const gatewayTools = new IPFSGatewayTools();
+export const gatewayTools = new IPFSGatewayTools();
 const gateways = [
-  'https://ipfs.czodiac.com',
-  'https://czodiac.mypinata.cloud',
-  'https://ipfs.fleek.co',
-  'https://cloudflare-ipfs.com',
-  'https://gateway.ipfs.io',
+  'gateway.cz.cash',
+  'ipfs.io',
+  'flk-ipfs.xyz',
+  'dweb.link',
+  'gateway.pinata.cloud',
+  'w3s.link'
 ];
-
-export const getIpfsUrl = (sourceUrl, cycle = 0) => {
-  //console.log('gateway',gateways[cycle%gateways.length])
-  return gatewayTools.convertToDesiredGateway(
-    sourceUrl,
-    gateways[cycle % gateways.length]
-  );
+console.log(gatewayTools.containsCID('ipfs.io/bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm').containsCid)
+export const getIpfsUrl = async (cid) => {
+  for (let i = 0; i < gateways.length; i++) {
+    const gatewayUrl = gatewayTools.convertToDesiredGateway(cid, gateways[i]);
+      const response = await fetch(gatewayUrl, { method: 'HEAD' });
+      console.log({response})
+      if (response.ok) {
+        return gatewayUrl;
+      }
+  }
+  return '#';
 };
 
 export const getIpfsJson = memoize(async (sourceUrl) => {

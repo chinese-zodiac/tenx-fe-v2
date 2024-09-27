@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import TextFieldStyled from '../components/styled/TextFieldStyled';
 import { useAccount, useNetwork } from 'wagmi';
 import useTenXToken from '../hooks/useTenXToken';
-import { keyframes, Stack } from '@mui/system';
+import { Box, keyframes, Stack } from '@mui/system';
 import SliderPercentagePicker from '../components/styled/SliderPercentagePicker';
 import RadioFieldStyled from '../components/styled/RadioFieldStyled';
 import Header from '../components/elements/Header';
@@ -17,6 +17,9 @@ import { CircularProgress } from '@mui/material';
 import { Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { gatewayTools, getIpfsUrl } from '../utils/getIpfsJson';
+import Markdown from 'react-markdown';
+import DOMPurify from 'dompurify';
 
 const EditSettings = () => {
     const { index } = useParams();
@@ -32,10 +35,9 @@ const EditSettings = () => {
 
     const details = useTenXToken(index);
 
-
     const [selectedValue, setSelectedValue] = useState('0');
 
-    const [descriptionMarkdownCID, setDescriptionMarkdownCID] = useState(details.tenXToken.descriptionMarkdownCID.split('/')[4]);
+    const [descriptionMarkdownCID, setDescriptionMarkdownCID] = useState(details.tenXToken.descriptionMarkdownCID);
 
     const [exemptee, setExemptee] = useState(address);
     const [exempt, setExempt] = useState('0');
@@ -52,25 +54,43 @@ const EditSettings = () => {
     const [sellBurn, setSellBurn] = useState(details.tenXToken.sellBurn);
     const [sellLpFee, setSellLpFee] = useState(details.tenXToken.sellLpFee);
 
-    const [tokenLogoCID, setTokenLogoCID] = useState(details.tenXToken.tokenLogoCID.split('/')[4]);
-
+    const [tokenLogoCID, setTokenLogoCID] = useState(details.tenXToken.tokenLogoCID);
+    console.log('https://' + getIpfsUrl('ipfs.io/ipfs/' + tokenLogoCID))
     const [loading, setLoading] = useState(null);
 
     const [completion, setCompletion] = useState(null);
+
+    const [content, setContent] = useState('Loading...');
+    useEffect(() => {
+        const fetchFileContent = async (ipfsLink) => {
+            try {
+                ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + ipfsLink);
+                const response = await fetch('https://' + ipfsLink);
+                const text = await response.text();
+                const sanitizedText = DOMPurify.sanitize(text);
+                setContent(sanitizedText);
+            } catch (error) {
+                console.error('Error fetching file from IPFS:', error);
+                setContent('No data found'); // Update state with error message
+            }
+        };
+        if (selectedValue == '0') {
+            fetchFileContent(descriptionMarkdownCID); // Call the async function
+        }
+    }, [descriptionMarkdownCID]);
 
     const onEdit = async () => {
         try {
             if (selectedValue == '0') {
                 // console.log({ selectedValue, descriptionMarkdownCID });
-                if (!descriptionMarkdownCID) {
-                    toast.error('Please enter an Ipfs Link');
+                if (!gatewayTools.containsCID('ipfs.io/' + descriptionMarkdownCID).containsCid) {
+                    toast.error('The CID does not point to a valid text file for description.');
                     return;
                 }
-
                 try {
-                    const response = await fetch(`https://ipfs.io/ipfs/${descriptionMarkdownCID}`);
+                    const ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + descriptionMarkdownCID);
+                    const response = await fetch('https://' + ipfsLink);
                     const contentType = response.headers.get('content-type');
-                    console.log({ contentType })
                     if (!contentType || !contentType.startsWith('text/')) {
                         toast.error('The CID does not point to a valid text file for description.');
                         return;
@@ -79,7 +99,6 @@ const EditSettings = () => {
                     toast.error('Invalid IPFS CID for description.');
                     return;
                 }
-
 
                 const config = await prepareWriteContract({
                     address: details.tenXToken.tokenAddress,
@@ -170,15 +189,16 @@ const EditSettings = () => {
             }
             else if (selectedValue == '5') {
                 // console.log({ selectedValue, tokenLogoCID });
-                if (!tokenLogoCID) {
-                    toast.error('Please enter an Ipfs Link');
+                if (!gatewayTools.containsCID('ipfs.io/' + tokenLogoCID).containsCid) {
+                    toast.error('The CID does not point to a valid image for logo.');
                     return;
                 }
 
                 try {
-                    const response = await fetch(`https://ipfs.io/ipfs/${tokenLogoCID}`);
+                    const ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + tokenLogoCID);
+                    console.log({ipfsLink})
+                    const response = await fetch('https://' + ipfsLink);
                     const contentType = response.headers.get('content-type');
-
 
                     if (!contentType || !contentType.startsWith('image/')) {
                         toast.error('The CID does not point to a valid image for logo.');
@@ -240,7 +260,7 @@ const EditSettings = () => {
                     spacing={2}
                     rowGap={2}
                 >
-                    {selectedValue == '0' &&
+                    {selectedValue == '0' && <>
                         <TextFieldStyled
                             text={descriptionMarkdownCID}
                             setText={setDescriptionMarkdownCID}
@@ -249,7 +269,12 @@ const EditSettings = () => {
                             label="Product Description IPFS CID(IPFS CID)"
                             helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
                         />
-                    }
+                        {descriptionMarkdownCID &&
+                            <div className="descriptionbox">
+                                <h2>Your description content:-</h2>
+                                <Markdown>{content}</Markdown></div>
+                        }
+                    </>}
                     {selectedValue == '1' && <>
                         <TextFieldStyled
                             text={exemptee}
@@ -333,16 +358,39 @@ const EditSettings = () => {
                             helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
                         />
                     </>}
-                    {selectedValue == '5' &&
-                        <TextFieldStyled
-                            text={tokenLogoCID}
-                            setText={setTokenLogoCID}
-                            maxChar={70}
-                            width="36em"
-                            label="Product Logo(IPFS CID)"
-                            helpMsg="Shortened name for your new product. Up to 5 characters."
-                        />
-                    }
+                    {selectedValue === '5' && (
+                        <>
+                            <TextFieldStyled
+                                text={tokenLogoCID}
+                                setText={setTokenLogoCID}
+                                maxChar={70}
+                                width="36em"
+                                label="Product Logo (IPFS CID)"
+                                helpMsg="Shortened name for your new product. Up to 5 characters."
+                            />
+                            {tokenLogoCID && (
+                                <Box
+                                    as="img"
+                                    src={`https://${getIpfsUrl(tokenLogoCID)}`}
+                                    sx={{
+                                        width: '3.5em',
+                                        height: '3.5em',
+                                        margin: 0,
+                                        marginLeft: '0.5em',
+                                        padding: 0,
+                                        backgroundColor: 'white',
+                                        border: 'solid 0.15em white',
+                                        borderRadius: '5em',
+                                        '&:hover': {
+                                            border: 'solid 0.15em grey',
+                                            backgroundColor: 'grey',
+                                        },
+                                    }}
+                                    alt="Token Logo"
+                                />
+                            )}
+                        </>
+                    )}
                 </Stack>
                 <ButtonPrimary
                     onClick={onEdit}

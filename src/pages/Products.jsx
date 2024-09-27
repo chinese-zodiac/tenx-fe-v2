@@ -15,6 +15,9 @@ import { parseAbiItem } from 'viem'
 import { ADDRESS_TENXLAUNCHVIEWV2, ADDRESS_TENXSETTINGSV2 } from '../constants/addresses';
 import TenXLaunchViewV2Abi from '../abi/TenXLaunchViewV2.json';
 import DOMPurify from 'dompurify';
+import Markdown from 'react-markdown'
+import { getIpfsUrl } from '../utils/getIpfsJson';
+
 const Products = () => {
   const { index, chainId } = useParams();
 
@@ -73,7 +76,8 @@ const Products = () => {
   useEffect(() => {
     const fetchFileContent = async (ipfsLink) => {
       try {
-        const response = await fetch(ipfsLink);
+        ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + ipfsLink);
+        const response = await fetch('https://' + ipfsLink);
         const text = await response.text();
         const sanitizedText = DOMPurify.sanitize(text);
         setContent(sanitizedText);
@@ -111,6 +115,7 @@ const Products = () => {
           functionName: 'getTenXTokenLpData',
           args: [details.tenXToken.tokenAddress],
           chainId: parseInt(chainId),
+          chainId:97
         });
         setInitialGrant((parseInt(result[0]) / 10 ** 18).toString());
         setTotalSupply((parseInt(result[1]) / 10 ** 18).toString());
@@ -227,7 +232,7 @@ const Products = () => {
           </li>
           <Box
             as="img"
-            src={DOMPurify.sanitize(details.tenXToken.tokenLogoCID)}
+            src={'https://' + getIpfsUrl(details.tenXToken.tokenLogoCID)}
             sx={{
               width: '5em',
               heigh: '5em',
@@ -236,10 +241,10 @@ const Products = () => {
               borderRadius: '5em',
             }}
           /><br /><br />
-          <li>About the token: <span className='discriptionbox'> {content} </span></li>
+          <li>Description: <span className='discriptionbox'><Markdown>{content}</Markdown></span></li>
           <li> Name: <span>{details.tenXToken.name}</span></li>
           <li>Symbol: <span>{details.tenXToken.symbol}</span></li>
-          <li>Image CID: <span>{details.tenXToken.tokenLogoCID.split('/')[4]} </span></li>
+          <li>Image CID: <span>{details.tenXToken.tokenLogoCID.split('/')[2]} </span></li>
 
           <li>Price in CZUSD: <span>{price}</span></li>
           <li>Launch timestamp in epoch number: <span>{timestamp}</span></li>
@@ -248,7 +253,7 @@ const Products = () => {
           <li>Total Supply: <span>{totalSupply}</span></li>
           <li>Total LP Value in CZUSD:<span>{totalLpValue} </span></li>
           <li>Market capitalization:<span>{marketCap}</span></li>
-          <li>Token Description CID: <span>{details.tenXToken.descriptionMarkdownCID.split('/')[4]} </span></li>
+          <li>Token Description CID: <span>{details.tenXToken.descriptionMarkdownCID.split('/')[2]} </span></li>
           <li>Total Buy/Sell Taxes: <span>{details.tenXToken.buyTax + details.tenXToken.sellTax}</span></li>
           <li>Buy Tax: <span>{details.tenXToken.buyTax} </span></li>
           <li>Sell Tax: <span>{details.tenXToken.sellTax} </span></li>

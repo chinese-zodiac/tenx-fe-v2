@@ -11,7 +11,7 @@ export default function DatePickerStyled({
   helpMsg,
 }) {
   // State for the checkbox
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(true);
   const minDate = dayjs().add(1, 'hour');
   const maxDate = dayjs().add(90, 'days');
   const handleCheckboxChange = (event) => {

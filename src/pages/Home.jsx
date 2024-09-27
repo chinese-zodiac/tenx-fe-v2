@@ -6,6 +6,8 @@ import {
   Stack,
   keyframes,
   useTheme,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
@@ -30,6 +32,8 @@ import {
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DOMPurify from 'dompurify';
+import Markdown from 'react-markdown'
+import { getIpfsUrl } from '../utils/getIpfsJson';
 
 export default function Home() {
   const { chain } = useNetwork();
@@ -38,8 +42,8 @@ export default function Home() {
   const [name, setName] = useState('ProductX');
   const [symbol, setSymbol] = useState('PRDX');
   const [buyTax, setBuyTax] = useState(25);
-  const [buyBurn, setBuyBurn] = useState(25);
   const [sellTax, setSellTax] = useState(275);
+  const [buyBurn, setBuyBurn] = useState(25);
   const [sellBurn, setSellBurn] = useState(175);
   const [czusdWad, setCzusdWad] = useState('5000');
   const [tokenLogoCID, setTokenLogoCID] = useState('bafkreihj6w2jbkdq4v5ldqnd4exnzjqels677y3kv32o45c5jyfsbqnl5a');
@@ -49,23 +53,46 @@ export default function Home() {
   const [taxReceiver, setTaxReceiver] = useState(address);
   const [buyLpFee, setBuyLpFee] = useState(0);
   const [sellLpFee, setSellLpFee] = useState(0);
-  const [launchTimestamp, setLaunchTimestamp] = useState(dayjs());
+  const [launchTimestamp, setLaunchTimestamp] = useState(0);
   const [content, setContent] = useState('Loading...');
+  const [isChecked, setIsChecked] = useState(false);
+  
+  const handleCheckboxChange = (event) => {
+    const checked = event.target.checked;
+    setIsChecked(checked);
+
+    if (checked) {
+      setBuyBurn(25);
+      setSellBurn(175);
+      setCzusdWad('5000');
+      setTokenLogoCID('bafkreihj6w2jbkdq4v5ldqnd4exnzjqels677y3kv32o45c5jyfsbqnl5a');
+      setDescriptionMarkdownCID('bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm');
+      setBalanceMax('5000');
+      setTransactionSizeMax('1000');
+      setTaxReceiver(address);
+      setBuyLpFee(0);
+      setSellLpFee(0);
+      setLaunchTimestamp(0);
+    } else {
+      setLaunchTimestamp(dayjs());
+    }
+  };
   useEffect(() => {
     const fetchFileContent = async (ipfsLink) => {
       try {
-        const response = await fetch('https://ipfs.io/ipfs/' + ipfsLink);
+        ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + ipfsLink);
+        const response = await fetch('https://' + ipfsLink);
         const text = await response.text();
         const sanitizedText = DOMPurify.sanitize(text);
-        console.log({response})
         setContent(sanitizedText);
       } catch (error) {
         console.error('Error fetching file from IPFS:', error);
         setContent('No data found'); // Update state with error message
       }
     };
-
-    fetchFileContent(descriptionMarkdownCID); // Call the async function
+    if(!isChecked){
+      fetchFileContent(descriptionMarkdownCID); // Call the async function
+    }
   }, [descriptionMarkdownCID]);
 
   // console.log({
@@ -123,153 +150,146 @@ export default function Home() {
           helpMsg="Fee that will be sent to your account every time someone buys your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
         <SliderPercentagePicker
-          pct={buyBurn}
-          setPct={setBuyBurn}
-          label="Buy Burn"
-          helpMsg="Portion of the product that will be destroyed every time someone buys on cz.cash. Good for scarcity. Maximum 9.00%"
-        />
-        <SliderPercentagePicker
-          pct={buyLpFee}
-          setPct={setBuyLpFee}
-          label="Buy LP Fee"
-          helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs."
-        />
-        <SliderPercentagePicker
-          pct={sellLpFee}
-          setPct={setSellLpFee}
-          label="Sell LP Fee"
-          helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
-        />
-        <SliderPercentagePicker
           pct={sellTax}
           setPct={setSellTax}
           label="Sell Fee"
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
-        <SliderPercentagePicker
-          pct={sellBurn}
-          setPct={setSellBurn}
-          label="Sell Burn"
-          helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={isChecked}
+              onChange={handleCheckboxChange}
+              color="primary"
+            />
+          }
+          label="Edit advanced Settings"
+          sx={{ marginTop: '1em' }}
         />
-        <TextFieldStyled
-          text={czusdWad}
-          setText={setCzusdWad}
-          maxChar={18}
-          width="11em"
-          label="CZUSD LP Grant"
-          helpMsg="CZUSD portion of the LP grant. The total LP will be worth 2x this amount"
+        {isChecked && <><SliderPercentagePicker
+          pct={buyBurn}
+          setPct={setBuyBurn}
+          label="Buy Burn"
+          helpMsg="Portion of the product that will be destroyed every time someone buys on cz.cash. Good for scarcity. Maximum 9.00%"
         />
-        <TextFieldStyled
-          text={balanceMax}
-          setText={setBalanceMax}
-          maxChar={18}
-          width="11em"
-          label="Max Balance For Accounts"
-          helpMsg="Maximum balance for each account. Accounts cannot receive tokens that would cause them to go over this balance. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
-        />
-        <TextFieldStyled
-          text={transactionSizeMax}
-          setText={setTransactionSizeMax}
-          maxChar={18}
-          width="11em"
-          label="Max Transaction Size"
-          helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
-        />
-        <TextFieldStyled
-          text={taxReceiver}
-          setText={setTaxReceiver}
-          maxChar={42}
-          width="25em"
-          label="Fee Receiver"
-          helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees and burns."
-        />
-        <TextFieldStyled
-          text={tokenLogoCID}
-          setText={setTokenLogoCID}
-          maxChar={70}
-          width="36em"
-          label="Product Logo(IPFS CID)"
-          helpMsg="Shortened name for your new product. Up to 5 characters."
-        />
-        {tokenLogoCID && <Box
-          as="img"
-          src={DOMPurify.sanitize('https://ipfs.io/ipfs/' + tokenLogoCID)}
-          sx={{
-            width: '3.5em',
-            heigh: '3.5em',
-            margin: 0,
-            marginLeft: '0.5em',
-            padding: 0,
-            backgroundColor: 'white',
-            border: 'solid 0.15em white',
-            borderRadius: '5em',
-            '&:hover': {
-              border: 'solid 0.15em grey',
-              backgroundColor: 'grey',
-            },
-          }}
-        />}
-        <TextFieldStyled
-          text={descriptionMarkdownCID}
-          setText={setDescriptionMarkdownCID}
-          maxChar={70}
-          width="36em"
-          label="Product Description IPFS CID(IPFS CID)"
-          helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
-        />
+          <SliderPercentagePicker
+            pct={buyLpFee}
+            setPct={setBuyLpFee}
+            label="Buy LP Fee"
+            helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs."
+          />
+          <SliderPercentagePicker
+            pct={sellLpFee}
+            setPct={setSellLpFee}
+            label="Sell LP Fee"
+            helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
+          />
 
-        <DatePickerStyled class="datepicker"
-          text={launchTimestamp}
-          backgroundColor="#fff"
-          setText={setLaunchTimestamp}
-          label="Launch Time"
-          helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
-        />
+          <SliderPercentagePicker
+            pct={sellBurn}
+            setPct={setSellBurn}
+            label="Sell Burn"
+            helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
+          />
+          <TextFieldStyled
+            text={czusdWad}
+            setText={setCzusdWad}
+            maxChar={18}
+            width="11em"
+            label="CZUSD LP Grant"
+            helpMsg="CZUSD portion of the LP grant. The total LP will be worth 2x this amount"
+          />
+          <TextFieldStyled
+            text={balanceMax}
+            setText={setBalanceMax}
+            maxChar={18}
+            width="11em"
+            label="Max Balance For Accounts"
+            helpMsg="Maximum balance for each account. Accounts cannot receive tokens that would cause them to go over this balance. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
+          />
+          <TextFieldStyled
+            text={transactionSizeMax}
+            setText={setTransactionSizeMax}
+            maxChar={18}
+            width="11em"
+            label="Max Transaction Size"
+            helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
+          />
+          <TextFieldStyled
+            text={taxReceiver}
+            setText={setTaxReceiver}
+            maxChar={42}
+            width="25em"
+            label="Fee Receiver"
+            helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees and burns."
+          />
+          <TextFieldStyled
+            text={tokenLogoCID}
+            setText={setTokenLogoCID}
+            maxChar={70}
+            width="36em"
+            label="Product Logo(IPFS CID)"
+            helpMsg="Shortened name for your new product. Up to 5 characters."
+          />
+          {tokenLogoCID && (
+            <Box
+              as="img"
+              src={'https://' + getIpfsUrl('ipfs.io/ipfs/' + tokenLogoCID)}
+              sx={{
+                width: '3.5em',
+                height: '3.5em',
+                margin: 0,
+                marginLeft: '0.5em',
+                padding: 0,
+                backgroundColor: 'white',
+                border: 'solid 0.15em white',
+                borderRadius: '5em',
+                '&:hover': {
+                  border: 'solid 0.15em grey',
+                  backgroundColor: 'grey',
+                },
+              }}
+            />
+          )}
 
-        
-        {descriptionMarkdownCID &&
-          <div className="descriptionbox">
-            <h2>Description content:-</h2>
-            {content}</div>
-        }
-        
+          <TextFieldStyled
+            text={descriptionMarkdownCID}
+            setText={setDescriptionMarkdownCID}
+            maxChar={70}
+            width="36em"
+            label="Product Description IPFS CID(IPFS CID)"
+            helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
+          />
+
+          <DatePickerStyled class="datepicker"
+            text={launchTimestamp}
+            backgroundColor="#fff"
+            setText={setLaunchTimestamp}
+            label="Launch Time"
+            helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
+          />
+
+
+          {descriptionMarkdownCID &&
+            <div className="descriptionbox">
+              <h2>Your description content:-</h2>
+              <Markdown>{content}</Markdown></div>
+          }
+        </>}
 
       </Stack>
       <br />
-      {!!address ? (
-        <DialogTransaction
-          title={'LAUNCH ' + symbol}
-          address={ADDRESS_TENXLAUNCHV2}
-          abi={TenXLaunchV2Abi}
-          functionName="launchToken"
-          args={[
-            parseEther(czusdWad), //czusdWad
-            name, //name
-            symbol, //symbol
-            tokenLogoCID, //tokenLogoCID
-            descriptionMarkdownCID, //descriptionMarkdownCID
-            parseEther(balanceMax), //balanceMax
-            parseEther(transactionSizeMax), //transactionSizeMax
-            taxReceiver, //taxReceiver
-            buyLpFee, //buyLpFee
-            buyTax, //buyTax
-            buyBurn, //buyBurn
-            sellTax, //sellTax
-            sellBurn, //sellburn
-            sellLpFee, //sellLpFee
-            launchTimestamp == 0 ? 0 : getUnixTime(launchTimestamp.$d) //launchTimestamp
-          ]}
-          toast={toast}
-          btn={
+      {!!address ?
+        (chain.id == 97 ?
+          (
             <ButtonPrimary
               onClick={() => {
                 ReactGA.event({
                   category: 'tenx_action',
-                  action: 'click_createnow_btn_1',
-                  label: 'Click on "create now btn 1" on tenx.cz.cash', // optional
+                  action: 'click_createnow_btn_1_not_connected',
+                  label: 'Click on "create now btn 1" on tenx.cz.cash when not connected',
                 });
-                handleConfirmed();
+                toast.error('Connect your BSC (BNB Smart Chain) Wallet first.');
               }}
               sx={{
                 width: '9em',
@@ -278,14 +298,68 @@ export default function Home() {
                 position: 'relative',
                 fontWeight: 'bold',
                 textTransform: 'none',
-                color: 'white',
+                color: '#e16b31',
                 borderRadius: '1.5em',
                 border: 'solid 5px #e16b31',
-                background:
-                  'radial-gradient(circle, rgba(116,29,131,1) 0%, rgba(149,54,68,1) 75%, rgba(108,10,57,1) 100%);',
-                backgroundSize: '400% 400%',
-                transition: '250ms',
-                animation: `${keyframes`
+                backgroundColor: '#f3f3f3',
+                '&:hover': {
+                  backgroundColor: '#080830',
+                },
+              }}
+            >
+              CREATE NOW <Box as="span">🚀</Box>
+            </ButtonPrimary>
+          )
+          :
+          (
+            <DialogTransaction
+              title={'LAUNCH ' + symbol}
+              address={ADDRESS_TENXLAUNCHV2}
+              abi={TenXLaunchV2Abi}
+              functionName="launchToken"
+              args={[
+                parseEther(czusdWad), //czusdWad
+                name, //name
+                symbol, //symbol
+                tokenLogoCID, //tokenLogoCID
+                descriptionMarkdownCID, //descriptionMarkdownCID
+                parseEther(balanceMax), //balanceMax
+                parseEther(transactionSizeMax), //transactionSizeMax
+                taxReceiver, //taxReceiver
+                buyLpFee, //buyLpFee
+                buyTax, //buyTax
+                buyBurn, //buyBurn
+                sellTax, //sellTax
+                sellBurn, //sellburn
+                sellLpFee, //sellLpFee
+                launchTimestamp == 0 ? 0 : getUnixTime(launchTimestamp.$d) //launchTimestamp
+              ]}
+              toast={toast}
+              btn={
+                <ButtonPrimary
+                  onClick={() => {
+                    ReactGA.event({
+                      category: 'tenx_action',
+                      action: 'click_createnow_btn_1',
+                      label: 'Click on "create now btn 1" on tenx.cz.cash', // optional
+                    });
+                    handleConfirmed();
+                  }}
+                  sx={{
+                    width: '9em',
+                    marginTop: '0.66em',
+                    fontSize: '1.5em',
+                    position: 'relative',
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                    color: 'white',
+                    borderRadius: '1.5em',
+                    border: 'solid 5px #e16b31',
+                    background:
+                      'radial-gradient(circle, rgba(116,29,131,1) 0%, rgba(149,54,68,1) 75%, rgba(108,10,57,1) 100%);',
+                    backgroundSize: '400% 400%',
+                    transition: '250ms',
+                    animation: `${keyframes`
                   0% {
                       background-position: 0% 0%;
                     }
@@ -301,15 +375,15 @@ export default function Home() {
                     100% {
                       background-position: 0% 0%;
                     }`} 15s infinite ease`,
-                '&:hover': {
-                  animationDuration: '1500ms',
-                  color: 'pink',
-                },
-                '&:hover > span': {
-                  position: 'relative',
-                  top: '0px',
-                  left: '0px',
-                  animation: `${keyframes`
+                    '&:hover': {
+                      animationDuration: '1500ms',
+                      color: 'pink',
+                    },
+                    '&:hover > span': {
+                      position: 'relative',
+                      top: '0px',
+                      left: '0px',
+                      animation: `${keyframes`
                   0% {
                       top: 0px;
                       left: 0px;
@@ -330,63 +404,64 @@ export default function Home() {
                       top: 0px;
                       left: 0px;
                     }`} 50ms infinite ease`,
-                },
-              }}
+                    },
+                  }}
+                >
+                  CREATE NOW <Box as="span">🚀</Box>
+                </ButtonPrimary>
+              }
             >
-              CREATE NOW <Box as="span">🚀</Box>
-            </ButtonPrimary>
-          }
-        >
-          <Typography sx={{ fontSize: '1.25em', lineHeight: '1em' }}>
-            Send the Launch transaction to your wallet that will immediately
-            launch your new token with the parameters below. The Launch
-            transaction costs approximately 0.015 {chain?.nativeCurrency?.name}. Taxes will be sent to
-            your currently connected wallet.
-            <br />
-            <br />
-            <ul className="homelist">
-              <li>Name: <span>{name}</span></li>
-              <li>Symbol: <span>{symbol}</span></li>
-              <li>Liquidity:<span> $10,000 </span></li>
-              <li>Supply: <span>5,000 {symbol}</span></li>
-              <li>Buy Fee: <span>{(buyTax / 100).toFixed(2)}%</span></li>
-              <li>Buy Burn: <span>{(buyBurn / 100).toFixed(2)}%</span></li>
-              <li>Sell Fee: <span>{(sellTax / 100).toFixed(2)}%</span></li>
-              <li>Sell Burn: <span>{(sellBurn / 100).toFixed(2)}%</span></li>
-              <li>Tax Receiver: <span>{address.slice(0, 8)}...{address.slice(36)}</span></li>
-            </ul>
+              <Typography sx={{ fontSize: '1.25em', lineHeight: '1em' }}>
+                Send the Launch transaction to your wallet that will immediately
+                launch your new token with the parameters below. The Launch
+                transaction costs approximately 0.015 {chain?.nativeCurrency?.name}. Taxes will be sent to
+                your currently connected wallet.
+                <br />
+                <br />
+                <ul className="homelist">
+                  <li>Name: <span>{name}</span></li>
+                  <li>Symbol: <span>{symbol}</span></li>
+                  <li>Liquidity:<span> $10,000 </span></li>
+                  <li>Supply: <span>5,000 {symbol}</span></li>
+                  <li>Buy Fee: <span>{(buyTax / 100).toFixed(2)}%</span></li>
+                  <li>Buy Burn: <span>{(buyBurn / 100).toFixed(2)}%</span></li>
+                  <li>Sell Fee: <span>{(sellTax / 100).toFixed(2)}%</span></li>
+                  <li>Sell Burn: <span>{(sellBurn / 100).toFixed(2)}%</span></li>
+                  <li>Tax Receiver: <span>{address.slice(0, 8)}...{address.slice(36)}</span></li>
+                </ul>
 
-          </Typography>
-        </DialogTransaction>
-      ) : (
-        <ButtonPrimary
-          onClick={() => {
-            ReactGA.event({
-              category: 'tenx_action',
-              action: 'click_createnow_btn_1_not_connected',
-              label: 'Click on "create now btn 1" on tenx.cz.cash when not connected',
-            });
-            toast.error('Connect your BSC (BNB Smart Chain) Wallet first.');
-          }}
-          sx={{
-            width: '9em',
-            marginTop: '0.66em',
-            fontSize: '1.5em',
-            position: 'relative',
-            fontWeight: 'bold',
-            textTransform: 'none',
-            color: '#e16b31',
-            borderRadius: '1.5em',
-            border: 'solid 5px #e16b31',
-            backgroundColor: '#f3f3f3',
-            '&:hover': {
-              backgroundColor: '#080830',
-            },
-          }}
-        >
-          CREATE NOW <Box as="span">🚀</Box>
-        </ButtonPrimary>
-      )}
+              </Typography>
+            </DialogTransaction>
+          )
+        ) : (
+          <ButtonPrimary
+            onClick={() => {
+              ReactGA.event({
+                category: 'tenx_action',
+                action: 'click_createnow_btn_1_not_connected',
+                label: 'Click on "create now btn 1" on tenx.cz.cash when not connected',
+              });
+              toast.error('Connect your BSC (BNB Smart Chain) Wallet first.');
+            }}
+            sx={{
+              width: '9em',
+              marginTop: '0.66em',
+              fontSize: '1.5em',
+              position: 'relative',
+              fontWeight: 'bold',
+              textTransform: 'none',
+              color: '#e16b31',
+              borderRadius: '1.5em',
+              border: 'solid 5px #e16b31',
+              backgroundColor: '#f3f3f3',
+              '&:hover': {
+                backgroundColor: '#080830',
+              },
+            }}
+          >
+            CREATE NOW <Box as="span">🚀</Box>
+          </ButtonPrimary>
+        )}
       <ToastContainer />
 
       {address &&
@@ -450,7 +525,7 @@ export default function Home() {
                 </ul>
               </Grid2>
             </Grid2>
-            
+
 
             <Grid2 className="box1">
               <Grid2 xs={12}>
@@ -515,7 +590,7 @@ export default function Home() {
                 </p>
               </Grid2>
             </Grid2>
-            
+
 
           </Grid2>
         </Container>

@@ -16,6 +16,7 @@ export function useTenXTokenCount() {
                     address: ADDRESS_TENXLAUNCHV2,
                     abi: TenXLaunchV2Abi,
                     functionName: 'launchedTokensCount',
+                    chainId:97
                 });
                 setCount(result.toString());
             } catch (err) {

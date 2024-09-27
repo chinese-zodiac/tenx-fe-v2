@@ -9,9 +9,12 @@ import ReactGA from 'react-ga4';
 import { useNetwork } from 'wagmi';
 import { parseEther } from 'viem';
 import { readContract } from '@wagmi/core';
-import { ADDRESS_TENXBLACKLISTV2, badWords } from '../../constants/addresses';
+import { ADDRESS_TENXBLACKLISTV2 } from '../../constants/addresses';
+import badWords from '../../constants/badWords';
 import TenXBlacklistV2Abi from '../../abi/TenXBlacklistV2.json';
 import { Filter } from 'bad-words'
+import { gatewayTools, getIpfsUrl } from '../../utils/getIpfsJson';
+
 export default function DialogTransaction({
   btn,
   children,
@@ -54,11 +57,11 @@ export default function DialogTransaction({
       toast.error('Name should have atleast 3 characters');
       return;
     }
-    else if (debouncedArgs[1].length < 1) {
-      toast.error('Name should have atleast 1 character');
+    else if (debouncedArgs[2].length < 1) {
+      toast.error('Symbol should have atleast 1 character');
       return;
     }
-    else if (debouncedArgs[0] <= parseEther('5000')) {
+    else if (debouncedArgs[0] < parseEther('5000')) {
       toast.error('CZUSD LP Grant must be greater than 5000.');
       return;
     }
@@ -90,6 +93,7 @@ export default function DialogTransaction({
         abi: TenXBlacklistV2Abi,
         functionName: 'isAccountBlacklisted',
         args: [debouncedArgs[7]],
+        chainId:97
       });
 
       if (result) {
@@ -102,13 +106,19 @@ export default function DialogTransaction({
     }
 
     if (debouncedArgs[14] != 0 && debouncedArgs[14] < Math.floor(Date.now() / 1000) + (30 * 60)) {
+      console.log(debouncedArgs[14])
       toast.error('Invalid launch time as it must be at least 30 minutes in the future.');
       return;
     }
 
     if (debouncedArgs[3]) {
       try {
-        const response = await fetch(`https://ipfs.io/ipfs/${debouncedArgs[3]}`);
+        if(!gatewayTools.containsCID('ipfs.io/'+ debouncedArgs[3]).containsCid){
+          toast.error('The CID does not point to a valid image for logo.');
+          return;
+        }
+        const ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + debouncedArgs[3]);
+        const response = await fetch('https://' + ipfsLink);
         const contentType = response.headers.get('content-type');
 
 
@@ -124,7 +134,12 @@ export default function DialogTransaction({
 
     if (debouncedArgs[4]) {
       try {
-        const response = await fetch(`https://ipfs.io/ipfs/${debouncedArgs[4]}`);
+        if(!gatewayTools.containsCID('ipfs.io/'+ debouncedArgs[4]).containsCid){
+          toast.error('The CID does not point to a valid image for logo.');
+          return;
+        }
+        const ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + debouncedArgs[4]);
+        const response = await fetch('https://' + ipfsLink);
         const contentType = response.headers.get('content-type');
         if (!contentType || !contentType.startsWith('text/')) {
           toast.error('The CID does not point to a valid text file for description.');

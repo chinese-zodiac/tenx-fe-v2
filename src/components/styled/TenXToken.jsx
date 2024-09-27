@@ -15,6 +15,7 @@ import DOMPurify from 'dompurify';
 import { keccak256, toBytes } from 'viem';
 import { ADDRESS_TENXLAUNCHVIEWV2 } from '../../constants/addresses';
 import TenXLaunchViewV2Abi from '../../abi/TenXLaunchViewV2.json';
+import { getIpfsUrl } from '../../utils/getIpfsJson';
 const StarCheckbox = styled(Checkbox)(({ theme }) => ({
   color: '#e16b31',
   '&:checked': {
@@ -95,7 +96,8 @@ export default function TenXToken({
   useEffect(() => {
     const fetchFileContent = async (ipfsLink) => {
       try {
-        const response = await fetch(ipfsLink);
+        ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + ipfsLink);
+        const response = await fetch('https://' + ipfsLink);
         const text = await response.text(); // Convert the response to text
         const sanitizedText = DOMPurify.sanitize(text); // Sanitize the content
         const lines = sanitizedText.split('\n').slice(0, 3).join('\n');
@@ -203,7 +205,7 @@ export default function TenXToken({
 
       <Box
         as="img"
-        src={DOMPurify.sanitize(tokenLogoCID)}
+        src={'https://' + getIpfsUrl('ipfs.io/ipfs/' + tokenLogoCID)}
         sx={{
           width: '5em',
           heigh: '5em',
@@ -288,6 +290,7 @@ export default function TenXToken({
                 backgroundColor: 'grey',
               },
             }}
+            alt="Token Logo"
           />
         </Box>
       </Box>

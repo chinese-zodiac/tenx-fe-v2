@@ -33,6 +33,7 @@
     "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^18.2.0",
     "react-ga4": "^2.1.0",
+    "react-markdown": "^9.0.1",
     "react-router-dom": "^6.26.2",
     "react-toastify": "^10.0.5",
     "react-window": "^1.8.8",

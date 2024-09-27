@@ -9,4 +9,3 @@ export const ADDRESS_TENXLAUNCHVIEWV2 = '0x7dc2F4B81846Af198D5E8d94c6E013B98E9C6
 export const ADDRESS_TENXSETTINGSV2 = '0x1C6ca5e2B2a41aF0C4bF781D43D5A31AFaB4EdaF';
 export const ADDRESS_TENXBLACKLISTV2 = '0xf06AE5E56dB54004C0a166240A5c0CfcC6dfcd45';
 
-export const badWords = ["damnword!", "helloworld", "jerkface!!", "pieceofsh", "thisisbs!", "shutfckup", "whatabch!", "yousuck!!", "fckawesome", "crappy!!1"]
