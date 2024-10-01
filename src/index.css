@@ -121,6 +121,7 @@ p {
 
 .css-h3eu0c-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {
   border: none !important;
+  background: #fff !important;
 }
 
 .css-1hsqu8b-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {
@@ -234,7 +235,7 @@ p {
 
 .css-eck8fq-MuiStack-root {
   background: #e38c8c;
-  padding: 60px 0px 80px;
+  padding: 60px 0px 60px;
 }
 
 .css-6rynz7 {
@@ -460,7 +461,7 @@ p {
 .homelist li {
   list-style: none;
   text-align: left;
-  border-bottom: 1px solid #f3f3f3;
+  border-bottom:1px solid #ededed;
   padding: 3px 0px;
   font-weight: 600 !important;
   font-family: system-ui !important;
@@ -515,7 +516,7 @@ p {
   margin-bottom: 50px !important;
 }
 .css-1hsqu8b-MuiFormControl-root-MuiTextField-root .MuiFilledInput-root{ background: #fff !important; border-radius:10px;}
-.css-ue5gqe-MuiStack-root>:not(style)~:not(style){background: #fff !important; border-radius:10px;  box-shadow: 1px 2px 2px #e7b1b1;}
+
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root{padding: 0px 15px !important;}
 .css-18mp6pk-MuiButtonBase-root-MuiIconButton-root{ padding:0px !important;}
 
@@ -575,11 +576,27 @@ p {
 .css-2tsctb > :not(style):not(style){margin: 0px; background: #fff !important; border: solid 2px #ffffff !important; box-shadow: 1px 2px 2px #e7b1b1 !important; border-radius: 15px !important;}
 .css-zun73v{padding: 0px 9px !important; margin-top:0px !important; margin-left: 4px !important;}
 
-.descriptionbox {color:#333; padding:20px;line-height: 26px; height: 108px; overflow-y: scroll;}
+.descriptionbox {color:#333; padding:20px;line-height: 26px; height:240px; overflow-y: scroll;width: 84%; text-align: left;}
 .descriptionbox h2{font-size: 22px;color: #000; text-transform: uppercase;    margin-top: 0px;}
 .Instructions{width: 100%;}
 .Instructions li{ list-style: none;}
 .Instructions ul{ padding-left: 0px;}
+.editsetting{width: 100%; display: inline !important; background: none !important; margin-bottom: 20px !important;  margin-top: 10px !important; box-shadow: none !important;}
+.editsetting .MuiFormControlLabel-label{background: #fff; border-radius: 0px 10px 10px 0px; padding: 14px 15px 14px 0px !important;    box-shadow: 1px 2px 2px #e7b1b1;}
+.editsetting  .MuiButtonBase-root{background: #fff; border-radius: 10px 0px 0px 10px; padding: 12px 9px 11px !important; margin-top: -5px;    box-shadow: -1px 2px 2px #e7b1b1; }
+.css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover{background: #fff !important; }
+
+.css-ue5gqe-MuiStack-root>:not(style)~:not(style){background: #fff; border-radius:10px;  box-shadow: 1px 2px 2px #e7b1b1;}
+.tname{background: #fff !important;}
+.css-1n11gbc-MuiFormControlLabel-root{ margin-top: 0px !important; padding:10px !important;}
+.descriptionbox h2{ text-align:left;margin-top: 20px;}
+.descriptionbox ul{margin-left: -20px;}
+.descriptionbox ol{margin-left: -20px;}
+.descriptionbox h1{font-size: 26px; margin-bottom: 15px;}
+.maindetails .leftbox li{list-style: initial !important;}
+.discriptionbox ul{margin-left: -21px;}
+.discriptionbox ol{margin-left: -21px;}
+.discriptionbox h1{font-size: 24px; margin: 13px 0;}
 
 
 

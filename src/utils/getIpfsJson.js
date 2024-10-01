@@ -3,8 +3,8 @@ import { memoize } from 'lodash';
 
 export const gatewayTools = new IPFSGatewayTools();
 const gateways = [
-  'gateway.cz.cash',
   'ipfs.io',
+  'gateway.cz.cash',
   'flk-ipfs.xyz',
   'dweb.link',
   'gateway.pinata.cloud',

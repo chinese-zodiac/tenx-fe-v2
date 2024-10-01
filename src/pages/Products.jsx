@@ -114,8 +114,7 @@ const Products = () => {
           abi: TenXLaunchViewV2Abi,
           functionName: 'getTenXTokenLpData',
           args: [details.tenXToken.tokenAddress],
-          chainId: parseInt(chainId),
-          chainId:97
+          chainId: parseInt(chainId)
         });
         setInitialGrant((parseInt(result[0]) / 10 ** 18).toString());
         setTotalSupply((parseInt(result[1]) / 10 ** 18).toString());
@@ -220,7 +219,7 @@ const Products = () => {
       <Header />
       <div className="maindetails">
         <div className="leftbox">
-          <li className="sharebtn">
+          <div className="sharebtn">
             <Button variant="contained" color="primary" onClick={handleCopy}>
               Share Product
             </Button><br />
@@ -229,7 +228,7 @@ const Products = () => {
                 Link copied to clipboard!
               </Alert>
             </Snackbar>
-          </li>
+          </div>
           <Box
             as="img"
             src={'https://' + getIpfsUrl(details.tenXToken.tokenLogoCID)}

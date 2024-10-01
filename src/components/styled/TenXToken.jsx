@@ -118,7 +118,8 @@ export default function TenXToken({
           address: tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'balanceOf',
-          args: [address]
+          args: [address],
+          chainId: 97
         });
         setHoldings(result.toString());
       } catch (error) {
@@ -132,7 +133,8 @@ export default function TenXToken({
           address: tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'hasRole',
-          args: [keccak256(toBytes('MANAGER_ROLE')), address]
+          args: [keccak256(toBytes('MANAGER_ROLE')), address],
+          chainId: 97
         }) : false;
         setRole(result);
       } catch (error) {
@@ -147,6 +149,7 @@ export default function TenXToken({
           abi: TenXLaunchViewV2Abi,
           functionName: 'getTenXTokenLpData',
           args: [tokenAddress],
+          chainId: 97
         });
         // setInitialGrant((parseInt(result[0]) / 10 ** 18).toString());
         // setTotalSupply((parseInt(result[1]) / 10 ** 18).toString());

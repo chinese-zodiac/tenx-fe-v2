@@ -8,6 +8,7 @@ import {
   useTheme,
   FormControlLabel,
   Checkbox,
+  Button,
 } from '@mui/material';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
@@ -155,7 +156,8 @@ export default function Home() {
           label="Sell Fee"
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
-        <FormControlLabel
+		
+        <FormControlLabel className='editsetting'
           control={
             <Checkbox
               checked={isChecked}
@@ -166,6 +168,7 @@ export default function Home() {
           label="Edit advanced Settings"
           sx={{ marginTop: '1em' }}
         />
+		
         {isChecked && <><SliderPercentagePicker
           pct={buyBurn}
           setPct={setBuyBurn}
@@ -261,7 +264,7 @@ export default function Home() {
             helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
           />
 
-          <DatePickerStyled class="datepicker"
+          <DatePickerStyled className='datepicker'
             text={launchTimestamp}
             backgroundColor="#fff"
             setText={setLaunchTimestamp}
@@ -478,7 +481,11 @@ export default function Home() {
             </Typography>
 
             <TenXTokenList className="productbox" start={0} />
+            <div className='clearfix'></div>
+            <Button>Previous</Button>
+            <Button>Next</Button>
           </Stack>
+          
         </>
       }
       <>
