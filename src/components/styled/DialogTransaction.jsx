@@ -14,6 +14,7 @@ import badWords from '../../constants/badWords';
 import TenXBlacklistV2Abi from '../../abi/TenXBlacklistV2.json';
 import { Filter } from 'bad-words'
 import { gatewayTools, getIpfsUrl } from '../../utils/getIpfsJson';
+import { bscTestnet } from 'viem/chains';
 
 export default function DialogTransaction({
   btn,
@@ -93,7 +94,7 @@ export default function DialogTransaction({
         abi: TenXBlacklistV2Abi,
         functionName: 'isAccountBlacklisted',
         args: [debouncedArgs[7]],
-        chainId:97
+        chainId:bscTestnet.id,
       });
 
       if (result) {

@@ -1,10 +1,8 @@
 import { Box, Checkbox, IconButton, Stack, Typography, useTheme } from '@mui/material';
 import { LINK_BSCSCAN, LINK_GECKOTERMINAL } from '../../constants/links';
 import ButtonPrimary from './ButtonPrimary';
-import ButtonImageLink from './ButtonImageLink';
 import { czCashBuyLink } from '../../utils/czcashLink';
 import { useAccount, useNetwork } from 'wagmi';
-import ReactGA from 'react-ga4';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import { readContract } from '@wagmi/core';
@@ -16,6 +14,7 @@ import { keccak256, toBytes } from 'viem';
 import { ADDRESS_TENXLAUNCHVIEWV2 } from '../../constants/addresses';
 import TenXLaunchViewV2Abi from '../../abi/TenXLaunchViewV2.json';
 import { getIpfsUrl } from '../../utils/getIpfsJson';
+import { bscTestnet } from 'viem/chains';
 const StarCheckbox = styled(Checkbox)(({ theme }) => ({
   color: '#e16b31',
   '&:checked': {
@@ -52,8 +51,6 @@ const BlueIconButton = styled(IconButton)(({ theme }) => ({
 export default function TenXToken({
   tokenAddress,
   czusdPair,
-  taxReceiver,
-  czusdGrant,
   buyTax,
   buyBurn,
   sellTax,
@@ -75,19 +72,21 @@ export default function TenXToken({
   const [marketCap, setMarketCap] = useState('Loading...');
 
   useEffect(() => {
-    const storedPinnedState = localStorage.getItem(`pinned-${tokenAddress}`);
+    const storedPinnedState = localStorage.getItem(`pinned-${tokenIndex}`);
     if (storedPinnedState !== null) {
       setChecked(JSON.parse(storedPinnedState));
     }
-  }, [tokenAddress]);
+  }, []);
 
   const handleChange = (event) => {
     const isChecked = event.target.checked;
     setChecked(isChecked);
+  
     // Store the pinned state in localStorage
-    localStorage.setItem(`pinned-${tokenAddress}`, isChecked);
+    localStorage.setItem(`pinned-${tokenIndex}`, isChecked);
+  
     if (onPinnedChange) {
-      onPinnedChange(tokenAddress, isChecked);
+      onPinnedChange(tokenIndex, isChecked);
     }
   };
 
@@ -114,17 +113,17 @@ export default function TenXToken({
   useEffect(() => {
     const getHoldings = async () => {
       try {
-        const result = await readContract({
+        const result = address ? await readContract({
           address: tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'balanceOf',
           args: [address],
-          chainId: 97
-        });
+          chainId: bscTestnet.id
+        }) : 0;
         setHoldings(result.toString());
       } catch (error) {
         console.error('Error fetching Holdings:', error);
-        setContent('No data found');
+        setHoldings('No data found');
       }
     };
     const getRole = async () => {
@@ -134,7 +133,7 @@ export default function TenXToken({
           abi: TenXTokenV2Abi,
           functionName: 'hasRole',
           args: [keccak256(toBytes('MANAGER_ROLE')), address],
-          chainId: 97
+          chainId: bscTestnet.id
         }) : false;
         setRole(result);
       } catch (error) {
@@ -149,7 +148,7 @@ export default function TenXToken({
           abi: TenXLaunchViewV2Abi,
           functionName: 'getTenXTokenLpData',
           args: [tokenAddress],
-          chainId: 97
+          chainId: bscTestnet.id
         });
         // setInitialGrant((parseInt(result[0]) / 10 ** 18).toString());
         // setTotalSupply((parseInt(result[1]) / 10 ** 18).toString());
@@ -358,7 +357,7 @@ export default function TenXToken({
       <ButtonPrimary
         as="a"
         target="_self"
-        href={`/product/${tokenIndex}/${chain.id}`}
+        href={`/product/${tokenIndex}/${chain ? chain.id : 97}`}
         sx={{
           width: '100%',
           marginTop: '0em',

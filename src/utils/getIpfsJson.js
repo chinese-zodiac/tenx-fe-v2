@@ -10,12 +10,12 @@ const gateways = [
   'gateway.pinata.cloud',
   'w3s.link'
 ];
-console.log(gatewayTools.containsCID('ipfs.io/bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm').containsCid)
+// console.log(gatewayTools.containsCID('ipfs.io/bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm').containsCid);
 export const getIpfsUrl = async (cid) => {
   for (let i = 0; i < gateways.length; i++) {
     const gatewayUrl = gatewayTools.convertToDesiredGateway(cid, gateways[i]);
       const response = await fetch(gatewayUrl, { method: 'HEAD' });
-      console.log({response})
+      // console.log({response})
       if (response.ok) {
         return gatewayUrl;
       }

@@ -7,8 +7,7 @@ import {
   keyframes,
   useTheme,
   FormControlLabel,
-  Checkbox,
-  Button,
+  Checkbox
 } from '@mui/material';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
@@ -35,6 +34,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import DOMPurify from 'dompurify';
 import Markdown from 'react-markdown'
 import { getIpfsUrl } from '../utils/getIpfsJson';
+import TenXTokenListPinned from '../components/elements/TenXTokenListPinned';
 
 export default function Home() {
   const { chain } = useNetwork();
@@ -57,7 +57,7 @@ export default function Home() {
   const [launchTimestamp, setLaunchTimestamp] = useState(0);
   const [content, setContent] = useState('Loading...');
   const [isChecked, setIsChecked] = useState(false);
-  
+
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
     setIsChecked(checked);
@@ -91,7 +91,7 @@ export default function Home() {
         setContent('No data found'); // Update state with error message
       }
     };
-    if(!isChecked){
+    if (!isChecked) {
       fetchFileContent(descriptionMarkdownCID); // Call the async function
     }
   }, [descriptionMarkdownCID]);
@@ -156,7 +156,7 @@ export default function Home() {
           label="Sell Fee"
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
-		
+
         <FormControlLabel className='editsetting'
           control={
             <Checkbox
@@ -168,7 +168,7 @@ export default function Home() {
           label="Edit advanced Settings"
           sx={{ marginTop: '1em' }}
         />
-		
+
         {isChecked && <><SliderPercentagePicker
           pct={buyBurn}
           setPct={setBuyBurn}
@@ -466,28 +466,33 @@ export default function Home() {
           </ButtonPrimary>
         )}
       <ToastContainer />
+      <>
+        <Stack
+          direction="row"
+          spacing={1}
+          justifyContent="center"
+          flexWrap="wrap"
+          rowGap={1}
+        >
+          <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
+            TenX Products
+          </Typography>
+          <TenXTokenList className="productbox"/>
+        </Stack>
+        <Stack
+          direction="row"
+          spacing={1}
+          justifyContent="center"
+          flexWrap="wrap"
+          rowGap={1}
+        >
+          <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
+            Starred Products
+          </Typography>
+          <TenXTokenListPinned/>
+        </Stack>
 
-      {address &&
-        <>
-          <Stack
-            direction="row"
-            spacing={1}
-            justifyContent="center"
-            flexWrap="wrap"
-            rowGap={1}
-          >
-            <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
-              TenX Products
-            </Typography>
-
-            <TenXTokenList className="productbox" start={0} />
-            <div className='clearfix'></div>
-            <Button>Previous</Button>
-            <Button>Next</Button>
-          </Stack>
-          
-        </>
-      }
+      </>
       <>
         <Container className="contentbox">
           <Grid2

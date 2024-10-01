@@ -6,7 +6,7 @@ import TenXTokenV2Abi from '../abi/TenXTokenV2.json';
 import { ADDRESS_TENXLAUNCHVIEWV2 } from '../constants/addresses';
 import { formatEther } from 'viem';
 import { fromUnixTime } from 'date-fns';
-
+import { bscTestnet } from '@wagmi/core/chains'
 const STATUS = {
   SUCCESS: 'SUCCESS',
   PROCESSING: 'PROCESSING',
@@ -37,7 +37,7 @@ const useStore = create(
             abi: TenXLaunchViewV2Abi,
             functionName: 'getTenXTokenDataFromIndex',
             args: [_tokenIndex],
-            chainId:97
+            chainId:bscTestnet.id,
           });
 
           const newTenXTokenV2 = {
@@ -69,13 +69,15 @@ const useStore = create(
               {
                 ...TenXTokenV2Contract,
                 functionName: 'name',
+                chainId:bscTestnet.id,
               },
               {
                 ...TenXTokenV2Contract,
                 functionName: 'symbol',
+                chainId:bscTestnet.id,
               },
             ],
-            chainId:97
+            
           });
 
           newTenXTokenV2.name = resName[0].result;

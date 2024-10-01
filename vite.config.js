@@ -5,6 +5,7 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   optimizeDeps: {
     include: [
+      '@popperjs/core',
       'hoist-non-react-statics',
       '@emotion/react', 
       '@emotion/styled', 
