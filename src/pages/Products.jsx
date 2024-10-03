@@ -177,8 +177,8 @@ const Products = () => {
               borderRadius: '5em',
             }}
           /><br /><br />
-          <li>Description: <span className='discriptionbox'><Markdown>{content}</Markdown></span></li>
-          <li> Name: <span>{tenXToken.name}</span></li>
+          <div className='descriptiondtl'>Description: <Markdown>{content}</Markdown></div>
+          <li> Name: <span>{tenXToken.name} <a className='edit' href='#'>Edit</a></span></li>
           <li>Symbol: <span>{tenXToken.symbol}</span></li>
           <li>Image CID: <span>{tenXToken.tokenLogoCID} </span></li>
 

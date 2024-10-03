@@ -475,6 +475,7 @@ export default function Home() {
           flexWrap="wrap"
           rowGap={1}
         >
+          <Container className="topheading">
           <Button onClick={() => setStapro(false)}>
             <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
               TenX Products
@@ -486,7 +487,9 @@ export default function Home() {
               Starred Products
             </Typography>
           </Button>
+          </Container>
           {stapro ? <TenXTokenListPinned /> : <TenXTokenList className="productbox" />}
+         
         </Stack>
       </>
       <>
@@ -590,6 +593,10 @@ export default function Home() {
                   use, and disclosure of your personal information as described
                   therein. If you have any questions or concerns about our privacy
                   practices, please contact us at team@czodiac.com.
+                  <br />
+                  <br />
+                  <br />
+                  <br />
                   <br />
                   <br />
                   <a css={{ color: 'antiquewhite' }} href={LINK_PRIVACY_POLICY}>

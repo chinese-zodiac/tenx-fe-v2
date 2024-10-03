@@ -24,7 +24,7 @@ export default function TenXTokenList() {
     if (tenXTokenArray) {
       setSortedTokens(sortTokens(tenXTokenArray));
     }
-  }, []);
+  }, [page]);
 
   const handlePinnedChange = (tokenIndex, isPinned) => {
     localStorage.setItem(`pinned-${tokenIndex}`, isPinned); // Save the pinned state in local storage
