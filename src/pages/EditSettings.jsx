@@ -17,7 +17,7 @@ import { CircularProgress } from '@mui/material';
 import { Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { gatewayTools, getIpfsUrl } from '../utils/getIpfsJson';
+import { gatewayTools } from '../utils/getIpfsJson';
 import Markdown from 'react-markdown';
 import DOMPurify from 'dompurify';
 
@@ -55,7 +55,6 @@ const EditSettings = () => {
     const [sellLpFee, setSellLpFee] = useState(details.tenXToken.sellLpFee);
 
     const [tokenLogoCID, setTokenLogoCID] = useState(details.tenXToken.tokenLogoCID);
-    console.log('https://' + getIpfsUrl('ipfs.io/ipfs/' + tokenLogoCID))
     const [loading, setLoading] = useState(null);
 
     const [completion, setCompletion] = useState(null);
@@ -64,8 +63,8 @@ const EditSettings = () => {
     useEffect(() => {
         const fetchFileContent = async (ipfsLink) => {
             try {
-                ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + ipfsLink);
-                const response = await fetch('https://' + ipfsLink);
+
+                const response = await fetch('https://ipfs.io/ipfs/' + ipfsLink);
                 const text = await response.text();
                 const sanitizedText = DOMPurify.sanitize(text);
                 setContent(sanitizedText);
@@ -88,8 +87,7 @@ const EditSettings = () => {
                     return;
                 }
                 try {
-                    const ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + descriptionMarkdownCID);
-                    const response = await fetch('https://' + ipfsLink);
+                    const response = await fetch('https://ipfs.io/ipfs/' + descriptionMarkdownCID);
                     const contentType = response.headers.get('content-type');
                     if (!contentType || !contentType.startsWith('text/')) {
                         toast.error('The CID does not point to a valid text file for description.');
@@ -195,9 +193,7 @@ const EditSettings = () => {
                 }
 
                 try {
-                    const ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + tokenLogoCID);
-                    console.log({ipfsLink})
-                    const response = await fetch('https://' + ipfsLink);
+                    const response = await fetch('https://ipfs.io/ipfs/' + tokenLogoCID);
                     const contentType = response.headers.get('content-type');
 
                     if (!contentType || !contentType.startsWith('image/')) {
@@ -371,7 +367,7 @@ const EditSettings = () => {
                             {tokenLogoCID && (
                                 <Box
                                     as="img"
-                                    src={`https://${getIpfsUrl(tokenLogoCID)}`}
+                                    src={`https://ipfs.io/ipfs/${tokenLogoCID}`}
                                     sx={{
                                         width: '3.5em',
                                         height: '3.5em',

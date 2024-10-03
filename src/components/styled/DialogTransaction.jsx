@@ -13,7 +13,7 @@ import { ADDRESS_TENXBLACKLISTV2 } from '../../constants/addresses';
 import badWords from '../../constants/badWords';
 import TenXBlacklistV2Abi from '../../abi/TenXBlacklistV2.json';
 import { Filter } from 'bad-words'
-import { gatewayTools, getIpfsUrl } from '../../utils/getIpfsJson';
+import { gatewayTools } from '../../utils/getIpfsJson';
 import { bscTestnet } from 'viem/chains';
 
 export default function DialogTransaction({
@@ -118,8 +118,7 @@ export default function DialogTransaction({
           toast.error('The CID does not point to a valid image for logo.');
           return;
         }
-        const ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + debouncedArgs[3]);
-        const response = await fetch('https://' + ipfsLink);
+        const response = await fetch('https://ipfs.io/ipfs/' + debouncedArgs[3]);
         const contentType = response.headers.get('content-type');
 
 
@@ -139,8 +138,7 @@ export default function DialogTransaction({
           toast.error('The CID does not point to a valid image for logo.');
           return;
         }
-        const ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + debouncedArgs[4]);
-        const response = await fetch('https://' + ipfsLink);
+        const response = await fetch('https://ipfs.io/ipfs/' + debouncedArgs[4]);
         const contentType = response.headers.get('content-type');
         if (!contentType || !contentType.startsWith('text/')) {
           toast.error('The CID does not point to a valid text file for description.');

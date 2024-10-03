@@ -7,7 +7,8 @@ import {
   keyframes,
   useTheme,
   FormControlLabel,
-  Checkbox
+  Checkbox,
+  Button
 } from '@mui/material';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
@@ -33,7 +34,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import DOMPurify from 'dompurify';
 import Markdown from 'react-markdown'
-import { getIpfsUrl } from '../utils/getIpfsJson';
 import TenXTokenListPinned from '../components/elements/TenXTokenListPinned';
 
 export default function Home() {
@@ -57,6 +57,7 @@ export default function Home() {
   const [launchTimestamp, setLaunchTimestamp] = useState(0);
   const [content, setContent] = useState('Loading...');
   const [isChecked, setIsChecked] = useState(false);
+  const [stapro, setStapro] = useState(false);
 
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
@@ -70,7 +71,6 @@ export default function Home() {
       setDescriptionMarkdownCID('bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm');
       setBalanceMax('5000');
       setTransactionSizeMax('1000');
-      setTaxReceiver(address);
       setBuyLpFee(0);
       setSellLpFee(0);
       setLaunchTimestamp(0);
@@ -78,23 +78,23 @@ export default function Home() {
       setLaunchTimestamp(dayjs());
     }
   };
+
   useEffect(() => {
     const fetchFileContent = async (ipfsLink) => {
       try {
-        ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + ipfsLink);
-        const response = await fetch('https://' + ipfsLink);
+        const response = await fetch('https://ipfs.io/ipfs/' + ipfsLink);
         const text = await response.text();
         const sanitizedText = DOMPurify.sanitize(text);
         setContent(sanitizedText);
       } catch (error) {
         console.error('Error fetching file from IPFS:', error);
-        setContent('No data found'); // Update state with error message
+        setContent('No data found');
       }
     };
     if (!isChecked) {
-      fetchFileContent(descriptionMarkdownCID); // Call the async function
+      fetchFileContent(descriptionMarkdownCID);
     }
-  }, [descriptionMarkdownCID]);
+  }, [descriptionMarkdownCID, isChecked]);
 
   // console.log({
   //   czusdWad:parseEther(czusdWad), 
@@ -237,7 +237,7 @@ export default function Home() {
           {tokenLogoCID && (
             <Box
               as="img"
-              src={'https://' + getIpfsUrl('ipfs.io/ipfs/' + tokenLogoCID)}
+              src={'https://ipfs.io/ipfs/' + tokenLogoCID}
               sx={{
                 width: '3.5em',
                 height: '3.5em',
@@ -283,10 +283,11 @@ export default function Home() {
       </Stack>
       <br />
       {!!address ?
-        (chain.id == 97 ?
+        (chain.id != 97 ?
           (
             <ButtonPrimary
               onClick={() => {
+                console.log(chain.id)
                 ReactGA.event({
                   category: 'tenx_action',
                   action: 'click_createnow_btn_1_not_connected',
@@ -474,24 +475,19 @@ export default function Home() {
           flexWrap="wrap"
           rowGap={1}
         >
-          <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
-            TenX Products
-          </Typography>
-          <TenXTokenList className="productbox"/>
-        </Stack>
-        <Stack
-          direction="row"
-          spacing={1}
-          justifyContent="center"
-          flexWrap="wrap"
-          rowGap={1}
-        >
-          <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
-            Starred Products
-          </Typography>
-          <TenXTokenListPinned/>
-        </Stack>
+          <Button onClick={() => setStapro(false)}>
+            <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
+              TenX Products
+            </Typography>
+          </Button>
 
+          <Button onClick={() => setStapro(true)}>
+            <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
+              Starred Products
+            </Typography>
+          </Button>
+          {stapro ? <TenXTokenListPinned /> : <TenXTokenList className="productbox" />}
+        </Stack>
       </>
       <>
         <Container className="contentbox">

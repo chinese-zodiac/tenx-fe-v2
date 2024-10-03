@@ -11,9 +11,6 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { styled } from '@mui/system';
 import DOMPurify from 'dompurify';
 import { keccak256, toBytes } from 'viem';
-import { ADDRESS_TENXLAUNCHVIEWV2 } from '../../constants/addresses';
-import TenXLaunchViewV2Abi from '../../abi/TenXLaunchViewV2.json';
-import { getIpfsUrl } from '../../utils/getIpfsJson';
 import { bscTestnet } from 'viem/chains';
 const StarCheckbox = styled(Checkbox)(({ theme }) => ({
   color: '#e16b31',
@@ -60,7 +57,9 @@ export default function TenXToken({
   tokenLogoCID,
   launchTimestamp,
   descriptionMarkdownCID,
-  tokenIndex
+  tokenIndex,
+  price,
+  marketCap
 }) {
   const { address, isConnecting, isDisconnected } = useAccount();
   const { chain } = useNetwork();
@@ -68,8 +67,6 @@ export default function TenXToken({
   const [holdings, setHoldings] = useState('Loading...');
   const [role, setRole] = useState(false);
   const [checked, setChecked] = useState(false);
-  const [price, setPrice] = useState('Loading...');
-  const [marketCap, setMarketCap] = useState('Loading...');
 
   useEffect(() => {
     const storedPinnedState = localStorage.getItem(`pinned-${tokenIndex}`);
@@ -81,10 +78,10 @@ export default function TenXToken({
   const handleChange = (event) => {
     const isChecked = event.target.checked;
     setChecked(isChecked);
-  
+
     // Store the pinned state in localStorage
     localStorage.setItem(`pinned-${tokenIndex}`, isChecked);
-  
+
     if (onPinnedChange) {
       onPinnedChange(tokenIndex, isChecked);
     }
@@ -95,8 +92,7 @@ export default function TenXToken({
   useEffect(() => {
     const fetchFileContent = async (ipfsLink) => {
       try {
-        ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + ipfsLink);
-        const response = await fetch('https://' + ipfsLink);
+        const response = await fetch('https://ipfs.io/ipfs/' + ipfsLink);
         const text = await response.text(); // Convert the response to text
         const sanitizedText = DOMPurify.sanitize(text); // Sanitize the content
         const lines = sanitizedText.split('\n').slice(0, 3).join('\n');
@@ -141,26 +137,6 @@ export default function TenXToken({
         setRole(false);
       }
     };
-    const getLpDetails = async () => {
-      try {
-        const result = await readContract({
-          address: ADDRESS_TENXLAUNCHVIEWV2,
-          abi: TenXLaunchViewV2Abi,
-          functionName: 'getTenXTokenLpData',
-          args: [tokenAddress],
-          chainId: bscTestnet.id
-        });
-        // setInitialGrant((parseInt(result[0]) / 10 ** 18).toString());
-        // setTotalSupply((parseInt(result[1]) / 10 ** 18).toString());
-        setPrice((parseInt(result[4]) / 10 ** 18).toString());
-        setMarketCap((parseInt(result[4]) / 10 ** 18).toString());
-        // setTotalLpValue((parseInt(result[6]) / 10 ** 18).toString());
-      } catch (error) {
-        console.error('Error fetching Holdings:', error);
-        setContent('Not found');
-      }
-    };
-    getLpDetails()
     getRole();
     getHoldings(); // Call the async function
   }, [tokenAddress, address]);
@@ -207,7 +183,7 @@ export default function TenXToken({
 
       <Box
         as="img"
-        src={'https://' + getIpfsUrl('ipfs.io/ipfs/' + tokenLogoCID)}
+        src={'https://' + 'ipfs.io/ipfs/' + tokenLogoCID}
         sx={{
           width: '5em',
           heigh: '5em',
@@ -319,11 +295,11 @@ export default function TenXToken({
           <li>Sell Fee/Burn: <span>{(sellTax / 100).toFixed(2)}% /{' '}
             {(sellBurn / 100).toFixed(2)}%</span>
           </li>
-          <li>Market capitalization: <span>{marketCap}</span></li>
-          <li>Price in CUSD: <span>{price}</span></li>
+          <li>Market capitalization: <span>{parseFloat(marketCap).toFixed(2)}</span></li>
+          <li>Price in CUSD: <span>{parseFloat(price).toFixed(2)}</span></li>
           <li>Age: <span>{getAge(launchTimestamp)}</span></li>
           <li>Launch Time: <span>{dayjs(launchTimestamp).format('YYYY-MM-DD HH:mm:ss')}</span></li>
-          <li>Your holdings: <span>{holdings}</span></li>
+          {address && <li>Your holdings: <span>{holdings}</span></li>}
           <li> Description: <span>{content}</span></li>
         </ul>
       </Typography>

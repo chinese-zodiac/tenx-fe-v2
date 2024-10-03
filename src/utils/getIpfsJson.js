@@ -3,19 +3,19 @@ import { memoize } from 'lodash';
 
 export const gatewayTools = new IPFSGatewayTools();
 const gateways = [
-  'ipfs.io',
   'gateway.cz.cash',
+  'ipfs.io',
   'flk-ipfs.xyz',
   'dweb.link',
   'gateway.pinata.cloud',
   'w3s.link'
 ];
-// console.log(gatewayTools.containsCID('ipfs.io/bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm').containsCid);
+
 export const getIpfsUrl = async (cid) => {
   for (let i = 0; i < gateways.length; i++) {
     const gatewayUrl = gatewayTools.convertToDesiredGateway(cid, gateways[i]);
-      const response = await fetch(gatewayUrl, { method: 'HEAD' });
-      // console.log({response})
+      const response = await fetch(gatewayUrl);
+      console.log(response)
       if (response.ok) {
         return gatewayUrl;
       }

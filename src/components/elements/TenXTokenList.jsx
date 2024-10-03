@@ -11,7 +11,6 @@ export default function TenXTokenList() {
 
   const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(page * 3, 3);
 
-
   const [sortedTokens, setSortedTokens] = useState([]);
   const sortTokens = (tokens) => {
     return [...tokens].sort((a, b) => {
@@ -25,7 +24,7 @@ export default function TenXTokenList() {
     if (tenXTokenArray) {
       setSortedTokens(sortTokens(tenXTokenArray));
     }
-  }, [tenXTokenArray]);
+  }, []);
 
   const handlePinnedChange = (tokenIndex, isPinned) => {
     localStorage.setItem(`pinned-${tokenIndex}`, isPinned); // Save the pinned state in local storage

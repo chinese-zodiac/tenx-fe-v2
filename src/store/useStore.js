@@ -64,7 +64,7 @@ const useStore = create(
             abi: TenXTokenV2Abi,
           };
 
-          const resName = await readContracts({
+          const res1 = await readContracts({
             contracts: [
               {
                 ...TenXTokenV2Contract,
@@ -76,12 +76,26 @@ const useStore = create(
                 functionName: 'symbol',
                 chainId:bscTestnet.id,
               },
+              {
+                address: ADDRESS_TENXLAUNCHVIEWV2,
+                abi: TenXLaunchViewV2Abi,
+                functionName: 'getTenXTokenLpData',
+                args: [newTenXTokenV2.tokenAddress,],
+                chainId: bscTestnet.id
+              }
             ],
             
           });
 
-          newTenXTokenV2.name = resName[0].result;
-          newTenXTokenV2.symbol = resName[1].result;
+          newTenXTokenV2.name = res1[0].result;
+          newTenXTokenV2.symbol = res1[1].result;
+          newTenXTokenV2.initialSupply = formatEther(res1[2].result[0]);
+          newTenXTokenV2.totalSupply = formatEther(res1[2].result[1]);
+          newTenXTokenV2.tokenLP = formatEther(res1[2].result[2]);
+          newTenXTokenV2.czusdLP = formatEther(res1[2].result[3]);
+          newTenXTokenV2.price = formatEther(res1[2].result[4]);
+          newTenXTokenV2.marketCap = formatEther(res1[2].result[5]);
+          newTenXTokenV2.totalLpValue = formatEther(res1[2].result[6]);
 
           const newTenXTokenV2Array = [...get().TenXTokenV2Array];
           newTenXTokenV2Array[_tokenIndex] = newTenXTokenV2;

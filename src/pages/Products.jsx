@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { readContract, getConfig } from '@wagmi/core';
+import { readContract } from '@wagmi/core';
 import TenXTokenV2Abi from '../abi/TenXTokenV2.json';
 import { Box } from '@mui/system';
 import useTenXToken from '../hooks/useTenXToken';
@@ -11,73 +11,34 @@ import ButtonPrimary from '../components/styled/ButtonPrimary';
 import { czCashBuyLink } from '../utils/czcashLink';
 import { Typography, Button, Snackbar, Alert } from '@mui/material';
 import ConnectWallet from '../components/elements/ConnectWallet';
-import { parseAbiItem } from 'viem'
 import { ADDRESS_TENXLAUNCHVIEWV2, ADDRESS_TENXSETTINGSV2 } from '../constants/addresses';
 import TenXLaunchViewV2Abi from '../abi/TenXLaunchViewV2.json';
 import DOMPurify from 'dompurify';
 import Markdown from 'react-markdown'
-import { getIpfsUrl } from '../utils/getIpfsJson';
+
+import { keccak256, toBytes } from 'viem';
 
 const Products = () => {
   const { index, chainId } = useParams();
 
   const { address } = useAccount();
   const { chain } = useNetwork();
-  const details = useTenXToken(index);
+  const { tenXToken } = useTenXToken(index);
 
-  const date = new Date(details.tenXToken.launchTimestamp.toString());
+  const date = new Date(tenXToken.launchTimestamp.toString());
   const timestamp = Math.floor(date.getTime() / 1000);
-
   const [content, setContent] = useState('Loading...');
   const [holdings, setHoldings] = useState('Loading...');
-  const [totalSupply, setTotalSupply] = useState('Loading...');
-  const [initialGrant, setInitialGrant] = useState('Loading...');
-  const [price, setPrice] = useState('Loading...');
-  const [marketCap, setMarketCap] = useState('Loading...');
-  const [totalLpValue, setTotalLpValue] = useState('Loading...');
   const [manager, setManager] = useState('Loading...');
   const [exempt, setExempt] = useState('Loading...');
   const [role, setRole] = useState(false);
   const [totalTax, setTotalTax] = useState('Loading...');
-  const [totalBurn,setTotalBurn] = useState('Loading...');
-  const [totalLp, setTotalLp] = useState('Loading...');
-
-  const config = getConfig();
-
-  useEffect(() => {
-    const fetchEvents = async () => {
-      try {
-        const latestBlock = await config.publicClient.getBlockNumber();
-        const fromBlock = 43529178n;
-        const maxBlocksPerQuery = 50000n;
-        let logs = [];
-
-        // Fetch logs in chunks
-        for (let startBlock = fromBlock; startBlock <= latestBlock; startBlock += maxBlocksPerQuery) {
-          const endBlock = startBlock + maxBlocksPerQuery - 1n <= latestBlock ? startBlock + maxBlocksPerQuery - 1n : latestBlock;
-          const chunkLogs = await config.publicClient.getLogs({
-            address: details.tenXToken.tokenAddress,
-            event: parseAbiItem('event TaxesCollected(uint256 taxWad, uint256 burnWad, uint256 lpWad)'),
-            fromBlock: startBlock,
-            toBlock: endBlock
-          });
-          logs = logs.concat(chunkLogs);
-        }
-        console.log('Logs:', logs);
-      } catch (error) {
-        console.error('Error fetching logs:', error);
-      }
-    };
-
-    fetchEvents();
-  }, [details.tenXToken.tokenAddress, config]);
-
+  const [totalBurn, setTotalBurn] = useState('Loading...');
 
   useEffect(() => {
     const fetchFileContent = async (ipfsLink) => {
       try {
-        ipfsLink = await getIpfsUrl('ipfs.io/ipfs/' + ipfsLink);
-        const response = await fetch('https://' + ipfsLink);
+        const response = await fetch('https://ipfs.io/ipfs/' + ipfsLink);
         const text = await response.text();
         const sanitizedText = DOMPurify.sanitize(text);
         setContent(sanitizedText);
@@ -87,14 +48,14 @@ const Products = () => {
       }
     };
 
-    fetchFileContent(details.tenXToken.descriptionMarkdownCID); // Call the async function
-  }, [details]);
+    fetchFileContent(tenXToken.descriptionMarkdownCID); // Call the async function
+  }, []);
 
   useEffect(() => {
     const getHoldings = async () => {
       try {
         const result = address ? await readContract({
-          address: details.tenXToken.tokenAddress,
+          address: tenXToken.tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'balanceOf',
           args: [address]
@@ -107,61 +68,38 @@ const Products = () => {
       }
     };
 
-    const getLpDetails = async () => {
-      try {
-        const result = await readContract({
-          address: ADDRESS_TENXLAUNCHVIEWV2,
-          abi: TenXLaunchViewV2Abi,
-          functionName: 'getTenXTokenLpData',
-          args: [details.tenXToken.tokenAddress],
-          chainId: parseInt(chainId)
-        });
-        setInitialGrant((parseInt(result[0]) / 10 ** 18).toString());
-        setTotalSupply((parseInt(result[1]) / 10 ** 18).toString());
-        setPrice((parseInt(result[4]) / 10 ** 18).toString());
-        setMarketCap((parseInt(result[4]) / 10 ** 18).toString());
-        setTotalLpValue((parseInt(result[6]) / 10 ** 18).toString());
-      } catch (error) {
-        console.error('Error fetching Holdings:', error);
-        setContent('Not found');
-      }
-    };
-
     const getTaxDetails = async () => {
       try {
         const result = await readContract({
           address: ADDRESS_TENXLAUNCHVIEWV2,
           abi: TenXLaunchViewV2Abi,
           functionName: 'getTenXTokenFees',
-          args: [details.tenXToken.tokenAddress],
+          args: [tenXToken.tokenAddress],
           chainId: parseInt(chainId),
         });
         setTotalTax((parseInt(result[0]) / 10 ** 18).toString());
         setTotalBurn((parseInt(result[1]) / 10 ** 18).toString());
-        setTotalLp((parseInt(result[2]) / 10 ** 18).toString());
       } catch (error) {
         console.error('Error fetching Holdings:', error);
         setContent('Not found');
       }
     };
-
     const getTokenDetails = async () => {
       try {
         const result = await readContract({
-          address: details.tenXToken.tokenAddress,
+          address: tenXToken.tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'MANAGER_ROLE',
           chainId: parseInt(chainId),
         });
         setManager(result.toString());
-
       } catch (error) {
         console.error('Error fetching Holdings:', error);
         setContent('Not found');
       }
       try {
         const result = address ? await readContract({
-          address: details.tenXToken.tokenAddress,
+          address: tenXToken.tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'isExempt',
           chainId: parseInt(chainId),
@@ -178,7 +116,7 @@ const Products = () => {
     const getRole = async () => {
       try {
         const result = address ? await readContract({
-          address: tokenAddress,
+          address: tenXToken.tokenAddress,
           abi: TenXTokenV2Abi,
           functionName: 'hasRole',
           args: [keccak256(toBytes('MANAGER_ROLE')), address]
@@ -192,9 +130,8 @@ const Products = () => {
     getRole();
     getTokenDetails()
     getTaxDetails();
-    getLpDetails();
     getHoldings();
-  }, [chain, details.tenXToken.tokenAddress]);
+  }, [chain, tenXToken.tokenAddress]);
 
   const [open, setOpen] = React.useState(false);
 
@@ -231,7 +168,7 @@ const Products = () => {
           </div>
           <Box
             as="img"
-            src={'https://' + getIpfsUrl(details.tenXToken.tokenLogoCID)}
+            src={'https://ipfs.io/ipfs/' + tenXToken.tokenLogoCID}
             sx={{
               width: '5em',
               heigh: '5em',
@@ -241,52 +178,52 @@ const Products = () => {
             }}
           /><br /><br />
           <li>Description: <span className='discriptionbox'><Markdown>{content}</Markdown></span></li>
-          <li> Name: <span>{details.tenXToken.name}</span></li>
-          <li>Symbol: <span>{details.tenXToken.symbol}</span></li>
-          <li>Image CID: <span>{details.tenXToken.tokenLogoCID.split('/')[2]} </span></li>
+          <li> Name: <span>{tenXToken.name}</span></li>
+          <li>Symbol: <span>{tenXToken.symbol}</span></li>
+          <li>Image CID: <span>{tenXToken.tokenLogoCID} </span></li>
 
-          <li>Price in CZUSD: <span>{price}</span></li>
+          <li>Price in CZUSD: <span>{tenXToken.price}</span></li>
           <li>Launch timestamp in epoch number: <span>{timestamp}</span></li>
-          <li>Launch timestamp in local time: <span>{details.tenXToken.launchTimestamp.toString()}</span></li>
+          <li>Launch timestamp in local time: <span>{tenXToken.launchTimestamp.toString()}</span></li>
           <li>Connected wallet’s holdings: <span>{holdings}</span></li>
-          <li>Total Supply: <span>{totalSupply}</span></li>
-          <li>Total LP Value in CZUSD:<span>{totalLpValue} </span></li>
-          <li>Market capitalization:<span>{marketCap}</span></li>
-          <li>Token Description CID: <span>{details.tenXToken.descriptionMarkdownCID.split('/')[2]} </span></li>
-          <li>Total Buy/Sell Taxes: <span>{details.tenXToken.buyTax + details.tenXToken.sellTax}</span></li>
-          <li>Buy Tax: <span>{details.tenXToken.buyTax} </span></li>
-          <li>Sell Tax: <span>{details.tenXToken.sellTax} </span></li>
-          <li>Buy Burn: <span>{details.tenXToken.buyBurn}  </span></li>
-          <li>Sell Burn: <span>{details.tenXToken.sellBurn}  </span></li>
-          <li>Buy LP Fee: <span>{details.tenXToken.buyLpFee}  </span></li>
-          <li>Sell LP Fee: <span>{details.tenXToken.sellTax}  </span></li>
-          <li>Balance Max: <span>{details.tenXToken.balanceMax}  </span></li>
-          <li>Transaction Max:<span> {details.tenXToken.transactionSizeMax} </span></li>
+          <li>Total Supply: <span>{tenXToken.totalSupply}</span></li>
+          <li>Total LP Value in CZUSD:<span>{tenXToken.totalLpValue} </span></li>
+          <li>Market capitalization:<span>{tenXToken.marketCap}</span></li>
+          <li>Token Description CID: <span>{tenXToken.descriptionMarkdownCID} </span></li>
+          <li>Total Buy/Sell Taxes: <span>{tenXToken.buyTax + tenXToken.sellTax}</span></li>
+          <li>Buy Tax: <span>{tenXToken.buyTax} </span></li>
+          <li>Sell Tax: <span>{tenXToken.sellTax} </span></li>
+          <li>Buy Burn: <span>{tenXToken.buyBurn}  </span></li>
+          <li>Sell Burn: <span>{tenXToken.sellBurn}  </span></li>
+          <li>Buy LP Fee: <span>{tenXToken.buyLpFee}  </span></li>
+          <li>Sell LP Fee: <span>{tenXToken.sellTax}  </span></li>
+          <li>Balance Max: <span>{tenXToken.balanceMax}  </span></li>
+          <li>Transaction Max:<span> {tenXToken.transactionSizeMax} </span></li>
           <li>Is Connected Wallet Exempt <span>{exempt} </span></li>
           {role && <li>Set Exempt Wallet: </li>}
           <li>Token contract address: <span><Typography
             as="a"
             color="black"
             target="_blank"
-            href={chain?.blockExplorers?.default?.url + '/address/' + details.tenXToken.tokenAddress}
+            href={chain?.blockExplorers?.default?.url + '/address/' + tenXToken.tokenAddress}
           >
-            {details.tenXToken.tokenAddress}
+            {tenXToken.tokenAddress}
           </Typography></span></li>
           <li>LP Address: <span><Typography
             as="a"
             color="black"
             target="_blank"
-            href={chain?.blockExplorers?.default?.url + '/address/' + details.tenXToken.czusdPair}
+            href={chain?.blockExplorers?.default?.url + '/address/' + tenXToken.czusdPair}
           >
-            {details.tenXToken.czusdPair}
+            {tenXToken.czusdPair}
           </Typography></span></li>
           <li>Tax Receiver address: <span><Typography
             as="a"
             color="black"
             target="_blank"
-            href={chain?.blockExplorers?.default?.url + '/address/' + details.tenXToken.taxReceiver}
+            href={chain?.blockExplorers?.default?.url + '/address/' + tenXToken.taxReceiver}
           >
-            {details.tenXToken.taxReceiver}
+            {tenXToken.taxReceiver}
           </Typography> </span></li>
           <li>TenX Setting address: <span><Typography
             as="a"
@@ -298,14 +235,14 @@ const Products = () => {
           </Typography></span></li>
           <li>Total taxes in tokens/usd: <span>{totalTax}</span></li>
           <li>Total burn in tokens/usd: <span>{totalBurn}</span></li>
-          <li>Total lp in tokens/usd: <span>{totalLp}</span></li>
-          <li>Initial CZUSD grant: <span>{initialGrant}</span></li>
-          <li className='detailspagebtn'>
+          <li>Total lp in tokens/usd: <span>{tenXToken.totalLpValue}</span></li>
+          <li>Initial CZUSD grant: <span>{tenXToken.initialSupply}</span></li>
+          <div className='detailspagebtn'>
             {chain ?
               <ButtonPrimary
                 as="a"
                 target="_blank"
-                href={czCashBuyLink('BNB', details.tenXToken.tokenAddress)}
+                href={czCashBuyLink('BNB', tenXToken.tokenAddress)}
                 sx={{
                   width: '100%',
                   fontSize: '1.5em',
@@ -326,12 +263,12 @@ const Products = () => {
                   },
                 }}
               >
-                BUY {details.tenXToken.symbol?.slice(0, 7)}
+                BUY {tenXToken.symbol?.slice(0, 7)}
 
               </ButtonPrimary>
               :
               <ConnectWallet />}
-          </li>
+          </div>
         </div>
 
       </div>
