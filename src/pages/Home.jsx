@@ -157,7 +157,8 @@ export default function Home() {
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
 
-        <FormControlLabel className='editsetting'
+        <FormControlLabel
+          className="editsetting advancedsettings"
           control={
             <Checkbox
               checked={isChecked}
@@ -166,7 +167,12 @@ export default function Home() {
             />
           }
           label="Edit advanced Settings"
-          sx={{ marginTop: '1em' }}
+          sx={{
+            marginTop: '1em',
+            background: 'none' ,
+            border: 'none',
+            boxShadow: 'none',
+          }}
         />
 
         {isChecked && <><SliderPercentagePicker
@@ -237,6 +243,7 @@ export default function Home() {
           {tokenLogoCID && (
             <Box
               as="img"
+              className="productlogo"
               src={'https://ipfs.io/ipfs/' + tokenLogoCID}
               sx={{
                 width: '3.5em',
@@ -298,6 +305,7 @@ export default function Home() {
               sx={{
                 width: '9em',
                 marginTop: '0.66em',
+                marginBottom: '2em',
                 fontSize: '1.5em',
                 position: 'relative',
                 fontWeight: 'bold',
@@ -352,6 +360,7 @@ export default function Home() {
                   sx={{
                     width: '9em',
                     marginTop: '0.66em',
+                    marginBottom: '2em',
                     fontSize: '1.5em',
                     position: 'relative',
                     fontWeight: 'bold',
@@ -450,6 +459,7 @@ export default function Home() {
             sx={{
               width: '9em',
               marginTop: '0.66em',
+              marginBottom: '2em',
               fontSize: '1.5em',
               position: 'relative',
               fontWeight: 'bold',
@@ -476,20 +486,20 @@ export default function Home() {
           rowGap={1}
         >
           <Container className="topheading">
-          <Button onClick={() => setStapro(false)}>
-            <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
-              TenX Products
-            </Typography>
-          </Button>
+            <Button onClick={() => setStapro(false)}>
+              <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
+                TenX Products
+              </Typography>
+            </Button>
 
-          <Button onClick={() => setStapro(true)}>
-            <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
-              Starred Products
-            </Typography>
-          </Button>
+            <Button onClick={() => setStapro(true)}>
+              <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
+                Starred Products
+              </Typography>
+            </Button>
           </Container>
           {stapro ? <TenXTokenListPinned /> : <TenXTokenList className="productbox" />}
-         
+
         </Stack>
       </>
       <>

@@ -195,6 +195,10 @@ p {
   box-shadow: 1px 1px 2px rgb(0 0 0 / 10%) !important;
 }
 
+.css-2tsctb .MuiButton-root {
+  margin-bottom: 50px !important;
+}
+
 .MuiTypography-root {
   color: #000;
 }
@@ -694,12 +698,13 @@ p {
 
 .css-15vfxm7 .MuiFilledInput-root {
   background: #fff !important;
+  border-radius: 10px;
 }
 
 .css-zbq4mc>:not(style)~:not(style) {
   margin-right: 0px !important;
+  border-radius: 10px;
 }
-
 
 .css-il73ku {
   width: 95% !important;
@@ -748,9 +753,6 @@ p {
 
 .css-2tsctb> :not(style):not(style) {
   margin: 0px;
-  background: #fff !important;
-  border: solid 2px #ffffff !important;
-  box-shadow: 1px 2px 2px #e7b1b1 !important;
   border-radius: 15px !important;
 }
 
@@ -801,7 +803,7 @@ p {
 .editsetting .MuiFormControlLabel-label {
   background: #fff;
   border-radius: 0px 10px 10px 0px;
-  padding:18px 15px 19px 0px !important;
+  padding: 15px 15px 13px 0 !important;
   box-shadow: 1px 2px 2px #e7b1b1;
 }
 
@@ -871,27 +873,76 @@ p {
   margin-right: 10px;
 }
 
-.clearfix{ width:100% !important;}
+.clearfix {
+  width: 100% !important;
+}
 
 
-.css-1h99r44{background: none !important; border: none !important;box-shadow: none !important;} 
-.css-15vfxm7 .MuiFilledInput-root {background: none !important;}
-.editsetting .MuiButtonBase-root{margin-top: -5px !important;padding: 14px 9px 18px !important;}
-.topheading{ width: 100% !important; margin-bottom:40px !important; }
-.topheading button{margin-right: 5px !important; margin-left: 5px !important; height: 50px !important;}
-.topheading .hedding {font-size: 18px !important; margin-bottom: 0px !important; text-shadow: 1px 4px 0px #d5a1a1;}
-.descriptiondtl{ padding-bottom: 18px;}
-.descriptiondtl h1{ font-size: 18px; padding-top: 8px; padding-bottom: 2px;}
-.edit{padding-left: 8px;color: #1b8dff !important;}
-.descriptiondtl ul{margin-left: -20px;}
-.descriptiondtl ol{margin-left: -20px;}
+.css-1h99r44 {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 
+.editsetting .MuiButtonBase-root {
+  margin-top: -5px !important;
+  padding: 14px 9px 18px !important;
+}
 
+.topheading {
+  width: 100% !important;
+  margin-bottom: 40px !important;
+}
+
+.topheading button {
+  margin-right: 5px !important;
+  margin-left: 5px !important;
+  height: 50px !important;
+}
+
+.topheading .hedding {
+  font-size: 18px !important;
+  margin-bottom: 0px !important;
+  text-shadow: 1px 4px 0px #d5a1a1;
+}
+
+.descriptiondtl {
+  padding-bottom: 18px;
+}
+
+.descriptiondtl h1 {
+  font-size: 18px;
+  padding-top: 8px;
+  padding-bottom: 2px;
+}
+
+.edit {
+  padding-left: 8px;
+  color: #1b8dff !important;
+}
+
+.descriptiondtl ul {
+  margin-left: -20px;
+}
+
+.descriptiondtl ol {
+  margin-left: -20px;
+}
+
+.advancedsettings {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
 
 
 @media only screen and (max-width: 850px) {
   .css-1oz23yp {
     width: 100% !important;
+  }
+
+  .productlogo {
+    width: auto !important;
   }
 
   .css-1hsqu8b-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {
