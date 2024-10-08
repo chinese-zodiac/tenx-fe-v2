@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { readContract } from '@wagmi/core';
 import TenXTokenV2Abi from '../abi/TenXTokenV2.json';
-import { Box } from '@mui/system';
+import { Box, styled } from '@mui/system';
 import useTenXToken from '../hooks/useTenXToken';
 import { useAccount, useNetwork } from 'wagmi';
 import Header from '../components/elements/Header';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
 import { czCashBuyLink } from '../utils/czcashLink';
-import { Typography, Button, Snackbar, Alert } from '@mui/material';
+import { Typography, Button, Snackbar, Alert, IconButton } from '@mui/material';
 import ConnectWallet from '../components/elements/ConnectWallet';
 import { ADDRESS_TENXLAUNCHVIEWV2, ADDRESS_TENXSETTINGSV2 } from '../constants/addresses';
 import TenXLaunchViewV2Abi from '../abi/TenXLaunchViewV2.json';
@@ -17,6 +17,7 @@ import DOMPurify from 'dompurify';
 import Markdown from 'react-markdown'
 
 import { keccak256, toBytes } from 'viem';
+import { SettingsInputComponent } from '@mui/icons-material';
 
 const Products = () => {
   const { index, chainId } = useParams();
@@ -29,12 +30,22 @@ const Products = () => {
   const timestamp = Math.floor(date.getTime() / 1000);
   const [content, setContent] = useState('Loading...');
   const [holdings, setHoldings] = useState('Loading...');
-  const [manager, setManager] = useState('Loading...');
   const [exempt, setExempt] = useState('Loading...');
   const [role, setRole] = useState(false);
   const [totalTax, setTotalTax] = useState('Loading...');
   const [totalBurn, setTotalBurn] = useState('Loading...');
-
+  const BlueIconButton = styled(IconButton)(({ theme }) => ({
+    border: '2px solid #1976d2',
+    borderRadius: '50px',
+    color: '#1976d2',
+    marginTop: '12px',
+    marginRight: '12px',
+    fontSize: '15px',
+    '&:hover': {
+      color: '#1565c0',
+      borderColor: '#1565c0',
+    },
+  }));
   useEffect(() => {
     const fetchFileContent = async (ipfsLink) => {
       try {
@@ -85,18 +96,6 @@ const Products = () => {
       }
     };
     const getTokenDetails = async () => {
-      try {
-        const result = await readContract({
-          address: tenXToken.tokenAddress,
-          abi: TenXTokenV2Abi,
-          functionName: 'MANAGER_ROLE',
-          chainId: parseInt(chainId),
-        });
-        setManager(result.toString());
-      } catch (error) {
-        console.error('Error fetching Holdings:', error);
-        setContent('Not found');
-      }
       try {
         const result = address ? await readContract({
           address: tenXToken.tokenAddress,
@@ -156,15 +155,26 @@ const Products = () => {
       <Header />
       <div className="maindetails">
         <div className="leftbox">
+
           <div className="sharebtn">
             <Button variant="contained" color="primary" onClick={handleCopy}>
               Share Product
             </Button><br />
+
             <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
               <Alert onClose={handleCloseSnackbar} severity="success">
                 Link copied to clipboard!
               </Alert>
             </Snackbar>
+          </div>
+          <div className="sharebtn">
+            {role && <BlueIconButton
+              component="a"
+              href={`/settings/${tenXToken.tokenIndex}`}
+            >
+              <SettingsInputComponent fontSize='20px' /> &nbsp;
+              Edit Product
+            </BlueIconButton>}
           </div>
           <Box
             as="img"
@@ -178,29 +188,28 @@ const Products = () => {
             }}
           /><br /><br />
           <div className='descriptiondtl'>Description: <Markdown>{content}</Markdown></div>
-          <li> Name: <span>{tenXToken.name} <a className='edit' href='#'>Edit</a></span></li>
+          <li> Name: <span>{tenXToken.name}{/*  <a className='edit' href='#'>Edit</a>*/}</span></li>
           <li>Symbol: <span>{tenXToken.symbol}</span></li>
           <li>Image CID: <span>{tenXToken.tokenLogoCID} </span></li>
 
-          <li>Price in CZUSD: <span>{tenXToken.price}</span></li>
+          <li>Price in CZUSD: <span>$ {Number(tenXToken.price).toFixed(2)}</span></li>
           <li>Launch timestamp in epoch number: <span>{timestamp}</span></li>
           <li>Launch timestamp in local time: <span>{tenXToken.launchTimestamp.toString()}</span></li>
           <li>Connected wallet’s holdings: <span>{holdings}</span></li>
-          <li>Total Supply: <span>{tenXToken.totalSupply}</span></li>
-          <li>Total LP Value in CZUSD:<span>{tenXToken.totalLpValue} </span></li>
-          <li>Market capitalization:<span>{tenXToken.marketCap}</span></li>
+          <li>Total Supply: <span>{Number(tenXToken.totalSupply).toFixed(2)}</span></li>
+          <li>Total LP Value in CZUSD:<span>$ {Number(tenXToken.totalLpValue).toFixed(2)}</span></li>
+          <li>Market capitalization:<span>$ {Number(tenXToken.marketCap).toFixed(2)}</span></li>
           <li>Token Description CID: <span>{tenXToken.descriptionMarkdownCID} </span></li>
-          <li>Total Buy/Sell Taxes: <span>{tenXToken.buyTax + tenXToken.sellTax}</span></li>
-          <li>Buy Tax: <span>{tenXToken.buyTax} </span></li>
-          <li>Sell Tax: <span>{tenXToken.sellTax} </span></li>
-          <li>Buy Burn: <span>{tenXToken.buyBurn}  </span></li>
-          <li>Sell Burn: <span>{tenXToken.sellBurn}  </span></li>
-          <li>Buy LP Fee: <span>{tenXToken.buyLpFee}  </span></li>
-          <li>Sell LP Fee: <span>{tenXToken.sellTax}  </span></li>
+          <li>Total Buy/Sell Taxes: <span>{(tenXToken.buyTax + tenXToken.sellTax) / 100} %</span></li>
+          <li>Buy Tax: <span>{tenXToken.buyTax / 100} %</span></li>
+          <li>Sell Tax: <span>{tenXToken.sellTax / 100} %</span></li>
+          <li>Buy Burn: <span>{tenXToken.buyBurn / 100} %</span></li>
+          <li>Sell Burn: <span>{tenXToken.sellBurn / 100} %</span></li>
+          <li>Buy LP Fee: <span>{tenXToken.buyLpFee / 100} %</span></li>
+          <li>Sell LP Fee: <span>{tenXToken.sellTax / 100} %</span></li>
           <li>Balance Max: <span>{tenXToken.balanceMax}  </span></li>
           <li>Transaction Max:<span> {tenXToken.transactionSizeMax} </span></li>
-          <li>Is Connected Wallet Exempt <span>{exempt} </span></li>
-          {role && <li>Set Exempt Wallet: </li>}
+          <li>Is Connected Wallet Exempt <span>{exempt?'Yes':'No'} </span></li>
           <li>Token contract address: <span><Typography
             as="a"
             color="black"
@@ -233,10 +242,10 @@ const Products = () => {
           >
             {ADDRESS_TENXSETTINGSV2}
           </Typography></span></li>
-          <li>Total taxes in tokens/usd: <span>{totalTax}</span></li>
-          <li>Total burn in tokens/usd: <span>{totalBurn}</span></li>
-          <li>Total lp in tokens/usd: <span>{tenXToken.totalLpValue}</span></li>
-          <li>Initial CZUSD grant: <span>{tenXToken.initialSupply}</span></li>
+          <li>Total taxes in tokens/usd: <span>$ {Number(totalTax).toFixed(2)}</span></li>
+          <li>Total burn in tokens/usd: <span>$ {Number(totalBurn).toFixed(2)}</span></li>
+          <li>Total lp in tokens/usd: <span>$ {Number(tenXToken.totalLpValue).toFixed(2)}</span></li>
+          <li>Initial CZUSD grant: <span>$ {tenXToken.initialSupply}</span></li>
           <div className='detailspagebtn'>
             {chain ?
               <ButtonPrimary

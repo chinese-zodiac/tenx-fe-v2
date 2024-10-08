@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { readContract } from '@wagmi/core';
 import TenXTokenV2Abi from '../../abi/TenXTokenV2.json';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { styled } from '@mui/system';
+import { styled } from '@mui/material/styles';
 import DOMPurify from 'dompurify';
 import { keccak256, toBytes } from 'viem';
 import { bscTestnet } from 'viem/chains';
@@ -243,7 +243,7 @@ export default function TenXToken({
         <Box
           as="a"
           target="_blank"
-          href={`${LINK_GECKOTERMINAL}/bsc/pools/${czusdPair}`}
+          href={`${LINK_GECKOTERMINAL}bsc/pools/${czusdPair}`}
           sx={{
             margin: 0,
             padding: 0,
@@ -295,8 +295,8 @@ export default function TenXToken({
           <li>Sell Fee/Burn: <span>{(sellTax / 100).toFixed(2)}% /{' '}
             {(sellBurn / 100).toFixed(2)}%</span>
           </li>
-          <li>Market capitalization: <span>{parseFloat(marketCap).toFixed(2)}</span></li>
-          <li>Price in CUSD: <span>{parseFloat(price).toFixed(2)}</span></li>
+          <li>Market capitalization: <span>$ {parseFloat(marketCap).toFixed(2)}</span></li>
+          <li>Price in CUSD: <span>$ {parseFloat(price).toFixed(2)}</span></li>
           <li>Age: <span>{getAge(launchTimestamp)}</span></li>
           <li>Launch Time: <span>{dayjs(launchTimestamp).format('YYYY-MM-DD HH:mm:ss')}</span></li>
           {address && <li>Your holdings: <span>{holdings}</span></li>}

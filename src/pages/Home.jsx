@@ -8,7 +8,13 @@ import {
   useTheme,
   FormControlLabel,
   Checkbox,
-  Button
+  Button,
+  InputLabel,
+  Select,
+  MenuItem,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from '@mui/material';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
@@ -35,6 +41,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import DOMPurify from 'dompurify';
 import Markdown from 'react-markdown'
 import TenXTokenListPinned from '../components/elements/TenXTokenListPinned';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 export default function Home() {
   const { chain } = useNetwork();
@@ -58,12 +65,11 @@ export default function Home() {
   const [content, setContent] = useState('Loading...');
   const [isChecked, setIsChecked] = useState(false);
   const [stapro, setStapro] = useState(false);
-
-  const handleCheckboxChange = (event) => {
-    const checked = event.target.checked;
-    setIsChecked(checked);
-
-    if (checked) {
+  const [perPage, setPerPage] = useState(3);  
+console.log({launchTimestamp,da:dayjs()})
+  const handleExpand = () => {
+    setIsChecked(!isChecked);
+    if (isChecked) {
       setBuyBurn(25);
       setSellBurn(175);
       setCzusdWad('5000');
@@ -75,9 +81,19 @@ export default function Home() {
       setSellLpFee(0);
       setLaunchTimestamp(0);
     } else {
-      setLaunchTimestamp(dayjs());
+      setLaunchTimestamp(0);
     }
   };
+  const handleChange = (event) => {
+    setPerPage(event.target.value);  // Update state when the value is selected
+  };
+
+  useEffect(() => {
+    if (!taxReceiver) {
+      setTaxReceiver(address);
+    }
+  }, [address]);
+
 
   useEffect(() => {
     const fetchFileContent = async (ipfsLink) => {
@@ -156,136 +172,129 @@ export default function Home() {
           label="Sell Fee"
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
-
-        <FormControlLabel
-          className="editsetting advancedsettings"
-          control={
-            <Checkbox
-              checked={isChecked}
-              onChange={handleCheckboxChange}
-              color="primary"
+        <Accordion expanded={isChecked} onChange={handleExpand} slotProps={{ heading: { component: 'h4' } }}>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1-content"
+            id="panel1-header"
+          >
+            Edit advanced Settings
+          </AccordionSummary>
+          <AccordionDetails>
+            <><SliderPercentagePicker
+              pct={buyBurn}
+              setPct={setBuyBurn}
+              label="Buy Burn"
+              helpMsg="Portion of the product that will be destroyed every time someone buys on cz.cash. Good for scarcity. Maximum 9.00%"
             />
-          }
-          label="Edit advanced Settings"
-          sx={{
-            marginTop: '1em',
-            background: 'none' ,
-            border: 'none',
-            boxShadow: 'none',
-          }}
-        />
+              <SliderPercentagePicker
+                pct={buyLpFee}
+                setPct={setBuyLpFee}
+                label="Buy LP Fee"
+                helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs."
+              />
+              <SliderPercentagePicker
+                pct={sellLpFee}
+                setPct={setSellLpFee}
+                label="Sell LP Fee"
+                helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
+              />
 
-        {isChecked && <><SliderPercentagePicker
-          pct={buyBurn}
-          setPct={setBuyBurn}
-          label="Buy Burn"
-          helpMsg="Portion of the product that will be destroyed every time someone buys on cz.cash. Good for scarcity. Maximum 9.00%"
-        />
-          <SliderPercentagePicker
-            pct={buyLpFee}
-            setPct={setBuyLpFee}
-            label="Buy LP Fee"
-            helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs."
-          />
-          <SliderPercentagePicker
-            pct={sellLpFee}
-            setPct={setSellLpFee}
-            label="Sell LP Fee"
-            helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
-          />
+              <SliderPercentagePicker
+                pct={sellBurn}
+                setPct={setSellBurn}
+                label="Sell Burn"
+                helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
+              />
+              <TextFieldStyled
+                text={czusdWad}
+                setText={setCzusdWad}
+                maxChar={18}
+                width="11em"
+                label="CZUSD LP Grant"
+                helpMsg="CZUSD portion of the LP grant. The total LP will be worth 2x this amount"
+              />
+              <TextFieldStyled
+                text={balanceMax}
+                setText={setBalanceMax}
+                maxChar={18}
+                width="11em"
+                label="Max Balance For Accounts"
+                helpMsg="Maximum balance for each account. Accounts cannot receive tokens that would cause them to go over this balance. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
+              />
+              <TextFieldStyled
+                text={transactionSizeMax}
+                setText={setTransactionSizeMax}
+                maxChar={18}
+                width="11em"
+                label="Max Transaction Size"
+                helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
+              />
+              <TextFieldStyled
+                text={taxReceiver}
+                setText={setTaxReceiver}
+                maxChar={42}
+                width="25em"
+                label="Fee Receiver"
+                helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees and burns."
+              />
+              <TextFieldStyled
+                text={tokenLogoCID}
+                setText={setTokenLogoCID}
+                maxChar={70}
+                width="36em"
+                label="Product Logo(IPFS CID)"
+                helpMsg="Shortened name for your new product. Up to 5 characters."
+              />
+              {tokenLogoCID && (
+                <Box
+                  as="img"
+                  className="productlogo"
+                  src={'https://ipfs.io/ipfs/' + tokenLogoCID}
+                  sx={{
+                    width: '3.5em',
+                    height: '3.5em',
+                    margin: 0,
+                    marginLeft: '0.5em',
+                    padding: 0,
+                    backgroundColor: 'white',
+                    border: 'solid 0.15em white',
+                    borderRadius: '5em',
+                    '&:hover': {
+                      border: 'solid 0.15em grey',
+                      backgroundColor: 'grey',
+                    },
+                  }}
+                />
+              )}
 
-          <SliderPercentagePicker
-            pct={sellBurn}
-            setPct={setSellBurn}
-            label="Sell Burn"
-            helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
-          />
-          <TextFieldStyled
-            text={czusdWad}
-            setText={setCzusdWad}
-            maxChar={18}
-            width="11em"
-            label="CZUSD LP Grant"
-            helpMsg="CZUSD portion of the LP grant. The total LP will be worth 2x this amount"
-          />
-          <TextFieldStyled
-            text={balanceMax}
-            setText={setBalanceMax}
-            maxChar={18}
-            width="11em"
-            label="Max Balance For Accounts"
-            helpMsg="Maximum balance for each account. Accounts cannot receive tokens that would cause them to go over this balance. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
-          />
-          <TextFieldStyled
-            text={transactionSizeMax}
-            setText={setTransactionSizeMax}
-            maxChar={18}
-            width="11em"
-            label="Max Transaction Size"
-            helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
-          />
-          <TextFieldStyled
-            text={taxReceiver}
-            setText={setTaxReceiver}
-            maxChar={42}
-            width="25em"
-            label="Fee Receiver"
-            helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees and burns."
-          />
-          <TextFieldStyled
-            text={tokenLogoCID}
-            setText={setTokenLogoCID}
-            maxChar={70}
-            width="36em"
-            label="Product Logo(IPFS CID)"
-            helpMsg="Shortened name for your new product. Up to 5 characters."
-          />
-          {tokenLogoCID && (
-            <Box
-              as="img"
-              className="productlogo"
-              src={'https://ipfs.io/ipfs/' + tokenLogoCID}
-              sx={{
-                width: '3.5em',
-                height: '3.5em',
-                margin: 0,
-                marginLeft: '0.5em',
-                padding: 0,
-                backgroundColor: 'white',
-                border: 'solid 0.15em white',
-                borderRadius: '5em',
-                '&:hover': {
-                  border: 'solid 0.15em grey',
-                  backgroundColor: 'grey',
-                },
-              }}
-            />
-          )}
+              <TextFieldStyled
+                text={descriptionMarkdownCID}
+                setText={setDescriptionMarkdownCID}
+                maxChar={70}
+                width="36em"
+                label="Product Description IPFS CID(IPFS CID)"
+                helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
+              />
 
-          <TextFieldStyled
-            text={descriptionMarkdownCID}
-            setText={setDescriptionMarkdownCID}
-            maxChar={70}
-            width="36em"
-            label="Product Description IPFS CID(IPFS CID)"
-            helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
-          />
+              <DatePickerStyled className='datepicker'
+                text={launchTimestamp}
+                backgroundColor="#fff"
+                setText={setLaunchTimestamp}
+                label="Launch Time"
+                helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
+              />
 
-          <DatePickerStyled className='datepicker'
-            text={launchTimestamp}
-            backgroundColor="#fff"
-            setText={setLaunchTimestamp}
-            label="Launch Time"
-            helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
-          />
+              {descriptionMarkdownCID &&
+                <div className="descriptionbox">
+                  <h2>Your description content:-</h2>
+                  <Markdown>{content}</Markdown></div>
+              }
+            </>
+          </AccordionDetails>
+        </Accordion>
 
 
-          {descriptionMarkdownCID &&
-            <div className="descriptionbox">
-              <h2>Your description content:-</h2>
-              <Markdown>{content}</Markdown></div>
-          }
-        </>}
 
       </Stack>
       <br />
@@ -497,9 +506,29 @@ export default function Home() {
                 Starred Products
               </Typography>
             </Button>
+            <Box
+              as="div"
+              sx={{
+                marginTop: '1em',
+              }}
+            >
+              <InputLabel id="demo-simple-select-label" sx={{ marginBottom: '-1em' }}>
+                Products per page
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                value={perPage}
+                label="Products per page"
+                onChange={handleChange}
+              >
+                <MenuItem value={3}>Three</MenuItem>
+                <MenuItem value={6}>Six</MenuItem>
+                <MenuItem value={18}>Eighteen</MenuItem>
+                <MenuItem value={24}>Twenty Four</MenuItem>
+              </Select>
+            </Box>
           </Container>
-          {stapro ? <TenXTokenListPinned /> : <TenXTokenList className="productbox" />}
-
+          {stapro ? <TenXTokenListPinned /> : <TenXTokenList className="productbox" perPage={perPage} />}
         </Stack>
       </>
       <>

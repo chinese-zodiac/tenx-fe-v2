@@ -1,6 +1,6 @@
 import React from 'react';
 import { Radio, RadioGroup, FormControlLabel, FormControl, FormLabel, Tooltip } from '@mui/material';
-import { styled } from '@mui/system';
+import { styled } from '@mui/material/styles';
 import { HelpOutline } from '@mui/icons-material';
 
 const StyledContainer = styled('div')({

@@ -165,8 +165,13 @@ export default function DialogTransaction({
       toast.error('Profane words may cause your account or token to be blacklisted.  Please give a different Symbol');
 
     }
-    if (debouncedArgs[9] > 100) {
+    if (debouncedArgs[12] > 1) {
       toast.warn('May cause some buys and sells to fail, as Buy Fees is over 1%.', {
+        position: "top-left"
+      });
+    }
+    if (debouncedArgs[13] > 1) {
+      toast.warn('May cause some buys and sells to fail, as Sell Fees is over 1%.', {
         position: "top-left"
       });
     }

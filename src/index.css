@@ -791,30 +791,6 @@ p {
   padding-left: 0px;
 }
 
-.editsetting {
-  width: 100%;
-  display: inline !important;
-  background: none !important;
-  margin-bottom: 20px !important;
-  margin-top: 10px !important;
-  box-shadow: none !important;
-}
-
-.editsetting .MuiFormControlLabel-label {
-  background: #fff;
-  border-radius: 0px 10px 10px 0px;
-  padding: 15px 15px 13px 0 !important;
-  box-shadow: 1px 2px 2px #e7b1b1;
-}
-
-.editsetting .MuiButtonBase-root {
-  background: #fff;
-  border-radius: 10px 0px 0px 10px;
-  padding: 12px 9px 11px !important;
-  margin-top: -5px;
-  box-shadow: -1px 2px 2px #e7b1b1;
-}
-
 .css-12wnr2w-MuiButtonBase-root-MuiCheckbox-root:hover {
   background: #fff !important;
 }
@@ -884,10 +860,6 @@ p {
   box-shadow: none !important;
 }
 
-.editsetting .MuiButtonBase-root {
-  margin-top: -5px !important;
-  padding: 14px 9px 18px !important;
-}
 
 .topheading {
   width: 100% !important;
@@ -907,7 +879,9 @@ p {
 }
 
 .descriptiondtl {
-  padding-bottom: 18px;
+  border: 1px solid rgb(225, 107, 49);  /* Adds a solid black border */
+  border-radius: 20px;      /* Adds rounded corners (adjust the value) */
+  padding: 18px;
 }
 
 .descriptiondtl h1 {
@@ -922,18 +896,14 @@ p {
 }
 
 .descriptiondtl ul {
-  margin-left: -20px;
+  margin-left: -10px;
 }
 
 .descriptiondtl ol {
-  margin-left: -20px;
+  margin-left: -10px;
 }
 
-.advancedsettings {
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-}
+
 
 
 @media only screen and (max-width: 850px) {

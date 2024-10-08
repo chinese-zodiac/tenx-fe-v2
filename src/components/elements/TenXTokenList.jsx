@@ -5,11 +5,11 @@ import TenXToken from '../styled/TenXToken';
 import { Button } from '@mui/material';
 import { Box } from '@mui/system';
 
-export default function TenXTokenList() {
+export default function TenXTokenList({perPage}) {
   const { count, loading, error } = useTenXTokenCount();
   const [page, setPage] = useState(0);
 
-  const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(page * 3, 3);
+  const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(page * perPage, perPage);
 
   const [sortedTokens, setSortedTokens] = useState([]);
   const sortTokens = (tokens) => {
@@ -24,7 +24,7 @@ export default function TenXTokenList() {
     if (tenXTokenArray) {
       setSortedTokens(sortTokens(tenXTokenArray));
     }
-  }, [page]);
+  }, [page, perPage]);
 
   const handlePinnedChange = (tokenIndex, isPinned) => {
     localStorage.setItem(`pinned-${tokenIndex}`, isPinned); // Save the pinned state in local storage
@@ -60,9 +60,9 @@ export default function TenXTokenList() {
                 Previous
               </Button>
             )}
-            {!((page + 1) * 3 >= count) && (
+            {!((page + 1) * perPage >= count) && (
               <Button
-                onClick={() => setPage(prev => Math.min(prev + 1, Math.ceil(count / 3)))}
+                onClick={() => setPage(prev => Math.min(prev + 1, Math.ceil(count / perPage)))}
               >
                 Next
               </Button>

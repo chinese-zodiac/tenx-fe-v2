@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { Checkbox, FormControlLabel, Tooltip, TextField } from '@mui/material';
 import { HelpOutline } from '@mui/icons-material';
@@ -10,19 +10,21 @@ export default function DatePickerStyled({
   label,
   helpMsg,
 }) {
-  // State for the checkbox
+  useEffect(()=>{
+    if(text==0){
+    setIsChecked(true);
+  }
+  },[text])
   const [isChecked, setIsChecked] = useState(true);
   const minDate = dayjs().add(1, 'hour');
   const maxDate = dayjs().add(90, 'days');
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
     setIsChecked(checked);
-
-    // Update text based on the checkbox state
     if (checked) {
-      setText(0); // Set to 0 when checked
+      setText(0);
     } else {
-      setText(dayjs()); // Set to current date and time when unchecked
+      setText(dayjs().add(2, 'hour'));
     }
   };
 
@@ -44,7 +46,7 @@ export default function DatePickerStyled({
           <DateTimePicker
             className='datetime-box'
             label={label}
-            value={text}
+            value={text||null}
             minDateTime={minDate}
             maxDateTime={maxDate}
             sx={{
