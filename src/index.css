@@ -768,8 +768,10 @@ p {
   line-height: 26px;
   height: 240px;
   overflow-y: scroll;
-  width: 84%;
+  width:94%;
   text-align: left;
+  background:#fff;
+  border-radius:10px;
 }
 
 .descriptionbox h2 {
@@ -904,9 +906,19 @@ p {
 }
 
 
+.Accordionsection{background: #e9b5a4 !important; text-align:center !important; padding-top: 50px !important;padding-left: 40px !important; border-radius: 0px 0px 8px 8px;}
+.Accordionsection .input-box{margin-bottom:10px; margin-right:10px; float:left; border:none !important;box-shadow: 1px 2px 2px #d3a4a4 !important;}
+.Accordiontitle:before{background:none !important;}
+.Accordiontitle{ width:90%;    border-radius: 10px !important;}
+.productdes{ border:none !important;}
+
 
 
 @media only screen and (max-width: 850px) {
+  .Accordiontitle {width: 100% !important;}
+  .Accordionsection{padding-left: 18px !important;}
+  .Accordionsection .input-box{width: 100% !important;}
+  .descriptionbox{width: 90% !important;}
   .css-1oz23yp {
     width: 100% !important;
   }

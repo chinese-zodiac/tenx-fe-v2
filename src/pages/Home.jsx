@@ -172,7 +172,7 @@ console.log({launchTimestamp,da:dayjs()})
           label="Sell Fee"
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
-        <Accordion expanded={isChecked} onChange={handleExpand} slotProps={{ heading: { component: 'h4' } }}>
+        <Accordion className='Accordiontitle' expanded={isChecked} onChange={handleExpand} slotProps={{ heading: { component: 'h4' } }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1-content"
@@ -180,7 +180,7 @@ console.log({launchTimestamp,da:dayjs()})
           >
             Edit advanced Settings
           </AccordionSummary>
-          <AccordionDetails>
+          <AccordionDetails className='Accordionsection'>
             <><SliderPercentagePicker
               pct={buyBurn}
               setPct={setBuyBurn}
@@ -242,7 +242,7 @@ console.log({launchTimestamp,da:dayjs()})
                 text={tokenLogoCID}
                 setText={setTokenLogoCID}
                 maxChar={70}
-                width="36em"
+                width="33em"
                 label="Product Logo(IPFS CID)"
                 helpMsg="Shortened name for your new product. Up to 5 characters."
               />
@@ -268,11 +268,12 @@ console.log({launchTimestamp,da:dayjs()})
                 />
               )}
 
-              <TextFieldStyled
+              <TextFieldStyled className='productdes'
                 text={descriptionMarkdownCID}
                 setText={setDescriptionMarkdownCID}
                 maxChar={70}
-                width="36em"
+                border='none'
+                width="33em"
                 label="Product Description IPFS CID(IPFS CID)"
                 helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
               />

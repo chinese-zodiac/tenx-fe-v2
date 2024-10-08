@@ -227,7 +227,7 @@ const EditSettings = () => {
     }
 
     return (
-        <Stack
+        <Stack className='editbox'
             direction="column"
             minHeight="100vh"
         >
