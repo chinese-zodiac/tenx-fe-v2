@@ -913,7 +913,8 @@ p {
 .productdes{ border:none !important;}
 
 
-
+ .css-igs3ac {border-width: 0px !important;}
+ 
 @media only screen and (max-width: 850px) {
   .Accordiontitle {width: 100% !important;}
   .Accordionsection{padding-left: 18px !important;}
@@ -931,7 +932,7 @@ p {
     width: 100% !important;
   }
   
-  .css-igs3ac {border-width: 0px !important;}
+ 
 
   .css-ymdnc8-MuiFormControl-root-MuiTextField-root.MuiFormControl-root {
     width: 100% !important;

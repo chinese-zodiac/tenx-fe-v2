@@ -66,7 +66,7 @@ export default function Home() {
   const [isChecked, setIsChecked] = useState(false);
   const [stapro, setStapro] = useState(false);
   const [perPage, setPerPage] = useState(3);  
-console.log({launchTimestamp,da:dayjs()})
+
   const handleExpand = () => {
     setIsChecked(!isChecked);
     if (isChecked) {
