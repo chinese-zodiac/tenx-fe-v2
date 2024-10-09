@@ -521,6 +521,9 @@ console.log({launchTimestamp,da:dayjs()})
                 value={perPage}
                 label="Products per page"
                 onChange={handleChange}
+                sx={{
+                  border:'none !important',
+                }}
               >
                 <MenuItem value={3}>Three</MenuItem>
                 <MenuItem value={6}>Six</MenuItem>

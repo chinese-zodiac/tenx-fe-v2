@@ -12,6 +12,10 @@ export default defineConfig({
       '@mui/material/Tooltip'
     ],
   },
+  server: {
+    host: true,
+    port: 5173, 
+  },
   plugins: [
     react({
       jsxImportSource: '@emotion/react',
@@ -21,3 +25,4 @@ export default defineConfig({
     }),
   ],
 });
+
