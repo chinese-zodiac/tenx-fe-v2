@@ -911,15 +911,17 @@ p {
 .Accordiontitle:before{background:none !important;}
 .Accordiontitle{ width:90%;    border-radius: 10px !important;}
 .productdes{ border:none !important;}
-
-
- .css-igs3ac {border-width: 0px !important;}
+.css-igs3ac {border-width: 0px !important;}
+.css-4tsb0m-MuiFormControl-root-MuiTextField-root.MuiFormControl-root{margin-bottom:10px !important;}
+.css-1wbauj5{ margin-bottom:10px !important;}
+.css-4qaj7k{display:none !important;}
+.css-es2b75-MuiSvgIcon-root{display:none !important;}
  
 @media only screen and (max-width: 850px) {
   .Accordiontitle {width: 100% !important;}
   .Accordionsection{padding-left: 18px !important;}
   .Accordionsection .input-box{width: 100% !important;}
-  .descriptionbox{width: 90% !important;}
+  .descriptionbox{width:auto !important;}
   .css-1oz23yp {
     width: 100% !important;
   }
