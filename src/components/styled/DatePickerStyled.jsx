@@ -10,22 +10,21 @@ export default function DatePickerStyled({
   label,
   helpMsg,
 }) {
-  useEffect(()=>{
-    if(text==0){
-    setIsChecked(true);
-  }
-  },[text])
   const [isChecked, setIsChecked] = useState(true);
+
+  useEffect(() => {
+    if (text === 0) {
+      setIsChecked(true);
+    }
+  }, [text]);
+
   const minDate = dayjs().add(1, 'hour');
   const maxDate = dayjs().add(90, 'days');
+
   const handleCheckboxChange = (event) => {
     const checked = event.target.checked;
     setIsChecked(checked);
-    if (checked) {
-      setText(0);
-    } else {
-      setText(dayjs().add(2, 'hour'));
-    }
+    setText(checked ? 0 : dayjs().add(2, 'hour'));
   };
 
   return (
@@ -43,49 +42,54 @@ export default function DatePickerStyled({
       />
       {!isChecked && (
         <>
-          <DateTimePicker
-            className='datetime-box'
-            label={label}
-            value={text||null}
-            minDateTime={minDate}
-            maxDateTime={maxDate}
-            sx={{
-              '&.MuiFormControl-root': {
-                backgroundColor: 'transparent',
-                border: 'solid 3px #e16b31',
-                width: '14em',
-              },
-            }}
-            onChange={(newValue) => setText(newValue)}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                variant="filled"
-                sx={{
-                  '& .MuiInputBase-root': {
-                    backgroundColor: 'transparent',
-                    border: '0',
-                  },
-                  width: '14em',
-                }}
-              />
-            )}
-          />
-          <Tooltip title={helpMsg} placement="top">
-            <HelpOutline
+
+          <span>
+            <DateTimePicker
+              className='datetime-box'
+              label={
+                <span>
+                  {label}{' '}
+                  <Tooltip title={helpMsg} placement="top">
+                    <HelpOutline
+                      sx={{
+                        marginTop: '1em',
+                        fontSize: '1em',
+                        marginLeft: '0.5em',
+                        cursor: 'help',
+                      }}
+                    />
+                  </Tooltip>
+                </span>
+              }
+              value={text || null}
+              minDateTime={minDate}
+              maxDateTime={maxDate}
               sx={{
-                position: 'absolute',
-                right: 0,
-                top: 0,
-                fontSize: '1em',
-                marginRight: '-0.5em',
-                cursor: 'help',
+                '&.MuiFormControl-root': {
+                  backgroundColor: 'transparent',
+                  border: 'solid 3px #e16b31',
+                  width: '14em',
+                },
               }}
+              onChange={(newValue) => setText(newValue)}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="filled"
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      backgroundColor: 'transparent',
+                      border: '0',
+                    },
+                    width: '14em',
+                  }}
+                />
+              )}
             />
-          </Tooltip>
+          </span>
+
         </>
       )}
-
     </div>
   );
 }
