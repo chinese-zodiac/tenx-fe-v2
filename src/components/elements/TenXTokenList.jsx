@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 
 export default function TenXTokenList({perPage}) {
   const { count, loading, error } = useTenXTokenCount();
-  perPage = Math.max(perPage,count);
+  perPage = Math.min(perPage,count);
   const [page, setPage] = useState(0);
   const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(page * perPage, perPage, perPage);
   const [sortedTokens, setSortedTokens] = useState([]);
