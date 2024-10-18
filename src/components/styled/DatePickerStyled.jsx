@@ -28,7 +28,7 @@ export default function DatePickerStyled({
   };
 
   return (
-    <div style={{ position: 'relative', width: 'fit-content' }}>
+    <div style={{ position: 'relative', width: 'fit-content', clear: 'both' }}>
       <FormControlLabel
         control={
           <Checkbox
