@@ -7,10 +7,9 @@ import { Box } from '@mui/system';
 
 export default function TenXTokenList({perPage}) {
   const { count, loading, error } = useTenXTokenCount();
+  perPage = Math.max(perPage,count);
   const [page, setPage] = useState(0);
-
-  const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(page * perPage, perPage);
-
+  const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(page * perPage, perPage, perPage);
   const [sortedTokens, setSortedTokens] = useState([]);
   const sortTokens = (tokens) => {
     return [...tokens].sort((a, b) => {
@@ -24,7 +23,7 @@ export default function TenXTokenList({perPage}) {
     if (tenXTokenArray) {
       setSortedTokens(sortTokens(tenXTokenArray));
     }
-  }, [page, perPage]);
+  }, [page, perPage, tenXTokenArray]);
 
   const handlePinnedChange = (tokenIndex, isPinned) => {
     localStorage.setItem(`pinned-${tokenIndex}`, isPinned); // Save the pinned state in local storage
