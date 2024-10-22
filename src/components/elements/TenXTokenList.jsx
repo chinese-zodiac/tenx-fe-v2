@@ -9,7 +9,8 @@ export default function TenXTokenList({perPage}) {
   const { count, loading, error } = useTenXTokenCount();
   perPage = Math.min(perPage,count);
   const [page, setPage] = useState(0);
-  const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(page * perPage, perPage, perPage);
+  const [start, setStart] = useState(0);
+  const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(start, perPage, perPage);
   const [sortedTokens, setSortedTokens] = useState([]);
   const sortTokens = (tokens) => {
     return [...tokens].sort((a, b) => {
@@ -18,6 +19,14 @@ export default function TenXTokenList({perPage}) {
       return (bPinned - aPinned) // Pinned items first
     });
   };
+  
+  useEffect(() => {
+    setStart(page * perPage);
+  }, [page]);
+  
+  useEffect(() => {
+    setStart(0);
+  }, [perPage]);
 
   useEffect(() => {
     if (tenXTokenArray) {
