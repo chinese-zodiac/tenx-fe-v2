@@ -287,7 +287,7 @@ export default function TenXToken({
         onChange={handleChange}
       />
 
-      <Typography>
+      <Typography as="div">
         <ul className="homelist">
           <li> Buy Fee/Burn: <span>{(buyTax / 100).toFixed(2)}% /{' '}
             {(buyBurn / 100).toFixed(2)}
@@ -296,7 +296,7 @@ export default function TenXToken({
             {(sellBurn / 100).toFixed(2)}%</span>
           </li>
           <li>Market capitalization: <span>$ {parseFloat(marketCap).toFixed(2)}</span></li>
-          <li>Price in CUSD: <span>$ {parseFloat(price).toFixed(2)}</span></li>
+          <li>Price in CZUSD: <span>$ {parseFloat(price).toFixed(2)}</span></li>
           <li>Age: <span>{getAge(launchTimestamp)}</span></li>
           <li>Launch Time: <span>{dayjs(launchTimestamp).format('YYYY-MM-DD HH:mm:ss')}</span></li>
           {address && <li>Your holdings: <span>{holdings}</span></li>}

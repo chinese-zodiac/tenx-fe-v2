@@ -14,7 +14,8 @@ import {
   MenuItem,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  FormControl
 } from '@mui/material';
 import FooterArea from '../components/layouts/FooterArea';
 import ButtonPrimary from '../components/styled/ButtonPrimary';
@@ -34,6 +35,7 @@ import { Container } from '@mui/material';
 import Grid2 from '@mui/material/Unstable_Grid2';
 import {
   LINK_PRIVACY_POLICY,
+  LINK_TELEGRAM,
   LINK_TERMS_OF_USE,
 } from '../constants/links';
 import { ToastContainer, toast } from 'react-toastify';
@@ -42,6 +44,7 @@ import DOMPurify from 'dompurify';
 import Markdown from 'react-markdown'
 import TenXTokenListPinned from '../components/elements/TenXTokenListPinned';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { fontWeight, textAlign } from '@mui/system';
 
 export default function Home() {
   const { chain } = useNetwork();
@@ -50,9 +53,9 @@ export default function Home() {
   const [name, setName] = useState('ProductX');
   const [symbol, setSymbol] = useState('PRDX');
   const [buyTax, setBuyTax] = useState(25);
-  const [sellTax, setSellTax] = useState(275);
-  const [buyBurn, setBuyBurn] = useState(25);
-  const [sellBurn, setSellBurn] = useState(175);
+  const [sellTax, setSellTax] = useState(50);
+  const [buyBurn, setBuyBurn] = useState(10);
+  const [sellBurn, setSellBurn] = useState(10);
   const [czusdWad, setCzusdWad] = useState('5000');
   const [tokenLogoCID, setTokenLogoCID] = useState('bafkreihj6w2jbkdq4v5ldqnd4exnzjqels677y3kv32o45c5jyfsbqnl5a');
   const [descriptionMarkdownCID, setDescriptionMarkdownCID] = useState('bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm');
@@ -65,13 +68,13 @@ export default function Home() {
   const [content, setContent] = useState('Loading...');
   const [isChecked, setIsChecked] = useState(false);
   const [stapro, setStapro] = useState(false);
-  const [perPage, setPerPage] = useState(3);  
+  const [perPage, setPerPage] = useState(10);  
 
   const handleExpand = () => {
     setIsChecked(!isChecked);
     if (isChecked) {
-      setBuyBurn(25);
-      setSellBurn(175);
+      setBuyBurn(10);
+      setSellBurn(10);
       setCzusdWad('5000');
       setTokenLogoCID('bafkreihj6w2jbkdq4v5ldqnd4exnzjqels677y3kv32o45c5jyfsbqnl5a');
       setDescriptionMarkdownCID('bafkreicj6kky6yh4dbgsydfngliw7dg66qoshqapykzd4mfezqsvnujnbm');
@@ -111,24 +114,6 @@ export default function Home() {
       fetchFileContent(descriptionMarkdownCID);
     }
   }, [descriptionMarkdownCID, isChecked]);
-
-  // console.log({
-  //   czusdWad:parseEther(czusdWad), 
-  //   name, 
-  //   symbol, 
-  //   tokenLogoCID, 
-  //   descriptionMarkdownCID, 
-  //   balanceMax:parseEther(balanceMax), 
-  //   transactionSizeMax:parseEther(transactionSizeMax), 
-  //   taxReceiver, 
-  //   buyLpFee, 
-  //   buyTax, 
-  //   buyBurn,
-  //   sellTax, 
-  //   sellBurn, 
-  //   sellLpFee, 
-  //   launchTimestamp:getUnixTime(launchTimestamp.$d) 
-  // });
   const theme = useTheme();
   const bp = theme.breakpoints.values;
   const mq = (bp) => `@media (min-width: ${bp}px)`;
@@ -172,15 +157,48 @@ export default function Home() {
           label="Sell Fee"
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
-        <Accordion className='Accordiontitle' expanded={isChecked} onChange={handleExpand} slotProps={{ heading: { component: 'h4' } }}>
+        <Accordion expanded={isChecked} onChange={handleExpand} slotProps={{ heading: { component: 'h4' } }}
+          sx={{
+            width:'100%',
+            marginLeft:'0px !important',
+            marginTop:'0px !important',
+            backgroundColor:'transparent',
+            boxShadow:'none',
+            border:'none',
+            textAlign:'center',
+            display:'inline-block',
+            minHeight:'1em',
+            '&::before':{
+              background:'transparent',
+              display:'none',
+              margin:'0px'
+            }
+          }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1-content"
             id="panel1-header"
+            sx={{
+              width:'8em',
+              marginLeft:'auto',
+              marginRight:'auto',
+                minHeight:'0 !important',
+              color:'rgba(0,0,0,0.69)',
+              '& .MuiAccordionSummary-content':{
+                margin:'0 !important'
+              },
+            }}
           >
-            Edit advanced Settings
+            ADVANCED
           </AccordionSummary>
-          <AccordionDetails className='Accordionsection'>
+          <AccordionDetails
+          sx={{
+            padding:0,
+            '& > *':{
+              margin:'0.5em !important'
+            }
+          }}>
+              <hr/>
             <><SliderPercentagePicker
               pct={buyBurn}
               setPct={setBuyBurn}
@@ -238,24 +256,27 @@ export default function Home() {
                 label="Fee Receiver"
                 helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees and burns."
               />
-              <TextFieldStyled
-                text={tokenLogoCID}
-                setText={setTokenLogoCID}
-                maxChar={70}
-                width="33em"
-                label="Product Logo(IPFS CID)"
-                helpMsg="Shortened name for your new product. Up to 5 characters."
+              
+
+              <DatePickerStyled className='datepicker'
+                text={launchTimestamp}
+                backgroundColor="#fff"
+                setText={setLaunchTimestamp}
+                label="Launch Time"
+                helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
               />
+              <hr/>
+              <Box sx={{textAlign:'center'}}>
               {tokenLogoCID && (
                 <Box
                   as="img"
                   className="productlogo"
                   src={'https://ipfs.io/ipfs/' + tokenLogoCID}
                   sx={{
-                    width: '3.5em',
-                    height: '3.5em',
-                    margin: 0,
-                    marginLeft: '0.5em',
+                    width: '5em',
+                    height: '5em',
+                    marginLeft:'auto',
+                    marginRight:'auto',
                     padding: 0,
                     backgroundColor: 'white',
                     border: 'solid 0.15em white',
@@ -264,10 +285,36 @@ export default function Home() {
                       border: 'solid 0.15em grey',
                       backgroundColor: 'grey',
                     },
+                    display:'block'
                   }}
                 />
               )}
 
+<TextFieldStyled
+                text={tokenLogoCID}
+                setText={setTokenLogoCID}
+                maxChar={70}
+                width="33em"
+                label="Product Logo(IPFS CID)"
+                helpMsg="Shortened name for your new product. Up to 5 characters."
+              />
+              <Typography sx={{
+                marginLeft:'auto',
+                marginRight:'auto',
+                maxWidth:'50em',
+                display:'block'
+              }}>
+                <Typography as='span' sx={{fontWeight:'bold'}}>IMAGE INSTRUCTIONS: </Typography>
+                Your image must first be pinned to IPFS using a service such as 
+                <a target="_blank"  href="https://Web3.storage">Web3.storage</a> or 
+                <a target="_blank"  href="https://Pinata.cloud">Pinata.cloud</a>. Once you pin your image, 
+                you will need the image's IPFS CID. This will be a long string of letters 
+                and numbers start with either 'Qm' or 'bafy'. Copy the CID into the text field above. The 
+                product logo will change once the image has propagated across the network. Always feel free to ask for
+                help at <a href={LINK_TELEGRAM}>Czodiac's telegram</a>. You can always update the image later.
+              </Typography>
+              </Box>
+              <hr/>
               <TextFieldStyled className='productdes'
                 text={descriptionMarkdownCID}
                 setText={setDescriptionMarkdownCID}
@@ -277,26 +324,42 @@ export default function Home() {
                 label="Product Description IPFS CID(IPFS CID)"
                 helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
               />
+              <Box sx={{textAlign:'center'}}>
+              
+              <Typography sx={{
+                marginLeft:'auto',
+                marginRight:'auto',
+                maxWidth:'50em',
+                display:'block'
+              }}>
+                <Typography as='span' sx={{fontWeight:'bold'}}>DESCRIPTION INSTRUCTIONS: </Typography>
+                You first should create a CommonMark file. Use a tool such as <a target="_blank" href="https://spec.commonmark.org/dingus/#result">spec.commonmark.org/dingus</a>
+                to create your file. Save it as a '.md' then pin it to IPFS just like for an image using
+                <a target="_blank"  href="https://Web3.storage">Web3.storage</a> or 
+                <a target="_blank"  href="https://Pinata.cloud">Pinata.cloud</a>. Once you pin your markdown file, 
+                you will need the markdown's IPFS CID. This will be a long string of letters 
+                and numbers start with either 'Qm' or 'bafy'. Copy the CID into the text field above. The 
+                description text below will change once the file has propagated across the network. Always feel free to ask for
+                help at <a href={LINK_TELEGRAM}>Czodiac's telegram</a>. You can always update the text later.
+              </Typography></Box>
+              {descriptionMarkdownCID &&<Box sx={{
+                '&.MuiBox-root':{
+                  margin:'0 auto !important',
+                },
+                borderRadius:'0.5em',
+                padding:'0.5em',
+                textAlign:'left',
+                maxWidth:'960px',
+                display:'block',
+                backgroundColor:'rgba(255,255,255,0.69)'
+                }}>
+              <Markdown>{content}</Markdown>
 
-              <DatePickerStyled className='datepicker'
-                text={launchTimestamp}
-                backgroundColor="#fff"
-                setText={setLaunchTimestamp}
-                label="Launch Time"
-                helpMsg="Optional time for token to open trading. Exempt accounts, such as the taxReceiver wallet, can trade before opening. You can add more exempt accounts after creating this product."
-              />
-
-              {descriptionMarkdownCID &&
-                <div className="descriptionbox">
-                  <h2>Your description content:-</h2>
-                  <Markdown>{content}</Markdown></div>
-              }
+                </Box> }
+             
             </>
           </AccordionDetails>
         </Accordion>
-
-
-
       </Stack>
       <br />
       {!!address ?
@@ -507,17 +570,20 @@ export default function Home() {
                 Starred Products
               </Typography>
             </Button>
-            <Box
-              as="div"
+            <FormControl
               sx={{
+                display:'block',
                 marginTop: '1em',
+                marginLeft:'auto',
+                marginRight:'auto',
+                maxWidth:'10em'
               }}
             >
-              <InputLabel id="demo-simple-select-label" sx={{ marginBottom: '-1em' }}>
+              <InputLabel id="perpage-select-label" sx={{ marginBottom: '-1em' }}>
                 Products per page
               </InputLabel>
               <Select
-                labelId="demo-simple-select-label"
+                labelId="perpage-select-label"
                 value={perPage}
                 label="Products per page"
                 onChange={handleChange}
@@ -525,133 +591,18 @@ export default function Home() {
                   border:'none !important',
                 }}
               >
-                <MenuItem value={3}>Three</MenuItem>
-                <MenuItem value={6}>Six</MenuItem>
-                <MenuItem value={18}>Eighteen</MenuItem>
-                <MenuItem value={24}>Twenty Four</MenuItem>
+                <MenuItem value={10}>10</MenuItem>
+                <MenuItem value={25}>25</MenuItem>
+                <MenuItem value={100}>100</MenuItem>
+                <MenuItem value={500}>500</MenuItem>
               </Select>
-            </Box>
+            </FormControl>
           </Container>
           {stapro ? <TenXTokenListPinned /> : <TenXTokenList className="productbox" perPage={perPage} />}
         </Stack>
       </>
       <>
-        <Container className="contentbox">
-          <Grid2
-            container
-            justifyContent="center"
-            alignItems="center"
-            rowSpacing={3}
-            columnSpacing={3}
-            maxWidth={1440}
-          >
-            <Grid2
-              xs={12}
-              sm={8}
-              css={{
-                [mq(bp.xs)]: { textAlign: 'center' },
-                [mq(bp.sm)]: { textAlign: 'right' },
-              }}
-            >
-              <Stack
-                direction="row"
-                spacing={4}
-                alignItems="center"
-                justifyContent="flex-end"
-              >
-
-                {/*<MenuLinkSocialIcon
-                  href={LINK_DISCORD}
-                  src="./images/icons/Discord-Blue-Light.svg"
-                  alt="Discord"
-                  width={27}
-                  height={23}
-                />*/}
-              </Stack>
-            </Grid2>
-
-            <Grid2 className="Instructions">
-              <Grid2 xs={12}>
-                <h1>Instructions:</h1>
-                <ul>
-                  <li><Box as="a" color="white" target="_blank" href={'https://docs.ipfs.tech/quickstart/publish/#pinning-services'}>How to genrate a mark down file</Box></li>
-                  <li><Box as="a" color="white" target="_blank" href={'https://commonmark.org/help/'}>How to create an IPFS Link for Token logo and Token Description</Box></li>
-                </ul>
-              </Grid2>
-            </Grid2>
-
-
-            <Grid2 className="box1">
-              <Grid2 xs={12}>
-                <h1>Terms of Use</h1>
-              </Grid2>
-              <Grid2 xs={12}>
-                <p>
-                  By accessing any CZODIAC website, including but not limited to
-                  CZODIAC's applications and services, and engaging in any
-                  activities related to the CZODIAC ecosystem, including buying,
-                  selling, trading, holding CZODIAC products, or participating in
-                  the CZODIAC community, users acknowledge that they have read,
-                  understood, and agreed to be bound by the terms and conditions
-                  set forth in CZODIAC's Terms of Use. The Terms of Use, available
-                  at{' '}
-                  <a css={{ color: 'antiquewhite' }} href={LINK_TERMS_OF_USE}>
-                    {LINK_TERMS_OF_USE}
-                  </a>
-                  , constitute a legally binding agreement between users and
-                  CZODIAC, and users should review them carefully before engaging
-                  in any activities related to the CZODIAC ecosystem. If users do
-                  not agree to the terms and conditions set forth in the Terms of
-                  Use, they should not access or use CZODIAC's websites, dapps,
-                  products, or other offerings. By using any CZODIAC website,
-                  users represent and warrant that they have the legal capacity to
-                  enter into a binding agreement with CZODIAC and that they comply
-                  with all applicable laws and regulations.
-                  <br />
-                  <br />
-                  <a css={{ color: 'antiquewhite' }} href={LINK_TERMS_OF_USE}>
-                    LINK TO TERMS OF USE
-                  </a>
-                </p>
-              </Grid2>
-            </Grid2>
-            <Grid2 className="box1">
-              <Grid2 xs={12}>
-                <h1>Privacy Policy</h1>
-              </Grid2>
-              <Grid2 xs={12}>
-                <p>
-                  At CZODIAC, we are committed to protecting the privacy and
-                  personal information of our users. We encourage you to read our
-                  Privacy Policy, which can be found at{' '}
-                  <a css={{ color: 'antiquewhite' }} href={LINK_PRIVACY_POLICY}>
-                    {LINK_PRIVACY_POLICY}
-                  </a>
-                  . This policy outlines the types of personal information that
-                  CZODIAC may collect, the purposes for which this information is
-                  used, and the steps taken to ensure the security and
-                  confidentiality of your personal data. By using CZODIAC's
-                  websites or services, you acknowledge that you have read and
-                  understood our Privacy Policy and consent to the collection,
-                  use, and disclosure of your personal information as described
-                  therein. If you have any questions or concerns about our privacy
-                  practices, please contact us at team@czodiac.com.
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <br />
-                  <a css={{ color: 'antiquewhite' }} href={LINK_PRIVACY_POLICY}>
-                    LINK TO PRIVACY POLICY
-                  </a>
-                </p>
-              </Grid2>
-            </Grid2>
-
-
-          </Grid2>
-        </Container>
+        
         <FooterArea />
 
       </>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DateTimePicker } from '@mui/x-date-pickers';
-import { Checkbox, FormControlLabel, Tooltip, TextField } from '@mui/material';
+import { Checkbox, FormControlLabel, Tooltip, TextField, Box } from '@mui/material';
 import { HelpOutline } from '@mui/icons-material';
 import dayjs from 'dayjs';
 
@@ -28,8 +28,11 @@ export default function DatePickerStyled({
   };
 
   return (
-    <div style={{ position: 'relative', width: 'fit-content', clear: 'both' }}>
+    <Box className="input-box" style={{ position: 'relative', width: '14em', clear: 'both' }}>
       <FormControlLabel
+      sx={{
+        margin:'0 !important'
+      }}
         control={
           <Checkbox
             checked={isChecked}
@@ -37,14 +40,16 @@ export default function DatePickerStyled({
             color="primary"
           />
         }
-        label="Launch it now"
-        sx={{ marginTop: '1em' }}
+        label="Launch Now"
       />
       {!isChecked && (
         <>
 
           <span>
             <DateTimePicker
+            sx={{
+              display:'block'
+            }}
               className='datetime-box'
               label={
                 <span>
@@ -64,13 +69,6 @@ export default function DatePickerStyled({
               value={text || null}
               minDateTime={minDate}
               maxDateTime={maxDate}
-              sx={{
-                '&.MuiFormControl-root': {
-                  backgroundColor: 'transparent',
-                  border: 'solid 3px #e16b31',
-                  width: '14em',
-                },
-              }}
               onChange={(newValue) => setText(newValue)}
               renderInput={(params) => (
                 <TextField
@@ -90,6 +88,6 @@ export default function DatePickerStyled({
 
         </>
       )}
-    </div>
+    </Box>
   );
 }

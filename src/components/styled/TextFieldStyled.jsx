@@ -29,7 +29,7 @@ export default function TextFieldStyled({
       sx={{
         '&.MuiFormControl-root': {
           backgroundColor: 'transparent',
-          border: 'solid 3px #e16b31',
+          border: 'solid 3px #bc7552',
           width: { width },
         },
         '& .MuiInputBase-root': {

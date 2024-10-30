@@ -7,7 +7,7 @@ import { Box } from '@mui/system';
 
 export default function TenXTokenList({perPage}) {
   const { count, loading, error } = useTenXTokenCount();
-  perPage = Math.min(perPage,count);
+  const perPageMin = Math.min(perPage,count);
   const [page, setPage] = useState(0);
   const [start, setStart] = useState(0);
   const { tenXTokenArray, loading: multiLoading, error: multiError } = useTenXTokenMulti(start, perPage, perPage);
@@ -19,20 +19,23 @@ export default function TenXTokenList({perPage}) {
       return (bPinned - aPinned) // Pinned items first
     });
   };
-  
+
+console.log('perPageMin',perPageMin)
+
   useEffect(() => {
     setStart(page * perPage);
   }, [page]);
   
   useEffect(() => {
     setStart(0);
-  }, [perPage]);
+  }, [perPageMin]);
 
   useEffect(() => {
-    if (tenXTokenArray) {
+    console.log(page,perPageMin,tenXTokenArray)
+    if (!!tenXTokenArray) {
       setSortedTokens(sortTokens(tenXTokenArray));
     }
-  }, [page, perPage, tenXTokenArray]);
+  }, [page, perPageMin, JSON.stringify(tenXTokenArray)]);
 
   const handlePinnedChange = (tokenIndex, isPinned) => {
     localStorage.setItem(`pinned-${tokenIndex}`, isPinned); // Save the pinned state in local storage
@@ -68,7 +71,7 @@ export default function TenXTokenList({perPage}) {
                 Previous
               </Button>
             )}
-            {!((page + 1) * perPage >= count) && (
+            {!((page + 1) * perPageMin >= count) && (
               <Button
                 onClick={() => setPage(prev => Math.min(prev + 1, Math.ceil(count / perPage)))}
               >
