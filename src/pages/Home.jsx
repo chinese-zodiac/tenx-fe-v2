@@ -120,7 +120,12 @@ export default function Home() {
   return (
     <>
       <Header />
-      <br />
+      <Box 
+        sx={{
+          backgroundColor:"rgba(0,0,0,0.5)",
+          paddingTop:'1em',
+          paddingBottom:'1em'
+        }}>
       <Stack
         direction="row"
         flexWrap="wrap"
@@ -393,7 +398,7 @@ export default function Home() {
               sx={{
                 width: '9em',
                 marginTop: '0.66em',
-                marginBottom: '2em',
+                marginBottom: '0em',
                 fontSize: '1.5em',
                 position: 'relative',
                 fontWeight: 'bold',
@@ -448,7 +453,7 @@ export default function Home() {
                   sx={{
                     width: '9em',
                     marginTop: '0.66em',
-                    marginBottom: '2em',
+                    marginBottom: '0em',
                     fontSize: '1.5em',
                     position: 'relative',
                     fontWeight: 'bold',
@@ -565,6 +570,7 @@ export default function Home() {
           </ButtonPrimary>
         )}
       <ToastContainer />
+      </Box>
       <>
           <Container className="topheading">
             <Button onClick={() => setStapro(false)}>

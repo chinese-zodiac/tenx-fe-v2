@@ -9,6 +9,7 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from '@tsparticles/slim';
 import { loadImageShape } from '@tsparticles/shape-image';
 import { loadAll } from '@tsparticles/all';
+import VideoBg from 'reactjs-videobg';
 
 //WAGMI + WALLETCONNECT
 if (!import.meta.env.VITE_WALLETCONNECT_CLOUD_ID) {
@@ -57,7 +58,10 @@ function App({ children }) {
     });
   }, []);
   return <WagmiConfig config={wagmiConfig}>
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}><>
+    <VideoBg videoClass="videoBg" poster="/images/cityscape-bg.png">
+    <VideoBg.Source src="/videos/cityscape-bg.mp4" type="video/mp4" />
+    </VideoBg>
     { init && <Particles
             id="tsparticles"
             particlesLoaded={particlesLoaded}
@@ -66,6 +70,7 @@ function App({ children }) {
                   color: {
                       value: "#2a0752",
                   },
+                  opacity:0.85
               },
               fpsLimit: 60,
               interactivity: {
@@ -142,7 +147,7 @@ function App({ children }) {
               detectRetina: true,
           }} />}
       {children}
-    </LocalizationProvider></WagmiConfig>;
+      </></LocalizationProvider></WagmiConfig>;
 }
 
 export default App;
