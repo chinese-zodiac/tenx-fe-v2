@@ -30,7 +30,7 @@ export default function TenXTokenListPinned() {
             )
           )
       ) : (
-        <p>No tokens pinned. If you have pinne any token and it is not shown please reload.</p>
+        <p>No tokens pinned. If you have pinned any token and it is not shown please reload.</p>
       )}
     </>
   );

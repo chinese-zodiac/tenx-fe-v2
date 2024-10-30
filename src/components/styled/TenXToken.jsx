@@ -12,6 +12,8 @@ import { styled } from '@mui/material/styles';
 import DOMPurify from 'dompurify';
 import { keccak256, toBytes } from 'viem';
 import { bscTestnet } from 'viem/chains';
+import { bnToCompact } from '../../utils/bnToFixed';
+import { lineHeight } from '@mui/system';
 const StarCheckbox = styled(Checkbox)(({ theme }) => ({
   color: '#e16b31',
   '&:checked': {
@@ -50,8 +52,10 @@ export default function TenXToken({
   czusdPair,
   buyTax,
   buyBurn,
+  buyLpFee,
   sellTax,
   sellBurn,
+  sellLpFee,
   name,
   symbol,
   tokenLogoCID,
@@ -116,7 +120,7 @@ export default function TenXToken({
           args: [address],
           chainId: bscTestnet.id
         }) : 0;
-        setHoldings(result.toString());
+        setHoldings(bnToCompact(result,18,8));
       } catch (error) {
         console.error('Error fetching Holdings:', error);
         setHoldings('No data found');
@@ -157,7 +161,194 @@ export default function TenXToken({
     return `${days} days, ${hours} hours, and ${minutes} minutes`;
   };
   return (
-    <Box
+    <>
+      <Box sx={{display:'flex',alignItems:'center',width:'100%',maxWidth:'960px',gap:'0.5em',backgroundColor:'rgba(0,0,0,0.75)',padding:'0.5em',lineHeight:'0.5em',flexWrap:'wrap',marginBottom:'0.25em'}}>
+        
+      {role && <BlueIconButton
+        component="a"
+        href={`/settings/${tokenIndex}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <SettingsIcon />
+      </BlueIconButton>}
+        <Box
+            as="a"
+            target="_blank"
+            href={`/product/${tokenIndex}/${chain ? chain.id : 97}`}
+            sx={{
+              margin: 0,
+              padding: 0,
+            }}
+          ><Box
+          as="img"
+          src={'https://' + 'ipfs.io/ipfs/' + tokenLogoCID}
+          sx={{
+            width: '5em',
+            height: '5em',
+            margin: 0,
+            padding: 0,
+            backgroundColor: 'white',
+            border: 'solid 0.15em white',
+            borderRadius: '3em',
+            display:'inline',
+            '&:hover': {
+              border: 'solid 0.15em grey',
+              backgroundColor: 'grey',
+            },
+          }}
+        />
+        </Box>
+        <Box>
+          <Typography sx={{fontSize:'3em'}}>
+          ${parseFloat(price).toFixed(2)}
+          </Typography>
+        </Box>
+          <Box
+            as="a"
+            target="_blank"
+            href={czCashBuyLink('BNB', tokenAddress)}
+            sx={{
+              margin: 0,
+              padding: 0,
+              textDecoration:'none'
+            }}
+          >
+            <Box
+            as="span"
+              sx={{
+                fontSize:'1.5em',
+                width: '2em',
+                height: '2em',
+                margin: 0,
+                padding: 0,
+                backgroundColor: 'white',
+                border: 'solid 0.15em white',
+                borderRadius: '2em',
+                '&:hover': {
+                  border: 'solid 0.15em gold',
+                  backgroundColor: '#420704',
+                  color:'yellow'
+                },
+                backgroundColor:'#9b2923',
+                display:'flex',
+                alignItems:'center',
+                justifyContent:'center',
+                color:'white',
+                fontWeight:'bold'
+              }}>
+              BUY
+            </Box>
+          </Box>
+        <Box sx={{width:'90px'}}>
+        <Typography
+          sx={{ fontSize: '2em' }}
+        >{`${symbol?.slice(0, 4)}`}</Typography>
+        <Typography
+          sx={{ fontSize: '1em' }}
+        >{`(${name?.slice(0, 8)})`}</Typography>
+
+        </Box>
+        
+      <Box>
+        <Typography sx={{fontSize:'1.5em'}}>
+        {((buyTax+buyBurn+buyLpFee) / 100).toFixed(2)}% / {((sellTax+sellBurn+sellLpFee) / 100).toFixed(2)}%
+        </Typography>
+        <Typography sx={{fontSize:'1em',paddingRight:'2em'}}>
+        fees: buy / sell
+        </Typography>
+      </Box>
+      <Box>
+        <Typography sx={{fontSize:'1.5em'}}>
+        ${parseFloat(marketCap).toFixed(2)}
+        </Typography>
+        <Typography sx={{fontSize:'1em'}}>
+        mcap
+        </Typography>
+      </Box>
+
+      <Box
+          as="a"
+          target="_blank"
+          href={`${LINK_GECKOTERMINAL}bsc/pools/${czusdPair}`}
+          sx={{
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          <Box
+            as="img"
+            src="./images/icons/chart.svg"
+            sx={{
+              width: '2em',
+              heigh: '2em',
+              margin: 0,
+              padding: 0,
+              backgroundColor: 'white',
+              border: 'solid 0.15em white',
+              borderRadius: '2em',
+              '&:hover': {
+                border: 'solid 0.15em grey',
+                backgroundColor: 'grey',
+              },
+            }}
+          />
+        </Box>
+        <Box
+          as="a"
+          target="_blank"
+          href={`${LINK_BSCSCAN}/token/${tokenAddress}`}
+          sx={{
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          <Box
+            as="img"
+            src="./images/icons/bscscan.svg"
+            sx={{
+              width: '2em',
+              height: '2em',
+              margin: 0,
+              padding: 0,
+              backgroundColor: 'white',
+              border: 'solid 0.15em white',
+              borderRadius: '2em',
+              '&:hover': {
+                border: 'solid 0.15em grey',
+                backgroundColor: 'grey',
+              },
+            }}
+          />
+        </Box>
+        <Box
+          as="a"
+          href={`/product/${tokenIndex}/${chain ? chain.id : 97}`}
+          sx={{
+            margin: 0,
+            padding: 0,
+          }}
+        >
+          <Box
+            as="img"
+            src="./images/icons/info.png"
+            sx={{
+              width: '2em',
+              height: '2em',
+              margin: 0,
+              padding: 0,
+              backgroundColor: 'white',
+              border: 'solid 0.15em white',
+              borderRadius: '2em',
+              '&:hover': {
+                border: 'solid 0.15em grey',
+                backgroundColor: 'grey',
+              },
+            }}
+          />
+        </Box>
+      </Box>
+    {/*<Box
       sx={{
         padding: '0.5em',
         display: 'inline-block',
@@ -299,7 +490,7 @@ export default function TenXToken({
           <li>Price in CZUSD: <span>$ {parseFloat(price).toFixed(2)}</span></li>
           <li>Age: <span>{getAge(launchTimestamp)}</span></li>
           <li>Launch Time: <span>{dayjs(launchTimestamp).format('YYYY-MM-DD HH:mm:ss')}</span></li>
-          {address && <li>Your holdings: <span>{holdings}</span></li>}
+          {address && <li>Your holdings: <span>{parseFloat(holdings)}</span></li>}
           <li> Description: <span>{content}</span></li>
         </ul>
       </Typography>
@@ -357,6 +548,7 @@ export default function TenXToken({
       >
         Learn More
       </ButtonPrimary>
-    </Box>
-  );
+    </Box>*/}
+    </>
+  )
 }

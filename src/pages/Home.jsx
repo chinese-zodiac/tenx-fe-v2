@@ -68,7 +68,7 @@ export default function Home() {
   const [content, setContent] = useState('Loading...');
   const [isChecked, setIsChecked] = useState(false);
   const [stapro, setStapro] = useState(false);
-  const [perPage, setPerPage] = useState(10);  
+  const [perPage, setPerPage] = useState(25);  
 
   const handleExpand = () => {
     setIsChecked(!isChecked);
@@ -183,9 +183,12 @@ export default function Home() {
               marginLeft:'auto',
               marginRight:'auto',
                 minHeight:'0 !important',
-              color:'rgba(0,0,0,0.69)',
+              color:'rgba(200,200,200,0.69)',
               '& .MuiAccordionSummary-content':{
                 margin:'0 !important'
+              },
+              '& .MuiSvgIcon-root':{
+                color:'rgba(200,200,200,0.69)'
               },
             }}
           >
@@ -302,9 +305,13 @@ export default function Home() {
                 marginLeft:'auto',
                 marginRight:'auto',
                 maxWidth:'50em',
-                display:'block'
+                display:'block',
+                color:'#fff',
+                ' & a':{
+                  color:'#aaf'
+                }
               }}>
-                <Typography as='span' sx={{fontWeight:'bold'}}>IMAGE INSTRUCTIONS: </Typography>
+                <Typography as='span' sx={{fontWeight:'bold', }}>IMAGE INSTRUCTIONS: </Typography>
                 Your image must first be pinned to IPFS using a service such as 
                 <a target="_blank"  href="https://Web3.storage">Web3.storage</a> or 
                 <a target="_blank"  href="https://Pinata.cloud">Pinata.cloud</a>. Once you pin your image, 
@@ -330,7 +337,11 @@ export default function Home() {
                 marginLeft:'auto',
                 marginRight:'auto',
                 maxWidth:'50em',
-                display:'block'
+                display:'block',
+                color:'#fff',
+                ' & a':{
+                  color:'#aaf'
+                }
               }}>
                 <Typography as='span' sx={{fontWeight:'bold'}}>DESCRIPTION INSTRUCTIONS: </Typography>
                 You first should create a CommonMark file. Use a tool such as <a target="_blank" href="https://spec.commonmark.org/dingus/#result">spec.commonmark.org/dingus</a>
@@ -351,10 +362,14 @@ export default function Home() {
                 textAlign:'left',
                 maxWidth:'960px',
                 display:'block',
-                backgroundColor:'rgba(255,255,255,0.69)'
+                backgroundColor:'rgba(255,255,255,0.69)',
+                height:'10em',
+                overflowY:'scroll',
+                border:'solid 3px #fff'
                 }}>
               <Markdown>{content}</Markdown>
-
+                <br/><br/><br/><br/>
+                
                 </Box> }
              
             </>
@@ -489,7 +504,7 @@ export default function Home() {
                     100% {
                       top: 0px;
                       left: 0px;
-                    }`} 50ms infinite ease`,
+                    }`} 250ms infinite ease`,
                     },
                   }}
                 >
@@ -551,35 +566,35 @@ export default function Home() {
         )}
       <ToastContainer />
       <>
-        <Stack
-          direction="row"
-          spacing={1}
-          justifyContent="center"
-          flexWrap="wrap"
-          rowGap={1}
-        >
           <Container className="topheading">
             <Button onClick={() => setStapro(false)}>
-              <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
-                TenX Products
+              <Typography className="hedding" as="h1" sx={{ fontSize: '2em', color:'white' }}>
+                All Launches
               </Typography>
             </Button>
 
-            <Button onClick={() => setStapro(true)}>
+            {/*<Button onClick={() => setStapro(true)}>
               <Typography className="hedding" as="h1" sx={{ fontSize: '2em' }}>
                 Starred Products
               </Typography>
-            </Button>
-            <FormControl
+            </Button>*/}
+          </Container>
+          <TenXTokenList className="productbox" perPage={perPage} />
+           
+      </>
+      <>
+        
+      <FormControl
               sx={{
                 display:'block',
                 marginTop: '1em',
                 marginLeft:'auto',
                 marginRight:'auto',
-                maxWidth:'10em'
+                maxWidth:'10em',
+                color:'white'
               }}
             >
-              <InputLabel id="perpage-select-label" sx={{ marginBottom: '-1em' }}>
+              <InputLabel id="perpage-select-label" sx={{ marginBottom: '-1em',color:'white' }}>
                 Products per page
               </InputLabel>
               <Select
@@ -589,6 +604,7 @@ export default function Home() {
                 onChange={handleChange}
                 sx={{
                   border:'none !important',
+                  color:'white',
                 }}
               >
                 <MenuItem value={10}>10</MenuItem>
@@ -597,12 +613,6 @@ export default function Home() {
                 <MenuItem value={500}>500</MenuItem>
               </Select>
             </FormControl>
-          </Container>
-          {stapro ? <TenXTokenListPinned /> : <TenXTokenList className="productbox" perPage={perPage} />}
-        </Stack>
-      </>
-      <>
-        
         <FooterArea />
 
       </>

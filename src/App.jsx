@@ -2,9 +2,13 @@ import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
 import { bsc, bscTestnet } from 'viem/chains';
 import { WagmiConfig } from 'wagmi';
 import ReactGA from 'react-ga4';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from '@tsparticles/slim';
+import { loadImageShape } from '@tsparticles/shape-image';
+import { loadAll } from '@tsparticles/all';
 
 //WAGMI + WALLETCONNECT
 if (!import.meta.env.VITE_WALLETCONNECT_CLOUD_ID) {
@@ -27,7 +31,24 @@ const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 createWeb3Modal({ wagmiConfig, projectId, chains });
 
 function App({ children }) {
+  const [ init, setInit ] = useState(false);
+  const particlesLoaded = (container) => {
+    console.log(container);
+};
   useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
+      // this loads the tsparticles package bundle, it's the easiest method for getting everything ready
+      // starting from v2 you can add only the features you need reducing the bundle size
+      //await loadAll(engine);
+      await loadImageShape(engine);
+      await loadAll(engine);
+      //await loadSlim(engine);
+      //await loadBasic(engine);
+  }).then(() => {
+    console.log("SET INIT")
+      setInit(true);
+  });
     ReactGA.initialize('AW-16657419279');
     ReactGA.send({
       hitType: 'pageview',
@@ -35,7 +56,93 @@ function App({ children }) {
       title: 'tenx.cz.cash homepage',
     });
   }, []);
-  return <WagmiConfig config={wagmiConfig}><LocalizationProvider dateAdapter={AdapterDayjs}>{children}</LocalizationProvider></WagmiConfig>;
+  return <WagmiConfig config={wagmiConfig}>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    { init && <Particles
+            id="tsparticles"
+            particlesLoaded={particlesLoaded}
+            options={{
+              background: {
+                  color: {
+                      value: "#2a0752",
+                  },
+              },
+              fpsLimit: 60,
+              interactivity: {
+                  events: {
+                      onClick: {
+                          enable: false,
+                      },
+                      onHover: {
+                          enable: true,
+                          mode: "repulse",
+                      },
+                      resize: true,
+                  },
+                  modes: {
+                      repulse: {
+                          distance: 300,
+                          duration: 0.4,
+                      },
+                  },
+              },
+              particles: {
+                  color: {
+                      value: "#ffffff",
+                  },
+                  links: {
+                      enable: false,
+                  },
+                  move: {
+                      direction: "none",
+                      enable: true,
+                      outModes: {
+                          default: "bounce",
+                      },
+                      random: false,
+                      speed: 6,
+                      straight: false,
+                  },
+                  number: {
+                      density: {
+                          enable: true,
+                          area: 800,
+                      },
+                      value: 80,
+                  },
+                  opacity: {
+                      value:1,
+                  },
+                  shape: {
+                      type: "image",
+                      options:{
+                        character:{
+                          value:"💸",
+                        },
+                        image:{
+                          height:100,
+                          width:100,
+                          src:"https://gateway.cz.cash/ipfs/bafkreiczk7nox7yizahb2tdwupm6cggef2l7l77x5lcfz5e7sixq4wuk4a"
+                        }
+                      }
+                  },
+                  size: {
+                      value:{
+                        min:1,
+                        max:32
+                      },
+                      random:true,
+                      animation:{
+                        enable:true,
+                        speed:20,
+                        sync:false
+                      }
+                  },
+              },
+              detectRetina: true,
+          }} />}
+      {children}
+    </LocalizationProvider></WagmiConfig>;
 }
 
 export default App;

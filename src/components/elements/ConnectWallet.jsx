@@ -25,6 +25,7 @@ export default function ConnectWallet(sx) {
           position: 'absolute',
           display: 'block',
           right: '1em',
+          top:'1em'
         }}
       >
         <Box>

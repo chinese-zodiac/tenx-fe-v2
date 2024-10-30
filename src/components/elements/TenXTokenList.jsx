@@ -54,6 +54,7 @@ console.log('perPageMin',perPageMin)
     <>
       {sortedTokens.length > 0 ? (
         <>
+        <Box sx={{width:'100%',maxWidth:'960px',marginLeft:'auto',marginRight:'auto'}}>
           {sortedTokens.map((tenXToken) =>
             tenXToken?.tokenAddress && (
               <TenXToken
@@ -63,6 +64,7 @@ console.log('perPageMin',perPageMin)
               />
             )
           )}
+          </Box>
           <Box as="div" className='clearfix'>
             {page > 0 && (
               <Button

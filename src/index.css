@@ -41,7 +41,7 @@ body {
   overflow-x: hidden !important;
   position: 'relative';
   color: #fff;
-  background: #fbd1c3;
+  background: #2a0752;
   background-size: 400% 400%;
   font-size: '16px';
 }
@@ -109,17 +109,23 @@ p {
 }
 
 .header {
-  background: #bb5d5d;
+  background: rgba(121, 11, 11, 0.75);
   clear: both;
   width: 100%;
-  height: 80px;
+  height: 140px;
   padding: 6px 0px;
+}
+@media (max-width:550px) {
+  .header{
+    padding-top:105px;
+  }
 }
 
 .container {
   margin: 0px auto;
 }
 
-.description-box{
-  text-align: 'left !important';
+#tsparticles{
+  position:absolute;
+  z-index: -1;
 }
