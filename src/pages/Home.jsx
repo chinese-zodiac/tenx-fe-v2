@@ -45,6 +45,7 @@ import Markdown from 'react-markdown'
 import TenXTokenListPinned from '../components/elements/TenXTokenListPinned';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { fontWeight, textAlign } from '@mui/system';
+import PrintButton from '../components/elements/PrintButton';
 
 export default function Home() {
   const { chain } = useNetwork();
@@ -383,7 +384,7 @@ export default function Home() {
       </Stack>
       <br />
       {!!address ?
-        (chain.id != 97 ?
+        (chain.id != 97 || chain.id != 56 ?
           (
             <ButtonPrimary
               onClick={() => {
@@ -569,6 +570,7 @@ export default function Home() {
             CREATE NOW <Box as="span">🚀</Box>
           </ButtonPrimary>
         )}
+      <PrintButton />
       <ToastContainer />
       </Box>
       <>

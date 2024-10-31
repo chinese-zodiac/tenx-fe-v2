@@ -22,7 +22,7 @@ import Markdown from 'react-markdown';
 import DOMPurify from 'dompurify';
 
 const EditSettings = () => {
-    const { index } = useParams();
+    const { index, chainId } = useParams();
     const { address } = useAccount();
 
     const navigate = useNavigate();

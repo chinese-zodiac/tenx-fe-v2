@@ -6,6 +6,6 @@ import EditSettings from "../pages/EditSettings";
 
 export const router = createBrowserRouter([
     { path: '/', element: <Home /> },
-    { path: 'product/:index/:chainId', element: <Products/> },
-    { path: 'settings/:index', element: <EditSettings/> },
+    { path: 'product/:chainId/:index', element: <Products/> },
+    { path: 'settings/:chainId/:index', element: <EditSettings/> },
 ]);

@@ -135,3 +135,7 @@ p {
     display: block;
   }
 }
+.video-print-wrapper{
+  position:absolute;
+  z-index: 1;
+}

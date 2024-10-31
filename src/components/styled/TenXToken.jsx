@@ -166,16 +166,13 @@ export default function TenXToken({
         
       {role && <BlueIconButton
         component="a"
-        href={`/settings/${tokenIndex}`}
-        target="_blank"
-        rel="noopener noreferrer"
+        href={`/settings/${chain ? chain.id : 56}/${tokenIndex}`}
       >
         <SettingsIcon />
       </BlueIconButton>}
         <Box
             as="a"
-            target="_blank"
-            href={`/product/${tokenIndex}/${chain ? chain.id : 97}`}
+            href={`/product/${chain ? chain.id : 56}/${tokenIndex}`}
             sx={{
               margin: 0,
               padding: 0,
@@ -222,7 +219,6 @@ export default function TenXToken({
                 height: '2em',
                 margin: 0,
                 padding: 0,
-                backgroundColor: 'white',
                 border: 'solid 0.15em white',
                 borderRadius: '2em',
                 '&:hover': {
@@ -323,7 +319,7 @@ export default function TenXToken({
         </Box>
         <Box
           as="a"
-          href={`/product/${tokenIndex}/${chain ? chain.id : 97}`}
+          href={`/product/${chain ? chain.id : 56}/${tokenIndex}/`}
           sx={{
             margin: 0,
             padding: 0,
