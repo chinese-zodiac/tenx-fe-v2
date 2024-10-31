@@ -33,9 +33,7 @@ createWeb3Modal({ wagmiConfig, projectId, chains });
 
 function App({ children }) {
   const [ init, setInit ] = useState(false);
-  const particlesLoaded = (container) => {
-    console.log(container);
-};
+  const particlesLoaded = (container) => {};
   useEffect(() => {
     initParticlesEngine(async (engine) => {
       // you can initiate the tsParticles instance (engine) here, adding custom shapes or presets
@@ -47,7 +45,6 @@ function App({ children }) {
       //await loadSlim(engine);
       //await loadBasic(engine);
   }).then(() => {
-    console.log("SET INIT")
       setInit(true);
   });
     ReactGA.initialize('AW-16657419279');

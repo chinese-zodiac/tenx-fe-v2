@@ -130,6 +130,11 @@ p {
   z-index: -1;
 }
 
+#tsparticles-print{
+  position:absolute;
+  z-index: 50;
+}
+
 @media (max-width: 768px) {
   .videoBg {
     display: block;
