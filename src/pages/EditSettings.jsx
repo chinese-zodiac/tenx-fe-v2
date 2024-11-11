@@ -20,6 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { gatewayTools } from '../utils/getIpfsJson';
 import Markdown from 'react-markdown';
 import DOMPurify from 'dompurify';
+import { LINK_BSCSCAN } from '../constants/links';
 
 const EditSettings = () => {
     const { index, chainId } = useParams();
@@ -34,6 +35,8 @@ const EditSettings = () => {
     }, [chain, navigate]);
 
     const details = useTenXToken(index);
+
+    console.log({details})
 
     const [selectedValue, setSelectedValue] = useState('0');
 
@@ -232,6 +235,11 @@ const EditSettings = () => {
             minHeight="100vh"
         >
             <Header />
+            <Box sx={{background:'rgba(0,0,0,0.5)', padding:'2em'}}>
+                <h1>EDIT {details?.tenXToken?.name}</h1>
+                <h2>({details?.tenXToken?.symbol})</h2>
+                <p>CA: <Box as="a" sx={{textDecoration:'underline', color:'white'}} target="_blank" href={`${LINK_BSCSCAN}/token/${details?.tenXToken?.tokenAddress}`}>{details?.tenXToken?.tokenAddress}</Box></p>
+            </Box>
             <Stack id='selectbox'
                 direction="column"
                 flexGrow={1}
@@ -240,13 +248,25 @@ const EditSettings = () => {
                 alignItems="center"
                 spacing={2}
                 columnGap={2}
+                
+                sx={{
+                    '& > div:first-child':{
+                        border:'solid 4px gray',
+                        marginTop: '2em',
+                        color:'black',
+                        '& .MuiRadio-root > span':{
+                            color:'#e65d1b'
+                        }
+                    }
+                }}
             >
                 <RadioFieldStyled
                     selectedValue={selectedValue}
                     setSelectedValue={setSelectedValue}
-                    title={'Select what to edit'}
+                    title={'Settings'}
                     labels={['Description CID', 'Fee Exemption', 'Maxes', 'Tax Reciever', 'Taxes', 'Logo CID']}
-                    helpMsg={'Which detail is to be edited'}
+                    helpMsg={'Allows you, the manager, to change various settings on the contract. You can also do this via a block explorer on the token contract.'}
+                    
                 />
                 <Stack id="editmainbox"
                     direction="row"
@@ -255,6 +275,15 @@ const EditSettings = () => {
                     alignItems="center"
                     spacing={2}
                     rowGap={2}
+                    sx={{
+                        '& > div:nth-child(2)':{
+                            color:'black',
+                            border: 'solid 3px #bc7552',
+                            '& .MuiRadio-root > span':{
+                                color:'#e65d1b'
+                            }
+                        }
+                    }}
                 >
                     {selectedValue == '0' && <>
                         <TextFieldStyled
@@ -266,9 +295,8 @@ const EditSettings = () => {
                             helpMsg="IPFS CID (hash) of the product’s description in CommonMark. Upload and pin the description .md file first, then copy the IPFS CID here. Acceps MD file in CommonMark format. Must be smaller than 10kb."
                         />
                         {descriptionMarkdownCID &&
-                            <div className="descriptionbox">
-                                <h2>Your description content:-</h2>
-                                <Markdown>{content}</Markdown></div>
+                            <Box className="descriptionbox">
+                                <Markdown>{content}</Markdown></Box>
                         }
                     </>}
                     {selectedValue == '1' && <>

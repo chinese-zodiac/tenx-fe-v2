@@ -5,7 +5,7 @@ import {
   Box
 } from '@mui/material';
 
-import { LINK_TELEGRAM } from '../../constants/links';
+import { LINK_TELEGRAM, LINK_TENXV2_ASSETSET_1 } from '../../constants/links';
 
 const Header = () => {
     return (
@@ -16,7 +16,7 @@ const Header = () => {
              <a href='/'>
             <Box className="logo"
                 as="img"
-                src="/logo.png"
+                src={`${LINK_TENXV2_ASSETSET_1}/logo.png`}
                 sx={{
                     width: '4em',
                     height: 'auto',

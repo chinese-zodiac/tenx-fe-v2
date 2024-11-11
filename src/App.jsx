@@ -10,6 +10,7 @@ import { loadSlim } from '@tsparticles/slim';
 import { loadImageShape } from '@tsparticles/shape-image';
 import { loadAll } from '@tsparticles/all';
 import VideoBg from 'reactjs-videobg';
+import { LINK_TENXV2_ASSETSET_1 } from './constants/links';
 
 //WAGMI + WALLETCONNECT
 if (!import.meta.env.VITE_WALLETCONNECT_CLOUD_ID) {
@@ -23,7 +24,7 @@ const metadata = {
   description:
     "Create your digital product effortlessly with TenX's automated deployer. Enhance community value, leverage digital marketing, and enjoy free marketing with our $10k grant. Activate your global project today!",
   url: 'https://TenX.cz.cash',
-  icons: ['https://TenX.cz.cash/images/logo.png'],
+  icons: [`${LINK_TENXV2_ASSETSET_1}/images/logo.png`],
 };
 
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
@@ -56,8 +57,8 @@ function App({ children }) {
   }, []);
   return <WagmiConfig config={wagmiConfig}>
     <LocalizationProvider dateAdapter={AdapterDayjs}><>
-    <VideoBg videoClass="videoBg" poster="/images/cityscape-bg.png">
-    <VideoBg.Source src="/videos/cityscape-bg.mp4" type="video/mp4" />
+    <VideoBg videoClass="videoBg" poster={`${LINK_TENXV2_ASSETSET_1}/images/cityscape-bg.png`}>
+    <VideoBg.Source src={`${LINK_TENXV2_ASSETSET_1}/videos/cityscape-bg.mp4`} type="video/mp4" />
     </VideoBg>
     { init && <Particles
             id="tsparticles"

@@ -44,7 +44,7 @@ const ChangeArea = ({ transactionHash, status, token, index, chainId, blockExplo
       <ButtonPrimary
         as="a"
         target="_blank"
-        href={`/product/${index}/${chainId}`}
+        href={`/#/product/${index}/${chainId}`}
         sx={{
           width: '50%',
           fontSize: '1.3em',

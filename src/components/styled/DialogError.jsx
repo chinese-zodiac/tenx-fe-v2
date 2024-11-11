@@ -3,6 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import { Box } from '@mui/system';
 import * as React from 'react';
 import ReactGA from 'react-ga4';
+import { LINK_TENXV2_ASSETSET_1 } from '../../constants/links';
 
 export default function DialogError({ children, title, sx, open, setOpen }) {
   const handleClose = () => {
@@ -29,7 +30,7 @@ export default function DialogError({ children, title, sx, open, setOpen }) {
           <Box sx={{ maxWidth: '100%', width: '100vw' }}>
             <Box
               as="img"
-              src="./images/STOP COWBOY.png"
+              src={`${LINK_TENXV2_ASSETSET_1}/images/STOP COWBOY.png`}
               sx={{
                 width: '45%',
                 position: 'absolute',

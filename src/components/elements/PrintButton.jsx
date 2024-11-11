@@ -8,6 +8,7 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadImageShape } from '@tsparticles/shape-image';
 import { loadEmittersPlugin } from '@tsparticles/plugin-emitters';
 import { loadAll } from '@tsparticles/all';
+import { LINK_TENXV2_ASSETSET_1 } from '../../constants/links';
 
 const trans = (x, y) =>
   `translate3d(${x}px,${y}px,0) translate3d(-50%,-50%,0)`
@@ -66,8 +67,10 @@ export default function PrintButton() {
         setActive(true);
         runSpring(e.clientX,e.clientY);
         setWrapperOpacity(1);
-        setTimeout(()=>{console.log("timeouttrigger"),setWrapperOpacity(0)},4500);
-        setTimeout(()=>{console.log("timeouttrigger"),setActive(false)},5500);
+      }
+      const handleStop = (e) =>{
+        setWrapperOpacity(0)
+        setTimeout(()=>{console.log("timeouttrigger"),setActive(false)},1000);
       }
 
     
@@ -102,20 +105,20 @@ export default function PrintButton() {
         >
             Your moonshot will do this...
         </Button>
-        <Box ref={ref} onMouseMove={handleMouseMove}
+        <Box ref={ref} onMouseMove={handleMouseMove} onClick={handleStop}
          sx={{
             display:active ? 'block' : 'none',
             transition:'opacity 1s',
             opacity:wrapperOpacity,
             position:'fixed',top:0,left:0,zIndex:10, width:'100vw',height:'100vh',overflow:'hidden',background:'transparent',userSelect:'none',WebkitTouchCallout:'none',cursor:'default'}}>
             <animated.div style={{
-                width:'20vw',height:'26vw',padding:'100vw',background:'red',position:'relative',background:'transparent',
+                width:'20vw',height:'26vw',padding:'100vw',position:'relative',background:'transparent',
                 willChange:'transform',
                 transform:springs.xy.to(trans)
                 }}>
                   <Box sx={{width:'100%',height:'100%',position:'relative'}}>
                 <VideoBg videoClass="videoBg" wrapperClass="video-print-wrapper">
-                <VideoBg.Source src="/videos/print.mp4" type="video/mp4" />
+                <VideoBg.Source src={`${LINK_TENXV2_ASSETSET_1}/videos/print.mp4`} type="video/mp4" />
                 </VideoBg>
                 </Box>
             </animated.div>

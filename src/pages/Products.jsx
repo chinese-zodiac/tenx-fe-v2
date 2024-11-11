@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { readContract } from '@wagmi/core';
 import TenXTokenV2Abi from '../abi/TenXTokenV2.json';
-import { Box, styled } from '@mui/system';
+import { Box, Stack, styled } from '@mui/system';
 import useTenXToken from '../hooks/useTenXToken';
 import { useAccount, useNetwork } from 'wagmi';
 import Header from '../components/elements/Header';
@@ -35,6 +35,7 @@ const Products = () => {
   const [totalTax, setTotalTax] = useState('Loading...');
   const [totalBurn, setTotalBurn] = useState('Loading...');
   const BlueIconButton = styled(IconButton)(({ theme }) => ({
+    backgroundColor:'cyan',
     border: '2px solid #1976d2',
     borderRadius: '50px',
     color: '#1976d2',
@@ -153,41 +154,93 @@ const Products = () => {
   return (
     <div className="detailspage">
       <Header />
-      <div className="maindetails">
-        <div className="leftbox">
+      <Box sx={{maxWidth:'960px',marginLeft:'auto',marginRight:'auto','& > *':{marginBottom:'1em'}}}>
+          <Box sx={{padding:'1em'}}>
+            <Box
+              as="img"
+              src={'https://ipfs.io/ipfs/' + tenXToken.tokenLogoCID}
+              sx={{
+                width: '5em',
+                heigh: '5em',
+                backgroundColor: 'white',
+                border: 'solid 0.15em white',
+                borderRadius: '5em',
+                display:'inline-block',
+                marginRight:'1em'
+              }}
+            />
+            <Box sx={{display:'inline-block'}}>
+              <Typography as="h1" sx={{fontSize:'2em',lineHeight:'1em'}}>{tenXToken.name}</Typography>
+              <Typography as="h2">{tenXToken.symbol}</Typography>
+              <Typography sx={{fontSize:'3em',lineHeight:'1em'}} >${Number(tenXToken.price).toFixed(2)}</Typography>
+              
+            </Box>
+          </Box>
+          <Stack className="sharebtn" sx={{justifyContent:'center',gap:'1em',flexDirection:'row'}}>
+            <ButtonPrimary
+                as="a"
+                target="_blank"
+                href={czCashBuyLink('BNB', tenXToken.tokenAddress)}
+                sx={{
+                  display:'block',
+                  width: '6em',
+                  fontSize: '1.5em',
+                  padding: 0,
+                  position: 'relative',
+                  fontWeight: 'bold',
+                  textTransform: 'none',
+                  color: '#e16b31',
+                  borderRadius: '1.5em',
+                  border: 'solid 2px #e16b31',
+                  backgroundColor: '#f3f3f3',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    backgroundColor: '#080830',
+                  },
+                }}
+              >
+                BUY {tenXToken.symbol?.slice(0, 7)}
 
-          <div className="sharebtn">
-            <Button variant="contained" color="primary" onClick={handleCopy}>
-              Share Product
-            </Button><br />
+              </ButtonPrimary>
+              <ButtonPrimary sx={{
+                    display:'block',
+                    width: '6em',
+                    fontSize: '1.5em',
+                    padding: 0,
+                    position: 'relative',
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                    color: '#e16b31',
+                    borderRadius: '1.5em',
+                    border: 'solid 2px #e16b31',
+                    backgroundColor: '#f3f3f3',
+                    textDecoration: 'none',
+                    '&:hover': {
+                      backgroundColor: '#080830',
+                    },
+                  }} onClick={handleCopy}>
+                Share {tenXToken.symbol}
+              </ButtonPrimary>
 
             <Snackbar open={open} autoHideDuration={6000} onClose={handleCloseSnackbar}>
               <Alert onClose={handleCloseSnackbar} severity="success">
                 Link copied to clipboard!
               </Alert>
             </Snackbar>
-          </div>
-          <div className="sharebtn">
+          </Stack>
+          <Box className="sharebtn" sx={{display:"inline-block"}}>
             {role && <BlueIconButton
               component="a"
-              href={`/settings/${tenXToken.tokenIndex}`}
+              href={`/#/settings/${chain?.id}/${tenXToken.tokenIndex}`}
             >
               <SettingsInputComponent fontSize='20px' /> &nbsp;
-              Edit Product
+              Edit {tenXToken.symbol}
             </BlueIconButton>}
-          </div>
-          <Box
-            as="img"
-            src={'https://ipfs.io/ipfs/' + tenXToken.tokenLogoCID}
-            sx={{
-              width: '5em',
-              heigh: '5em',
-              backgroundColor: 'white',
-              border: 'solid 0.15em white',
-              borderRadius: '5em',
-            }}
-          /><br /><br />
-          <div className='descriptiondtl'>Description: <Markdown>{content}</Markdown></div>
+          </Box>
+          <Box className="descriptionbox">
+          <Markdown>{content}</Markdown>
+          </Box>
+          <Box className="descriptionbox">
           <li> Name: <span>{tenXToken.name}{/*  <a className='edit' href='#'>Edit</a>*/}</span></li>
           <li>Symbol: <span>{tenXToken.symbol}</span></li>
           <li>Image CID: <span>{tenXToken.tokenLogoCID} </span></li>
@@ -246,6 +299,8 @@ const Products = () => {
           <li>Total burn in tokens/usd: <span>$ {Number(totalBurn).toFixed(2)}</span></li>
           <li>Total lp in tokens/usd: <span>$ {Number(tenXToken.totalLpValue).toFixed(2)}</span></li>
           <li>Initial CZUSD grant: <span>$ {tenXToken.initialSupply}</span></li>
+          
+          </Box>
           <div className='detailspagebtn'>
             {chain ?
               <ButtonPrimary
@@ -278,9 +333,8 @@ const Products = () => {
               :
               <ConnectWallet />}
           </div>
-        </div>
 
-      </div>
+      </Box>
 
       <FooterArea />
     </div>

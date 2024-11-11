@@ -5,6 +5,7 @@ import {
   LINK_DISCORD,
   LINK_PRIVACY_POLICY,
   LINK_TELEGRAM,
+  LINK_TENXV2_ASSETSET_1,
   LINK_TERMS_OF_USE,
   LINK_TWITTER,
 } from '../../constants/links';
@@ -132,14 +133,14 @@ export default function FooterArea({ sx }) {
               
               <MenuLinkSocialIcon
                 href={LINK_TWITTER}
-                src="/images/icons/Twitter-White.svg"
+                src={`${LINK_TENXV2_ASSETSET_1}/images/icons/Twitter-White.svg`}
                 alt="Twitter"
                 width={27}
                 height={23}
               />
               <MenuLinkSocialIcon
                 href={LINK_TELEGRAM}
-                src="/images/icons/TG-White.svg"
+                src={`${LINK_TENXV2_ASSETSET_1}/images/icons/TG-White.svg`}
                 alt="Telegram"
                 width={27}
                 height={23}

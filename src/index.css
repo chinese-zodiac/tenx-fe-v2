@@ -144,3 +144,15 @@ p {
   position:absolute;
   z-index: 1;
 }
+
+.descriptionbox{
+  border: solid 3px #bc7552;
+  background: rgba(255,255,255,0.8);
+  text-align: left;
+  padding:1em;
+  color: black;
+}
+
+.descriptionbox a {
+  color:#444;
+}

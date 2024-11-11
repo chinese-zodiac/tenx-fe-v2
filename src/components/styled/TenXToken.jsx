@@ -1,5 +1,5 @@
 import { Box, Checkbox, IconButton, Stack, Typography, useTheme } from '@mui/material';
-import { LINK_BSCSCAN, LINK_GECKOTERMINAL } from '../../constants/links';
+import { LINK_BSCSCAN, LINK_GECKOTERMINAL, LINK_TENXV2_ASSETSET_1 } from '../../constants/links';
 import ButtonPrimary from './ButtonPrimary';
 import { czCashBuyLink } from '../../utils/czcashLink';
 import { useAccount, useNetwork } from 'wagmi';
@@ -166,13 +166,13 @@ export default function TenXToken({
         
       {role && <BlueIconButton
         component="a"
-        href={`/settings/${chain ? chain.id : 56}/${tokenIndex}`}
+        href={`/#/settings/${chain ? chain.id : 56}/${tokenIndex}`}
       >
         <SettingsIcon />
       </BlueIconButton>}
         <Box
             as="a"
-            href={`/product/${chain ? chain.id : 56}/${tokenIndex}`}
+            href={`/#/product/${chain ? chain.id : 56}/${tokenIndex}`}
             sx={{
               margin: 0,
               padding: 0,
@@ -274,7 +274,7 @@ export default function TenXToken({
         >
           <Box
             as="img"
-            src="./images/icons/chart.svg"
+            src={`${LINK_TENXV2_ASSETSET_1}/images/icons/chart.svg`}
             sx={{
               width: '2em',
               heigh: '2em',
@@ -301,7 +301,7 @@ export default function TenXToken({
         >
           <Box
             as="img"
-            src="./images/icons/bscscan.svg"
+            src={`${LINK_TENXV2_ASSETSET_1}/images/icons/bscscan.svg`}
             sx={{
               width: '2em',
               height: '2em',
@@ -319,7 +319,7 @@ export default function TenXToken({
         </Box>
         <Box
           as="a"
-          href={`/product/${chain ? chain.id : 56}/${tokenIndex}/`}
+          href={`/#/product/${chain ? chain.id : 56}/${tokenIndex}/`}
           sx={{
             margin: 0,
             padding: 0,
@@ -327,7 +327,7 @@ export default function TenXToken({
         >
           <Box
             as="img"
-            src="./images/icons/info.png"
+            src={`${LINK_TENXV2_ASSETSET_1}/images/icons/info.png`}
             sx={{
               width: '2em',
               height: '2em',
