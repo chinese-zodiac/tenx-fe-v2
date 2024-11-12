@@ -108,7 +108,7 @@ const useStore = create(
         }
       },
     }),
-    { name: 'tenx-storage-0.0.1c' }
+    { name: 'tenx-storage-0.0.2' }
   )
 );
 

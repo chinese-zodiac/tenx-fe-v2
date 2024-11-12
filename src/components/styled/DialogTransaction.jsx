@@ -135,7 +135,7 @@ export default function DialogTransaction({
     if (debouncedArgs[4]) {
       try {
         if(!gatewayTools.containsCID('ipfs.io/'+ debouncedArgs[4]).containsCid){
-          toast.error('The CID does not point to a valid image for logo.');
+          toast.error('The CID does not point to a valid text file for description.');
           return;
         }
         const response = await fetch('https://ipfs.io/ipfs/' + debouncedArgs[4]);
@@ -152,7 +152,7 @@ export default function DialogTransaction({
 
     if ((debouncedArgs[8] + debouncedArgs[9] + debouncedArgs[10] + debouncedArgs[11] + debouncedArgs[12] + debouncedArgs[13])> 3000) {
       console.log(debouncedArgs[8] + debouncedArgs[9] + debouncedArgs[10] + debouncedArgs[11] + debouncedArgs[12] + debouncedArgs[13])
-      toast.error('Total fees too high.');
+      toast.error('Total fees too high. Must be below 30%.');
       return;
     }
 

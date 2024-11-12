@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAccount, useBalance, useContractRead, useNetwork } from 'wagmi';
+import { useAccount, useBalance, useChainId, useContractRead, useNetwork } from 'wagmi';
 import {
   Typography,
   Box,
@@ -49,8 +49,8 @@ import PrintButton from '../components/elements/PrintButton';
 
 export default function Home() {
   const { chain } = useNetwork();
+  const chainId = chain?.id ?? 0;
   const { address, isConnecting, isDisconnected } = useAccount();
-
   const [name, setName] = useState('ProductX');
   const [symbol, setSymbol] = useState('PRDX');
   const [buyTax, setBuyTax] = useState(25);
@@ -73,7 +73,7 @@ export default function Home() {
 
   const handleExpand = () => {
     setIsChecked(!isChecked);
-    if (isChecked) {
+    /*if (isChecked) {
       setBuyBurn(10);
       setSellBurn(10);
       setCzusdWad('5000');
@@ -86,7 +86,7 @@ export default function Home() {
       setLaunchTimestamp(0);
     } else {
       setLaunchTimestamp(0);
-    }
+    }*/
   };
   const handleChange = (event) => {
     setPerPage(event.target.value);  // Update state when the value is selected
@@ -100,7 +100,9 @@ export default function Home() {
 
 
   useEffect(() => {
+    console.log({isChecked})
     const fetchFileContent = async (ipfsLink) => {
+      console.log("FETCHING FILE CONTENT")
       try {
         const response = await fetch('https://ipfs.io/ipfs/' + ipfsLink);
         const text = await response.text();
@@ -111,7 +113,7 @@ export default function Home() {
         setContent('No data found');
       }
     };
-    if (!isChecked) {
+    if (isChecked) {
       fetchFileContent(descriptionMarkdownCID);
     }
   }, [descriptionMarkdownCID, isChecked]);
@@ -384,11 +386,10 @@ export default function Home() {
       </Stack>
       <br />
       {!!address ?
-        (chain.id != 97 || chain.id != 56 ?
+        (chainId != 97 && chainId != 56 ?
           (
             <ButtonPrimary
               onClick={() => {
-                console.log(chain.id)
                 ReactGA.event({
                   category: 'tenx_action',
                   action: 'click_createnow_btn_1_not_connected',

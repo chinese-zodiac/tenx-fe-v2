@@ -155,7 +155,7 @@ const Products = () => {
     <div className="detailspage">
       <Header />
       <Box sx={{maxWidth:'960px',marginLeft:'auto',marginRight:'auto','& > *':{marginBottom:'1em'}}}>
-          <Box sx={{padding:'1em'}}>
+          {!!tenXToken ? (<><Box sx={{padding:'1em'}}>
             <Box
               as="img"
               src={'https://ipfs.io/ipfs/' + tenXToken.tokenLogoCID}
@@ -259,7 +259,7 @@ const Products = () => {
           <li>Buy Burn: <span>{tenXToken.buyBurn / 100} %</span></li>
           <li>Sell Burn: <span>{tenXToken.sellBurn / 100} %</span></li>
           <li>Buy LP Fee: <span>{tenXToken.buyLpFee / 100} %</span></li>
-          <li>Sell LP Fee: <span>{tenXToken.sellTax / 100} %</span></li>
+          <li>Sell LP Fee: <span>{tenXToken.sellLpFee / 100} %</span></li>
           <li>Balance Max: <span>{tenXToken.balanceMax}  </span></li>
           <li>Transaction Max:<span> {tenXToken.transactionSizeMax} </span></li>
           <li>Is Connected Wallet Exempt <span>{exempt?'Yes':'No'} </span></li>
@@ -333,7 +333,7 @@ const Products = () => {
               :
               <ConnectWallet />}
           </div>
-
+          </>) : "LOADING DATA FROM BLOCKCHAIN... Please be patient"}
       </Box>
 
       <FooterArea />
