@@ -15,7 +15,6 @@ export const getIpfsUrl = async (cid) => {
   for (let i = 0; i < gateways.length; i++) {
     const gatewayUrl = gatewayTools.convertToDesiredGateway(cid, gateways[i]);
       const response = await fetch(gatewayUrl);
-      console.log(response)
       if (response.ok) {
         return gatewayUrl;
       }

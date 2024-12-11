@@ -77,7 +77,7 @@ export default function DialogError({ children, title, sx, open, setOpen }) {
                 },
               }}
             >
-              GOT IT!
+              OK
             </Button>
           </Box>
         </DialogContent>

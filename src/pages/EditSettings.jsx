@@ -35,9 +35,6 @@ const EditSettings = () => {
     }, [chain, navigate]);
 
     const details = useTenXToken(index);
-
-    console.log({details})
-
     const [selectedValue, setSelectedValue] = useState('0');
 
     const [descriptionMarkdownCID, setDescriptionMarkdownCID] = useState(details.tenXToken.descriptionMarkdownCID);
@@ -397,6 +394,7 @@ const EditSettings = () => {
                                     as="img"
                                     src={`https://ipfs.io/ipfs/${tokenLogoCID}`}
                                     sx={{
+                                        objectFit:'cover',
                                         width: '3.5em',
                                         height: '3.5em',
                                         margin: 0,

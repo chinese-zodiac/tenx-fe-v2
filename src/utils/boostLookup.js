@@ -7,7 +7,6 @@ export default function boostLookup(outlawsPersonalityArray) {
       boostBp: 0,
     };
   }
-  console.log(outlawsPersonalityArray);
   if (
     OUTLAW_PERSONALITIES_ARR.every((id) => outlawsPersonalityArray.includes(id))
   ) {

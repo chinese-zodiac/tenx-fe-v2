@@ -20,8 +20,6 @@ export default function TenXTokenList({perPage}) {
     });
   };
 
-console.log('perPageMin',perPageMin)
-
   useEffect(() => {
     setStart(page * perPage);
   }, [page]);
@@ -31,7 +29,6 @@ console.log('perPageMin',perPageMin)
   }, [perPageMin]);
 
   useEffect(() => {
-    console.log(page,perPageMin,tenXTokenArray)
     if (!!tenXTokenArray) {
       setSortedTokens(sortTokens(tenXTokenArray));
     }

@@ -100,9 +100,7 @@ export default function Home() {
 
 
   useEffect(() => {
-    console.log({isChecked})
     const fetchFileContent = async (ipfsLink) => {
-      console.log("FETCHING FILE CONTENT")
       try {
         const response = await fetch('https://ipfs.io/ipfs/' + ipfsLink);
         const text = await response.text();
@@ -149,18 +147,20 @@ export default function Home() {
           text={symbol}
           setText={setSymbol}
           maxChar={5}
-          width="5em"
+          width="5.5em"
           label="Code"
           helpMsg="Shortened name for your new product. Up to 5 characters."
         />
         <SliderPercentagePicker
           pct={buyTax}
           setPct={setBuyTax}
+          isInvalid={(buyTax != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
           label="Buy Fee"
           helpMsg="Fee that will be sent to your account every time someone buys your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
         <SliderPercentagePicker
           pct={sellTax}
+          isInvalid={(sellTax != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
           setPct={setSellTax}
           label="Sell Fee"
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
@@ -213,18 +213,21 @@ export default function Home() {
             <><SliderPercentagePicker
               pct={buyBurn}
               setPct={setBuyBurn}
+              isInvalid={(buyBurn != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
               label="Buy Burn"
               helpMsg="Portion of the product that will be destroyed every time someone buys on cz.cash. Good for scarcity. Maximum 9.00%"
             />
               <SliderPercentagePicker
                 pct={buyLpFee}
                 setPct={setBuyLpFee}
+                isInvalid={(buyLpFee != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
                 label="Buy LP Fee"
                 helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs."
               />
               <SliderPercentagePicker
                 pct={sellLpFee}
                 setPct={setSellLpFee}
+                isInvalid={(sellLpFee != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
                 label="Sell LP Fee"
                 helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
               />
@@ -232,6 +235,7 @@ export default function Home() {
               <SliderPercentagePicker
                 pct={sellBurn}
                 setPct={setSellBurn}
+                isInvalid={(sellBurn != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
                 label="Sell Burn"
                 helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
               />
@@ -239,6 +243,9 @@ export default function Home() {
                 text={czusdWad}
                 setText={setCzusdWad}
                 maxChar={18}
+                isInt={true}
+                maxNum={10000}
+                minNum={1000}
                 width="11em"
                 label="CZUSD LP Grant"
                 helpMsg="CZUSD portion of the LP grant. The total LP will be worth 2x this amount"
@@ -247,6 +254,9 @@ export default function Home() {
                 text={balanceMax}
                 setText={setBalanceMax}
                 maxChar={18}
+                isInt={true}
+                maxNum={Number(czusdWad)}
+                minNum={0}
                 width="11em"
                 label="Max Balance For Accounts"
                 helpMsg="Maximum balance for each account. Accounts cannot receive tokens that would cause them to go over this balance. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
@@ -255,6 +265,9 @@ export default function Home() {
                 text={transactionSizeMax}
                 setText={setTransactionSizeMax}
                 maxChar={18}
+                isInt={true}
+                maxNum={Number(czusdWad)}
+                minNum={0}
                 width="11em"
                 label="Max Transaction Size"
                 helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
@@ -284,6 +297,7 @@ export default function Home() {
                   className="productlogo"
                   src={'https://ipfs.io/ipfs/' + tokenLogoCID}
                   sx={{
+                    objectFit:'cover',
                     width: '5em',
                     height: '5em',
                     marginLeft:'auto',

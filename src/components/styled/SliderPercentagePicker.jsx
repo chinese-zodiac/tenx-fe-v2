@@ -7,11 +7,12 @@ export default function SliderPercentagePicker({
   setPct,
   label,
   helpMsg,
+  isInvalid
 }) {
   return (
     <>
       <Box
-        sx={{ backgroundColor: '#f3f3f3', width: '16em' }}
+        sx={{ backgroundColor: '#f3f3f3', width: '28em', position:'relative', maxWidth:'90%', borderColor:!isInvalid?'#bc7552':'red' }}
         className="input-box"
       >
         <Slider
@@ -20,8 +21,8 @@ export default function SliderPercentagePicker({
           size="small"
           min={0}
           max={900}
-          step={5}
-          sx={{ width: '14em', margin: 0 }}
+          step={25}
+          sx={{ width: '95%', margin: 0 }}
         />
         <Typography
           sx={{

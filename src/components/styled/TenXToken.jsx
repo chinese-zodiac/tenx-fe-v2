@@ -181,6 +181,7 @@ export default function TenXToken({
           as="img"
           src={'https://' + 'ipfs.io/ipfs/' + tokenLogoCID}
           sx={{
+            objectFit:'cover',
             width: '5em',
             height: '5em',
             margin: 0,
@@ -276,6 +277,7 @@ export default function TenXToken({
             as="img"
             src={`${LINK_TENXV2_ASSETSET_1}/images/icons/chart.svg`}
             sx={{
+              objectFit:'cover',
               width: '2em',
               heigh: '2em',
               margin: 0,
@@ -303,6 +305,7 @@ export default function TenXToken({
             as="img"
             src={`${LINK_TENXV2_ASSETSET_1}/images/icons/bscscan.svg`}
             sx={{
+              objectFit:'cover',
               width: '2em',
               height: '2em',
               margin: 0,
@@ -329,6 +332,7 @@ export default function TenXToken({
             as="img"
             src={`${LINK_TENXV2_ASSETSET_1}/images/icons/info.png`}
             sx={{
+              objectFit:'cover',
               width: '2em',
               height: '2em',
               margin: 0,
@@ -372,6 +376,7 @@ export default function TenXToken({
         as="img"
         src={'https://' + 'ipfs.io/ipfs/' + tokenLogoCID}
         sx={{
+            objectFit:'cover',
           width: '5em',
           heigh: '5em',
           margin: 0,
@@ -412,6 +417,7 @@ export default function TenXToken({
             as="img"
             src="./images/icons/bscscan.svg"
             sx={{
+              objectFit:'cover',
               width: '2em',
               heigh: '2em',
               margin: 0,
@@ -442,6 +448,7 @@ export default function TenXToken({
             as="img"
             src="./images/icons/chart.svg"
             sx={{
+              objectFit:'cover',
               width: '2em',
               heigh: '2em',
               margin: 0,

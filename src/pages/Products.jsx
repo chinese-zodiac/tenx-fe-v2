@@ -160,6 +160,7 @@ const Products = () => {
               as="img"
               src={'https://ipfs.io/ipfs/' + tenXToken.tokenLogoCID}
               sx={{
+                objectFit:'cover',
                 width: '5em',
                 heigh: '5em',
                 backgroundColor: 'white',

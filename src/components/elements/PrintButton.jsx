@@ -53,7 +53,7 @@ export default function PrintButton() {
         }
       }))
       const [ref, { left, top, width, height }] = useMeasure()
-      console.log(left,top);
+      //console.log(left,top);
       const handleMouseMove = e => {
         if(!active) return;
         runSpring(e.clientX,e.clientY);

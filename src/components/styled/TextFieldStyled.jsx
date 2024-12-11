@@ -20,6 +20,9 @@ export default function TextFieldStyled({
   width,
   label,
   helpMsg,
+  maxNum,
+  minNum,
+  isInt
 }) {
   return (
     <TextField
@@ -29,8 +32,9 @@ export default function TextFieldStyled({
       sx={{
         '&.MuiFormControl-root': {
           backgroundColor: 'transparent',
-          border: 'solid 3px #bc7552',
+          border: `solid 3px ${isInt && (Number(text)>maxNum || Number(text)<minNum) ? 'red' : '#bc7552'}`,
           width: { width },
+          maxWidth:'90%'
         },
         '& .MuiInputBase-root': {
           backgroundColor: 'transparent',
@@ -57,7 +61,22 @@ export default function TextFieldStyled({
       }}
       value={text}
       onChange={(event) => {
-        const newText = event.target.value.slice(0, maxChar);
+        let newText = event.target.value.slice(0, maxChar);
+        if(isInt) {
+          newText = newText.replace(/\D/g,'');
+        }
+        if(maxNum) {
+          const num = Number(newText);
+          if(newText > maxNum*10) {
+            newText = maxNum.toString();
+          }
+        }
+        if(minNum) {
+          const num = Number(newText);
+          if(newText < minNum/10) {
+            newText = minNum.toString();
+          }
+        }
         setText(newText);
       }}
       InputProps={

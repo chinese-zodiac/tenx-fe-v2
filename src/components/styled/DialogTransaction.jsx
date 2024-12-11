@@ -107,7 +107,7 @@ export default function DialogTransaction({
     }
 
     if (debouncedArgs[14] != 0 && debouncedArgs[14] < Math.floor(Date.now() / 1000) + (30 * 60)) {
-      console.log(debouncedArgs[14])
+      //console.log(debouncedArgs[14])
       toast.error('Invalid launch time as it must be at least 30 minutes in the future.');
       return;
     }
@@ -151,7 +151,7 @@ export default function DialogTransaction({
     }
 
     if ((debouncedArgs[8] + debouncedArgs[9] + debouncedArgs[10] + debouncedArgs[11] + debouncedArgs[12] + debouncedArgs[13])> 3000) {
-      console.log(debouncedArgs[8] + debouncedArgs[9] + debouncedArgs[10] + debouncedArgs[11] + debouncedArgs[12] + debouncedArgs[13])
+      //console.log(debouncedArgs[8] + debouncedArgs[9] + debouncedArgs[10] + debouncedArgs[11] + debouncedArgs[12] + debouncedArgs[13])
       toast.error('Total fees too high. Must be below 30%.');
       return;
     }
