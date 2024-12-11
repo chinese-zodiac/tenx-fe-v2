@@ -151,6 +151,7 @@ export default function Home() {
           label="Code"
           helpMsg="Shortened name for your new product. Up to 5 characters."
         />
+        <Box sx={{flexBasis:'100%',height:'0'}}></Box>
         <SliderPercentagePicker
           pct={buyTax}
           setPct={setBuyTax}
@@ -165,6 +166,7 @@ export default function Home() {
           label="Sell Fee"
           helpMsg="Fee that will be sent to your account every time someone sells your product on cz.cash. Good for revenue. Maximum 9.00%"
         />
+        <Box sx={{flexBasis:'100%',height:'0'}}></Box>
         <Accordion expanded={isChecked} onChange={handleExpand} slotProps={{ heading: { component: 'h4' } }}
           sx={{
             width:'100%',
@@ -210,19 +212,27 @@ export default function Home() {
             }
           }}>
               <hr/>
-            <><SliderPercentagePicker
-              pct={buyBurn}
-              setPct={setBuyBurn}
-              isInvalid={(buyBurn != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
-              label="Buy Burn"
-              helpMsg="Portion of the product that will be destroyed every time someone buys on cz.cash. Good for scarcity. Maximum 9.00%"
-            />
+              <><SliderPercentagePicker
+                pct={buyBurn}
+                setPct={setBuyBurn}
+                isInvalid={(buyBurn != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
+                label="Buy Burn"
+                helpMsg="Portion of the product that will be destroyed every time someone buys on cz.cash. Good for scarcity. Maximum 9.00%"
+              />
               <SliderPercentagePicker
                 pct={buyLpFee}
                 setPct={setBuyLpFee}
                 isInvalid={(buyLpFee != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
                 label="Buy LP Fee"
                 helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs."
+              />
+              <Box sx={{flexBasis:'100%',height:'0'}}></Box>
+              <SliderPercentagePicker
+                pct={sellBurn}
+                setPct={setSellBurn}
+                isInvalid={(sellBurn != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
+                label="Sell Burn"
+                helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
               />
               <SliderPercentagePicker
                 pct={sellLpFee}
@@ -231,14 +241,7 @@ export default function Home() {
                 label="Sell LP Fee"
                 helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
               />
-
-              <SliderPercentagePicker
-                pct={sellBurn}
-                setPct={setSellBurn}
-                isInvalid={(sellBurn != 0 && buyTax+sellTax+buyBurn+sellBurn+buyLpFee+sellLpFee>3000)}
-                label="Sell Burn"
-                helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
-              />
+              <Box sx={{flexBasis:'100%',height:'0'}}></Box>
               <TextFieldStyled
                 text={czusdWad}
                 setText={setCzusdWad}
@@ -272,6 +275,7 @@ export default function Home() {
                 label="Max Transaction Size"
                 helpMsg="Maximum transaction size. Buys and sells over this amount fail. Must be at least 0.01% of supply. Good for reducing some types of bots and snipers."
               />
+              <Box sx={{flexBasis:'100%',height:'0'}}></Box>
               <TextFieldStyled
                 text={taxReceiver}
                 setText={setTaxReceiver}
@@ -280,8 +284,7 @@ export default function Home() {
                 label="Fee Receiver"
                 helpMsg="Account that receives fees from Buy Fee and Sell Fee. Exempt from all fees and burns."
               />
-              
-
+              <Box sx={{flexBasis:'100%',height:'0'}}></Box>
               <DatePickerStyled className='datepicker'
                 text={launchTimestamp}
                 backgroundColor="#fff"
@@ -537,7 +540,7 @@ export default function Home() {
                 Send the Launch transaction to your wallet that will immediately
                 launch your new token with the parameters below. The Launch
                 transaction costs approximately 0.015 {chain?.nativeCurrency?.name}. Taxes will be sent to
-                your currently connected wallet.
+                the Tax Receiver wallet (by default your connected wallet). All LP is permanently locked.
                 <br />
                 <br />
                 <ul className="homelist">
@@ -547,8 +550,10 @@ export default function Home() {
                   <li>Supply: <span>5,000 {symbol}</span></li>
                   <li>Buy Fee: <span>{(buyTax / 100).toFixed(2)}%</span></li>
                   <li>Buy Burn: <span>{(buyBurn / 100).toFixed(2)}%</span></li>
+                  <li>Buy LP Fee: <span>{(buyLpFee / 100).toFixed(2)}%</span></li>
                   <li>Sell Fee: <span>{(sellTax / 100).toFixed(2)}%</span></li>
                   <li>Sell Burn: <span>{(sellBurn / 100).toFixed(2)}%</span></li>
+                  <li>Sell LP Fee: <span>{(sellLpFee / 100).toFixed(2)}%</span></li>
                   <li>Tax Receiver: <span>{address.slice(0, 8)}...{address.slice(36)}</span></li>
                 </ul>
 

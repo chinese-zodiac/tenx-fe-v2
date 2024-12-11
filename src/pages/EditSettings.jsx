@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import TextFieldStyled from '../components/styled/TextFieldStyled';
-import { useAccount, useNetwork } from 'wagmi';
+import { useAccount, useNetwork,useContractRead } from 'wagmi';
 import useTenXToken from '../hooks/useTenXToken';
 import { Box, keyframes, Stack } from '@mui/system';
 import SliderPercentagePicker from '../components/styled/SliderPercentagePicker';
@@ -41,6 +41,13 @@ const EditSettings = () => {
 
     const [exemptee, setExemptee] = useState(address);
     const [exempt, setExempt] = useState('0');
+    const isExempteeExempt = useContractRead({
+        address: details.tenXToken.tokenAddress,
+        abi: TenXTokenV2Abi,
+        functionName: 'isExempt',
+        args: [exemptee]
+    })
+    console.log({isExempteeExempt})
 
     const [balanceMax, setBalanceMax] = useState(details.tenXToken.balanceMax);
     const [transactionSizeMax, setTransactionSizeMax] = useState(details.tenXToken.transactionSizeMax);
@@ -302,16 +309,25 @@ const EditSettings = () => {
                             setText={setExemptee}
                             maxChar={42}
                             width="25em"
-                            label="Exempt fee"
+                            label="Address"
                             helpMsg="Account that is exempt from fees"
                         />
                         <RadioFieldStyled id="Exempted"
                             selectedValue={exempt}
                             setSelectedValue={setExempt}
-                            title={'Exempted address'}
+                            title={'Set Is Exempt'}
                             labels={['False', 'True']}
                             helpMsg={'Should the address be exempted or not. True for Yes and false for No'}
                         />
+                        <Box sx={{flexBasis:'100%',height:'0'}}></Box>
+                        <Box sx={{background:'white',padding:'1em',borderRadius:'1em', color:'black'}}>{' '}
+                            {!!isExempteeExempt?.data ? (<>
+                                Address: <Typography as='span' sx={{color:'green'}}>FEE EXEMPT</Typography>
+                            </>):(<>
+                                Address: <Typography as='span' sx={{color:'red'}}>NOT EXEMPT</Typography>
+
+                            </>)}
+                        </Box>
                     </>}
                     {selectedValue == '2' && <>
                         <TextFieldStyled
@@ -361,12 +377,6 @@ const EditSettings = () => {
                             helpMsg="Percentage of each buy that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs."
                         />
                         <SliderPercentagePicker
-                            pct={sellLpFee}
-                            setPct={setSellLpFee}
-                            label="Sell LP Fee"
-                            helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
-                        />
-                        <SliderPercentagePicker
                             pct={sellTax}
                             setPct={setSellTax}
                             label="Sell Fee"
@@ -377,6 +387,12 @@ const EditSettings = () => {
                             setPct={setSellBurn}
                             label="Sell Burn"
                             helpMsg="Portion of the product that will be destroyed every time someone sells on cz.cash. Good for scarcity. Maximum 9.00%"
+                        />
+                        <SliderPercentagePicker
+                            pct={sellLpFee}
+                            setPct={setSellLpFee}
+                            label="Sell LP Fee"
+                            helpMsg="Percentage of each sell that will be added to liquidity. Good for increasing price stability and reducing slippage. May greatly increase trading gas costs"
                         />
                     </>}
                     {selectedValue === '5' && (
