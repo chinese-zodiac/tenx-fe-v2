@@ -1,5 +1,5 @@
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react';
-import { bsc, bscTestnet } from 'viem/chains';
+import { bsc } from 'viem/chains';
 import { WagmiConfig } from 'wagmi';
 import ReactGA from 'react-ga4';
 import { useEffect, useState } from 'react';
@@ -18,7 +18,7 @@ if (!import.meta.env.VITE_WALLETCONNECT_CLOUD_ID) {
 }
 const projectId = import.meta.env.VITE_WALLETCONNECT_CLOUD_ID;
 // console.log({projectId})
-const chains = [bsc, bscTestnet];
+const chains = [bsc];
 const metadata = {
   name: 'TenX Automated Deployer',
   description:

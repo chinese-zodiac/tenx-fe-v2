@@ -403,7 +403,7 @@ export default function Home() {
       </Stack>
       <br />
       {!!address ?
-        (chainId != 97 && chainId != 56 ?
+        (chainId != 56 ?
           (
             <ButtonPrimary
               onClick={() => {

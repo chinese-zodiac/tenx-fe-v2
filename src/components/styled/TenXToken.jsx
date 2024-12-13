@@ -11,7 +11,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { styled } from '@mui/material/styles';
 import DOMPurify from 'dompurify';
 import { keccak256, toBytes } from 'viem';
-import { bscTestnet } from 'viem/chains';
+import { bsc } from 'viem/chains';
 import { bnToCompact } from '../../utils/bnToFixed';
 import { lineHeight } from '@mui/system';
 const StarCheckbox = styled(Checkbox)(({ theme }) => ({
@@ -118,7 +118,7 @@ export default function TenXToken({
           abi: TenXTokenV2Abi,
           functionName: 'balanceOf',
           args: [address],
-          chainId: bscTestnet.id
+          chainId: bsc.id
         }) : 0;
         setHoldings(bnToCompact(result,18,8));
       } catch (error) {
@@ -133,7 +133,7 @@ export default function TenXToken({
           abi: TenXTokenV2Abi,
           functionName: 'hasRole',
           args: [keccak256(toBytes('MANAGER_ROLE')), address],
-          chainId: bscTestnet.id
+          chainId: bsc.id
         }) : false;
         setRole(result);
       } catch (error) {
@@ -527,7 +527,7 @@ export default function TenXToken({
       <ButtonPrimary
         as="a"
         target="_self"
-        href={`/product/${tokenIndex}/${chain ? chain.id : 97}`}
+        href={`/product/${tokenIndex}/${chain ? chain.id : 56}`}
         sx={{
           width: '100%',
           marginTop: '0em',

@@ -6,7 +6,7 @@ import TenXTokenV2Abi from '../abi/TenXTokenV2.json';
 import { ADDRESS_TENXLAUNCHVIEWV2 } from '../constants/addresses';
 import { formatEther } from 'viem';
 import { fromUnixTime } from 'date-fns';
-import { bscTestnet } from '@wagmi/core/chains'
+import { bsc } from '@wagmi/core/chains'
 const STATUS = {
   SUCCESS: 'SUCCESS',
   PROCESSING: 'PROCESSING',
@@ -37,7 +37,7 @@ const useStore = create(
             abi: TenXLaunchViewV2Abi,
             functionName: 'getTenXTokenDataFromIndex',
             args: [_tokenIndex],
-            chainId:bscTestnet.id,
+            chainId:bsc.id,
           });
 
           const newTenXTokenV2 = {
@@ -69,19 +69,19 @@ const useStore = create(
               {
                 ...TenXTokenV2Contract,
                 functionName: 'name',
-                chainId:bscTestnet.id,
+                chainId:bsc.id,
               },
               {
                 ...TenXTokenV2Contract,
                 functionName: 'symbol',
-                chainId:bscTestnet.id,
+                chainId:bsc.id,
               },
               {
                 address: ADDRESS_TENXLAUNCHVIEWV2,
                 abi: TenXLaunchViewV2Abi,
                 functionName: 'getTenXTokenLpData',
                 args: [newTenXTokenV2.tokenAddress,],
-                chainId: bscTestnet.id
+                chainId: bsc.id
               }
             ],
             
@@ -108,7 +108,7 @@ const useStore = create(
         }
       },
     }),
-    { name: 'tenx-storage-0.0.2' }
+    { name: 'tenx-storage-0.1.0' }
   )
 );
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import TenXLaunchV2Abi from '../abi/TenXLaunchV2.json';
 import { ADDRESS_TENXLAUNCHV2 } from '../constants/addresses';
 import { readContract } from '@wagmi/core';
-import { bscTestnet } from 'viem/chains';
+import { bsc } from 'viem/chains';
 
 
 export function useTenXTokenCount() {
@@ -17,7 +17,7 @@ export function useTenXTokenCount() {
                     address: ADDRESS_TENXLAUNCHV2,
                     abi: TenXLaunchV2Abi,
                     functionName: 'launchedTokensCount',
-                    chainId:bscTestnet.id,
+                    chainId:bsc.id,
                 });
                 setCount(result.toString());
             } catch (err) {
