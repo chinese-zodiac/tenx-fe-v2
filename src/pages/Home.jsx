@@ -338,12 +338,13 @@ export default function Home() {
               }}>
                 <Typography as='span' sx={{fontWeight:'bold', }}>IMAGE INSTRUCTIONS: </Typography>
                 Your image must first be pinned to IPFS using a service such as 
-                <a target="_blank"  href="https://Web3.storage">Web3.storage</a> or 
-                <a target="_blank"  href="https://Pinata.cloud">Pinata.cloud</a>. Once you pin your image, 
-                you will need the image's IPFS CID. This will be a long string of letters 
-                and numbers start with either 'Qm' or 'bafy'. Copy the CID into the text field above. The 
-                product logo will change once the image has propagated across the network. Always feel free to ask for
-                help at <a href={LINK_TELEGRAM}>Czodiac's telegram</a>. You can always update the image later.
+                <a target="_blank"  href="https://Pinata.cloud">Pinata.cloud</a>,
+                <a target="_blank"  href="https://Fleek.xyz">Fleek.xyz</a>, or
+                <a target="_blank"  href="https://www.4everland.org/">4everland.org</a>.
+                Once you pin your image, you will need the image's IPFS CID, a unique code for that specific image.
+                Copy the CID into the text field above. The 
+                logo should display in 5-10 seconds, if it doesnt ask for help. Always feel free to ask for
+                help at <a href={LINK_TELEGRAM}>Czodiac's telegram</a>. If theres an issue, don't worry; you can update the image later.
               </Typography>
               </Box>
               <hr/>

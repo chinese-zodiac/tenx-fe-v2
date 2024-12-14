@@ -42,8 +42,8 @@ export default function FooterArea({ sx }) {
 
             <Grid2 className="box1" >
               <Grid2 xs={12}>
-                <h1>IMPORTANT: We are about fun, not profit. Do not invest.</h1>
-                <h2>YOU WILL LOSE MONEY (but gain fun!)</h2>
+                <h1>IMPORTANT: We are about fun.</h1>
+                <h2>TenX is not an investment platform. We give free liqudity grants in CZUSD for your enjoyment!</h2>
               </Grid2>
               <Grid2 xs={12}>
                 <p>CZODIAC is a community of innovators, creators, coders, and artists building experiments with new
@@ -54,7 +54,7 @@ export default function FooterArea({ sx }) {
                    community. Anyone claiming to speak officially on behalf of czodiac
                    is not authorized to do so and should be disregarded. Also, as outlined
                    in more details in the Terms of Use, this community is for experimentation 
-                   and fun, not profit. That means dapps frequently get hacked, have economic design flaws,
+                   and fun. That means digital products are frequently get hacked, have design flaws,
                    or are even expensive jokes. So don't come here to invest, come here to play, experiment, and have fun.</p>
                    <br/><br/>
                 </Grid2>
