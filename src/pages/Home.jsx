@@ -373,8 +373,8 @@ export default function Home() {
                 You first should create a CommonMark file. Use a tool such as <a target="_blank" href="https://spec.commonmark.org/dingus/#result">spec.commonmark.org/dingus</a>
                 to create your file. Save it as a '.md' then pin it to IPFS just like for an image using
                 <a target="_blank"  href="https://Web3.storage">Web3.storage</a> or 
-                <a target="_blank"  href="https://Pinata.cloud">Pinata.cloud</a>. Once you pin your markdown file, 
-                you will need the markdown's IPFS CID. This will be a long string of letters 
+                <a target="_blank"  href="https://Pinata.cloud">Pinata.cloud</a>. Once you pin your CommonMark file, 
+                you will need the file's IPFS CID. This will be a long string of letters 
                 and numbers start with either 'Qm' or 'bafy'. Copy the CID into the text field above. The 
                 description text below will change once the file has propagated across the network. Always feel free to ask for
                 help at <a href={LINK_TELEGRAM}>Czodiac's telegram</a>. You can always update the text later.
