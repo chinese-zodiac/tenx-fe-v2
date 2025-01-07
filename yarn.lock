@@ -7263,6 +7263,11 @@ vite-plugin-eslint@^1.8.1:
     "@types/eslint" "^8.4.5"
     rollup "^2.77.2"
 
+vite-plugin-insert-html@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/vite-plugin-insert-html/-/vite-plugin-insert-html-1.0.3.tgz#12e1e670009959e509491366e915db1077f11cbb"
+  integrity sha512-pW29ih7M/kLxXlBVSa5Y89znzDFWrtEiD0Nx3wVBxtjao58oNV7kRWHFtstc0P4L8r5T/+pnfRBJ2FcfK2DE4w==
+
 vite@^4.1.0:
   version "4.5.5"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.5.5.tgz#639b9feca5c0a3bfe3c60cb630ef28bf219d742e"

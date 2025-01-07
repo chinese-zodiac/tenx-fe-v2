@@ -1,5 +1,6 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
+import { insertHtml,h } from 'vite-plugin-insert-html';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -23,6 +24,11 @@ export default defineConfig({
         plugins: ['@emotion/babel-plugin'],
       },
     }),
+    insertHtml({
+      head:[
+        h('script',{src:'./xtracker.js'}),
+      ],
+    })
   ],
   base:'./'
 });
