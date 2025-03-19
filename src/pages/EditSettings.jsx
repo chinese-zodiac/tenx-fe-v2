@@ -21,6 +21,7 @@ import { gatewayTools } from '../utils/getIpfsJson';
 import Markdown from 'react-markdown';
 import DOMPurify from 'dompurify';
 import { LINK_BSCSCAN } from '../constants/links';
+import { utils } from 'ethers';
 
 const EditSettings = () => {
     const { index, chainId } = useParams();
@@ -146,7 +147,7 @@ const EditSettings = () => {
                     address: details.tenXToken.tokenAddress,
                     abi: TenXTokenV2Abi,
                     functionName: 'MANAGER_setMaxes',
-                    args: [balanceMax, transactionSizeMax],
+                    args: [utils.parseEther(balanceMax.toString()), utils.parseEther(transactionSizeMax.toString())],
                 })
 
                 const { hash } = await writeContract(config);

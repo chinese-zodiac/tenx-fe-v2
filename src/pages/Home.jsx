@@ -248,7 +248,7 @@ export default function Home() {
                 maxChar={18}
                 isInt={true}
                 maxNum={10000}
-                minNum={1000}
+                minNum={0}
                 width="11em"
                 label="CZUSD LP Grant"
                 helpMsg="CZUSD portion of the LP grant. The total LP will be worth 2x this amount"
